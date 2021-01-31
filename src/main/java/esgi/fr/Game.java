@@ -10,4 +10,5 @@ public class Game {
     public Scenario getScenario() {
         return scenario;
     }
+
 }

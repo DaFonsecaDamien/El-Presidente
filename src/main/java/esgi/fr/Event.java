@@ -1,5 +1,7 @@
 package esgi.fr;
 
-public class Event {
+import java.util.List;
 
+public class Event {
+    List<Choice> choices;
 }

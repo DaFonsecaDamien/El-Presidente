@@ -6,6 +6,12 @@ public class Faction implements ManageFactions{
     private int satisfaction;
     private int supportersNumber;
 
+    public Faction(NameFaction nameFaction, int satisfaction, int supportersNumber) {
+        this.nameFaction = nameFaction;
+        this.satisfaction = satisfaction;
+        this.supportersNumber = supportersNumber;
+    }
+
     @Override
     public void setSatisfaction(int newSatisfaction) {
 
