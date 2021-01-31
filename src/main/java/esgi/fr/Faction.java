@@ -1,4 +1,5 @@
 package esgi.fr;
 
-public class Faction {
+public abstract class Faction implements ManageFactions{
+
 }
