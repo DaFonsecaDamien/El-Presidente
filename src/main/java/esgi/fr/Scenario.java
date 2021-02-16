@@ -10,4 +10,5 @@ public class Scenario {
     private int AgriculturePercentage;
     private Map<Faction,Integer> supportersNumber;
     private Map<Faction,Integer> satisfactionPercentage;
+    private int foodUnit;
 }
