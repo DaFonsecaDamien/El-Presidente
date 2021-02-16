@@ -3,7 +3,13 @@ package esgi.fr;
 public class Effect {
     private String typeAction;
     private String action;
-    private String value;
+    private int value;
+
+    public Effect(String typeAction, String action, int value) {
+        this.typeAction = typeAction;
+        this.action = action;
+        this.value = value;
+    }
 
     public String getTypeAction() {
         return typeAction;
@@ -13,7 +19,7 @@ public class Effect {
         return action;
     }
 
-    public String getValue() {
+    public int getValue() {
         return value;
     }
 }

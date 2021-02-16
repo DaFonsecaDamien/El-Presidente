@@ -6,8 +6,12 @@ public class Choice {
     private List<Effect> effects;
     private String name;
     private List<Event> relatedEvents;
-    //consequence
 
+    public Choice(List<Effect> effects, String name, List<Event> relatedEvents) {
+        this.effects = effects;
+        this.name = name;
+        this.relatedEvents = relatedEvents;
+    }
 
     public List<Effect> getEffects() {
         return effects;

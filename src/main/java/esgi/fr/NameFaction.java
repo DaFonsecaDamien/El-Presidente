@@ -3,7 +3,7 @@ package esgi.fr;
 public enum NameFaction {
     CAPITALISTE,
     COMMUNISTE,
-    LIBERAUX,
+    LIBERAU,
     RELIGIEU,
     MILITARISTE,
     ECOLOGISTE,

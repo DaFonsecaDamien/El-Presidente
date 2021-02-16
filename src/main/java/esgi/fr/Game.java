@@ -1,6 +1,7 @@
 package esgi.fr;
 
 import java.util.List;
+import java.util.Scanner;
 
 public class Game {
 
@@ -14,6 +15,8 @@ public class Game {
         this.level = level;
         this.mode = mode;
         this.scenario = scenario;
+        this.year = 0;
+        this.season = Season.WINTER;
     }
 
     public Scenario getScenario() {
@@ -22,14 +25,15 @@ public class Game {
 
     public boolean run(List<Event> events){
         int choice=0;
+        //on parcours la list de event
         for(Event event: events){
             //on vérifie si on a pas perdu lol
             if(isLoose()){
                 //afficher les resultats et sortir
                 return false;
             }
-            //on parcours la list de event
-            //TODO demander au user son choix
+            //le user choisit un choix
+            choice = chooseChoice(event.getChoices().size());
             //si le choix provoque des evenements ...
             if(event.getChoices().get(choice).getRelatedEvents() != null){
                 //...on le parcour! tout en véérifiant si la fonction return pas false pour eviter de boucler pour rien
@@ -37,6 +41,8 @@ public class Game {
                     return false;
                 }
             }
+            System.out.println("annee numero : "+(year+1));
+            System.out.println("saison "+season);
             this.season = season.next();
             if(this.season == Season.WINTER){
                 this.year++;
@@ -45,9 +51,20 @@ public class Game {
         return true;
     }
 
-    // TODO Condition de perte (francais)
+    // TODO Condition de perte
     private boolean isLoose(){
 
         return false;
+    }
+
+    private static int chooseChoice(int numberOfChoicePossible){
+        String choice;
+        Scanner sc= new Scanner(System.in);
+        //do{
+            System.out.println("Que choisissez vous ?");
+            choice = sc.nextLine();
+            return Integer.parseInt(choice);
+
+        //}while();
     }
 }
