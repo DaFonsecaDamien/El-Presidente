@@ -66,6 +66,16 @@ public class App
                 System.out.println("Vous avez choisi le niveau Moyen");
                 break;
         }
+        //creer une fonction ou une classe pour récuperer le json
 
+        Scenario scenario = new Scenario();
+        Game game = new Game(level,mode,scenario);
+        boolean resultGame = game.run(scenario.getEvents());
+
+        printResult(resultGame);
+    }
+
+    private static void printResult(boolean resultGame){
+        //afficher le résultat
     }
 }
