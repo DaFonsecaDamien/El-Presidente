@@ -33,7 +33,7 @@ public class Game {
                 return false;
             }
             //le user choisit un choix
-            choice = chooseChoice(event.getChoices().size());
+            choice = chooseChoice(event);
             //si le choix provoque des evenements ...
             if(event.getChoices().get(choice).getRelatedEvents() != null){
                 //...on le parcour! tout en véérifiant si la fonction return pas false pour eviter de boucler pour rien
@@ -57,14 +57,25 @@ public class Game {
         return false;
     }
 
-    private static int chooseChoice(int numberOfChoicePossible){
-        String choice;
-        Scanner sc= new Scanner(System.in);
-        //do{
-            System.out.println("Que choisissez vous ?");
-            choice = sc.nextLine();
-            return Integer.parseInt(choice);
+    private static int chooseChoice(Event event) {
+        int myChoice = 0;
+        System.out.println(event.getName());
+        int i=0;
+        for(Choice choice : event.getChoices()){
+            i++;
+            System.out.println(i+" : "+choice.getName());
+        }
 
-        //}while();
+
+        Scanner sc = new Scanner(System.in);
+        while (myChoice < 1 || myChoice > event.getChoices().size()) {
+            System.out.println("Rentrez un bon numéro ");
+            while (!sc.hasNextInt()) {
+                sc = new Scanner(System.in);
+                System.out.println("Rentrez un bon numéro ");
+            }
+            myChoice = sc.nextInt();
+        }
+        return myChoice-1;
     }
 }
