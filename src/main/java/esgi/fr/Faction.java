@@ -12,14 +12,32 @@ public class Faction implements ManageFactions{
         this.supportersNumber = supportersNumber;
     }
 
-    @Override
-    public void setSatisfaction(int newSatisfaction) {
+    public NameFaction getNameFaction() {
+        return nameFaction;
+    }
 
+    public int getSatisfaction() {
+        return satisfaction;
+    }
+
+    public int getSupportersNumber() {
+        return supportersNumber;
+    }
+
+    public void setNameFaction(NameFaction nameFaction) {
+        this.nameFaction = nameFaction;
+    }
+
+    public void setSatisfaction(int satisfaction) {
+        this.satisfaction = satisfaction;
+    }
+
+    public void setSupportersNumber(int supportersNumber) {
+        this.supportersNumber = supportersNumber;
     }
 
     @Override
-    public void setSupportersNumber(int newSupportersNumber) {
+    public void bribeFaction() {
 
     }
-
 }
