@@ -5,19 +5,21 @@ import java.util.Map;
 
 public class Scenario {
     private List<Event> events;
-    private int Treasury;
+    private String name;
+    private String story;
+    private int treasury;
     private int foodUnit;
     private int industryPercentage;
-    private int AgriculturePercentage;
+    private int agriculturePercentage;
     private Map<NameFaction,Integer> supportersNumber;
     private Map<NameFaction,Integer> satisfactionPercentage;
 
     public Scenario(List<Event> events, int treasury, int foodUnit, int industryPercentage, int agriculturePercentage, Map<NameFaction, Integer> supportersNumber, Map<NameFaction, Integer> satisfactionPercentage) {
         this.events = events;
-        this.Treasury = treasury;
+        this.treasury = treasury;
         this.foodUnit = foodUnit;
         this.industryPercentage = industryPercentage;
-        this.AgriculturePercentage = agriculturePercentage;
+        this.agriculturePercentage = agriculturePercentage;
         this.supportersNumber = supportersNumber;
         this.satisfactionPercentage = satisfactionPercentage;
     }
@@ -27,7 +29,7 @@ public class Scenario {
     }
 
     public int getTreasury() {
-        return Treasury;
+        return treasury;
     }
 
     public int getIndustryPercentage() {
@@ -35,7 +37,7 @@ public class Scenario {
     }
 
     public int getAgriculturePercentage() {
-        return AgriculturePercentage;
+        return agriculturePercentage;
     }
 
     public Map<NameFaction, Integer> getSupportersNumber() {

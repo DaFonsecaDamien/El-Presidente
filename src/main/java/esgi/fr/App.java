@@ -89,9 +89,9 @@ public class App
             otherChoice.add(new Choice(effects,"nameChoice",null));
 
             List<Event> relatedEvents = new ArrayList<>();
-            relatedEvents.add(new Event(otherChoice,"name"));
-            relatedEvents.add(new Event(otherChoice,"name"));
-            relatedEvents.add(new Event(otherChoice,"name"));
+            relatedEvents.add(new Event(otherChoice,"name",Season.WINTER));
+            relatedEvents.add(new Event(otherChoice,"name",Season.WINTER));
+            relatedEvents.add(new Event(otherChoice,"name",Season.WINTER));
 
         List<Choice> choices = new ArrayList<>();
         choices.add(new Choice(effects,"nameChoice",relatedEvents));
@@ -99,9 +99,9 @@ public class App
         choices.add(new Choice(effects,"nameChoice",null));
 
         List<Event> events = new ArrayList<>();
-        events.add(new Event(choices,"name"));
-        events.add(new Event(choices,"name"));
-        events.add(new Event(choices,"name"));
+        events.add(new Event(choices,"name",Season.WINTER));
+        events.add(new Event(choices,"name",Season.WINTER));
+        events.add(new Event(choices,"name",Season.WINTER));
 
         Map<NameFaction,Integer> supportersNumber = new TreeMap<NameFaction,Integer>();
         supportersNumber.put(NameFaction.CAPITALISTE,12);

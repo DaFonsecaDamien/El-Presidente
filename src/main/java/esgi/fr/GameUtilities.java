@@ -2,6 +2,7 @@ package esgi.fr;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -28,6 +29,9 @@ public class GameUtilities {
         }).collect(Collectors.toList());
     }
 
+//    public static JsonObject parseJsonToObject(){
+//
+//    }
 //    String pathToScenariosDir = ".\\src\\ressources\\scenarios";
 //    List<File> scenariosJson = GameUtilities.allJsonFromDir(new File(pathToScenariosDir));
 //    System.out.println(scenariosJson);
