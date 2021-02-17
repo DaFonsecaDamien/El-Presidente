@@ -22,4 +22,15 @@ public class Faction implements ManageFactions{
 
     }
 
+    public NameFaction getNameFaction() {
+        return nameFaction;
+    }
+
+    public int getSatisfaction() {
+        return satisfaction;
+    }
+
+    public int getSupportersNumber() {
+        return supportersNumber;
+    }
 }

@@ -48,7 +48,7 @@ public class App
         }
         do{
             System.out.println("Choisissez votre niveau de difficulté:");
-            System.out.println("1 - Facil");
+            System.out.println("1 - Facile");
             System.out.println("2 - Moyen");
             System.out.println("3 - Difficile");
             choiceLevel = sc.nextLine();
@@ -57,7 +57,7 @@ public class App
         switch (choiceLevel){
             case "1":
                level = Level.Simple;
-               System.out.println("Vous avez choisi le niveau Facil");
+               System.out.println("Vous avez choisi le niveau Facile");
                break;
             case "2":
                 level = Level.Medium;
@@ -65,7 +65,7 @@ public class App
                 break;
             case "3":
                 level = Level.Difficult;
-                System.out.println("Vous avez choisi le niveau Difficil");
+                System.out.println("Vous avez choisi le niveau Difficile");
                 break;
 
             default:
