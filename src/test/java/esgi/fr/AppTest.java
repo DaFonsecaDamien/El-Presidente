@@ -1,8 +1,13 @@
 package esgi.fr;
 
-import static org.junit.Assert.assertTrue;
-
 import org.junit.Test;
+
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+import static org.junit.Assert.*;
 
 /**
  * Unit test for simple App.
@@ -17,4 +22,5 @@ public class AppTest
     {
         assertTrue( true );
     }
+    
 }

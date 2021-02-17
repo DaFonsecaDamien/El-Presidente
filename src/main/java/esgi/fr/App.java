@@ -1,5 +1,6 @@
 package esgi.fr;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -130,6 +131,6 @@ public class App
     }
 
     private static void printResult(boolean resultGame){
-        //afficher le résultat
+//        afficher le résultat
     }
 }
