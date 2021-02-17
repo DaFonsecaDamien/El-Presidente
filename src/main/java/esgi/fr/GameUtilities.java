@@ -22,16 +22,25 @@ public class GameUtilities {
      */
     public static List<File> allJsonFromDir(File dir) {
         assert null != dir;
-        return Arrays.stream(Objects.requireNonNull(dir.listFiles())).filter(x -> {
-            String name = x.getName();
+        return Arrays.stream(Objects.requireNonNull(dir.listFiles())).filter(file -> {
+            String name = file.getName();
             int i = name.lastIndexOf('.');
             return (i > 0) && name.substring(i + 1).equals("json");
         }).collect(Collectors.toList());
     }
 
-//    public static JsonObject parseJsonToObject(){
-//
-//    }
+    /**
+     * Return a JsonObject from the Json File (Object)
+     *
+     * @param path path to find the json selected by the user
+     */
+    public static JsonObject parseJsonToObject(String path){
+        // parse le Json du scenario grâce au path en paramètre
+        String json = "";
+        JsonObject convertedObject = new Gson().fromJson(json, JsonObject.class);
+        return convertedObject;
+    }
+    
 //    String pathToScenariosDir = ".\\src\\ressources\\scenarios";
 //    List<File> scenariosJson = GameUtilities.allJsonFromDir(new File(pathToScenariosDir));
 //    System.out.println(scenariosJson);
