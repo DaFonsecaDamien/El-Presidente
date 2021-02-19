@@ -139,13 +139,13 @@ public class Game {
         }
         System.out.println("Vous avez choisi de soudoyer la factions des "+nameFactionChoose+"S");
 
-        Faction faction = scenario.getListFactions().getOneFaction(nameFactionChoose);
+        Faction factionChosen = scenario.getListFactions().getOneFaction(nameFactionChoose);
 
-        if(faction.bribeFaction(scenario.getTreasury())){
-            scenario.setTreasury(scenario.getTreasury()-15*faction.getSupportersNumber());
+        if(factionChosen.bribeFaction(scenario.getTreasury())){
+            scenario.setTreasury(scenario.getTreasury()-15*factionChosen.getSupportersNumber());
 
             Faction loyalistFaction = scenario.getListFactions().getOneFaction(NameFaction.LOYALISTE);
-            loyalistFaction.setSatisfactionPercentage(loyalistFaction.getSatisfactionPercentage()-10);
+            loyalistFaction.setSatisfactionPercentage(loyalistFaction.getSatisfactionPercentage()-(factionChosen.getSupportersNumber()*15)/10);
             System.out.println("La satisfaction de la faction "+nameFactionChoose+" a auguementé de 10%!");
         }else{
             System.out.println("Vous n'etes pas en meusure de soudoyer cette faction");
