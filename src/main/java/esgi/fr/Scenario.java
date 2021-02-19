@@ -50,4 +50,8 @@ public class Scenario {
     }
 
     public List<Faction> getFactions() { return factions; }
+
+    public void setTreasury(int treasury) {
+        this.treasury = treasury;
+    }
 }

@@ -41,6 +41,7 @@ public class Game {
                     return false;
                 }
             }
+            System.out.println("Nous voici en fin d'année !");
             bribeFactionMenu();
             nextEvent();
         }
@@ -90,9 +91,9 @@ public class Game {
 
         String choice="";
         Scanner sc = new Scanner(System.in);
-        System.out.println("Vous avez "+scenario.getTreasury()+"pieces d'or dans votre trésorerie");
         do{
-            System.out.println("Voulez vous soudoyer un faction ?");
+            System.out.println("Vous avez "+scenario.getTreasury()+" pieces d'or dans votre trésorerie");
+            System.out.println("Voulez vous soudoyer une faction ?");
             System.out.println("tapez sur 'o' si vous le voulez");
             System.out.println("sinon tapez autre part");
             choice = sc.nextLine();
@@ -146,6 +147,7 @@ public class Game {
                     return;
                 }
                 else{
+                    scenario.setTreasury(scenario.getTreasury()-15*faction.getSupportersNumber());
                     System.out.println("La satisfaction de la faction "+nameFactionChoose+" a auguementé de 10%!");
                     return;
                 }
@@ -171,10 +173,14 @@ public class Game {
     }
 
     private void printInfosFactions(){
+        int i=0;
         System.out.println("Voici la liste des factions : ");
         for(Faction faction : scenario.getFactions()){
+            i++;
+            System.out.println(i+" - ");
             System.out.println(faction.toString());
             System.out.println("Or requis : "+faction.getSupportersNumber()*15);
+            System.out.println();
         }
         System.out.println("choisissez celle que vous voulez soudoyer");
     }
