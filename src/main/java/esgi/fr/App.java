@@ -103,6 +103,9 @@ public class App
         events.add(new Event(choices,"name",Season.WINTER));
         events.add(new Event(choices,"name",Season.WINTER));
 
+        String name ="Attaque des titans";
+        String story = "une bien longue histoir";
+
         List<Faction> factions = new ArrayList<>();
         factions.add(new Faction(NameFaction.CAPITALISTE,60,10));
         factions.add(new Faction(NameFaction.COMMUNISTE,60,10));
@@ -113,7 +116,7 @@ public class App
         factions.add(new Faction(NameFaction.NATIONALISTE,60,10));
         factions.add(new Faction(NameFaction.LOYALISTE,100,10));
 
-        Scenario scenario = new Scenario(events,30,120,21,54,factions);
+        Scenario scenario = new Scenario(events,name,story,30,120,21,54,factions);
         Game game = new Game(level,mode,scenario);
         boolean resultGame = game.run(scenario.getEvents());
 
