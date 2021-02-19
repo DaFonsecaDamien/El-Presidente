@@ -57,4 +57,29 @@ public class GameUtilities {
             e.printStackTrace();
         }
     }
+
+    /**
+     * Return a JsonObject from the Json File (Object)
+     *
+     * @param startParametersJson path to find the json selected by the user
+     */
+    public static void parseStartParameters(JsonObject startParametersJson){
+        int agriculturePercentage = startParametersJson.get("agriculturePercentage").getAsInt();
+        int industryPercentage = startParametersJson.get("industryPercentage").getAsInt();
+        int treasury = startParametersJson.get("treasury").getAsInt();
+        int foodUnits = startParametersJson.get("foodUnits").getAsInt();
+        System.out.println(agriculturePercentage);
+        System.out.println(industryPercentage);
+        System.out.println(treasury);
+        System.out.println(foodUnits);
+    }
+
+    /**
+     * Return a JsonObject from the Json File (Object)
+     *
+     * @param factionJson path to find the json selected by the user
+     */
+    public static void parseFaction(JsonObject factionJson){
+
+    }
 }
