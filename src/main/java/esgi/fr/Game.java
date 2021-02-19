@@ -141,8 +141,15 @@ public class Game {
 
         for(Faction faction : scenario.getFactions()){
             if(faction.getNameFaction()==nameFactionChoose){
-                faction.bribeFaction();
-                return;
+                if(!faction.bribeFaction(scenario.getTreasury())){
+                    System.out.println("Vous n'etes pas en meusure de soudoyer cette faction");
+                    return;
+                }
+                else{
+                    System.out.println("La satisfaction de la faction "+nameFactionChoose+" a auguementé de 10%!");
+                    return;
+                }
+
             }
         }
 

@@ -1,5 +1,5 @@
 package esgi.fr;
 
 public interface ManageFactions {
-    void bribeFaction();
+    boolean bribeFaction(int tresorerie);
 }

@@ -3,12 +3,12 @@ package esgi.fr;
 public class Faction implements ManageFactions{
 
     private NameFaction nameFaction;
-    private int satisfaction;
+    private int satisfactionPercentage;
     private int supportersNumber;
 
     public Faction(NameFaction nameFaction, int satisfaction, int supportersNumber) {
         this.nameFaction = nameFaction;
-        this.satisfaction = satisfaction;
+        this.satisfactionPercentage = satisfaction;
         this.supportersNumber = supportersNumber;
     }
 
@@ -16,8 +16,8 @@ public class Faction implements ManageFactions{
         return nameFaction;
     }
 
-    public int getSatisfaction() {
-        return satisfaction;
+    public int getSatisfactionPercentage() {
+        return satisfactionPercentage;
     }
 
     public int getSupportersNumber() {
@@ -28,8 +28,8 @@ public class Faction implements ManageFactions{
         this.nameFaction = nameFaction;
     }
 
-    public void setSatisfaction(int satisfaction) {
-        this.satisfaction = satisfaction;
+    public void setSatisfactionPercentage(int satisfactionPercentage) {
+        this.satisfactionPercentage = satisfactionPercentage;
     }
 
     public void setSupportersNumber(int supportersNumber) {
@@ -37,14 +37,18 @@ public class Faction implements ManageFactions{
     }
 
     @Override
-    public void bribeFaction() {
-
+    public boolean bribeFaction(int tresorerie) {
+        if(satisfactionPercentage >99 || supportersNumber*15>tresorerie){
+            return false;
+        }
+        satisfactionPercentage += 10;
+        return true;
     }
 
     @Override
     public String toString() {
         return "\nNom : " + nameFaction +
-                "\nPourcentage de satisfaction : " + satisfaction +
+                "\nPourcentage de satisfaction : " + satisfactionPercentage +
                 "\nNombre de partisans : " + supportersNumber;
     }
 }
