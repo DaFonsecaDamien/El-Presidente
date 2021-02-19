@@ -24,6 +24,7 @@ public class Game {
     }
 
     public boolean run(List<Event> events){
+        nextEvent();
         int choice=0;
         //on parcours la list de event
         for(Event event: events){
@@ -41,9 +42,6 @@ public class Game {
                     return false;
                 }
             }
-            System.out.println("Nous voici en fin d'année !");
-            bribeFactionMenu();
-            nextEvent();
         }
         return true;
     }
@@ -82,7 +80,9 @@ public class Game {
         System.out.println("annee numero : "+(year+1));
         System.out.println("saison "+season);
         season = season.next();
-        if(season == Season.WINTER){
+        if(season == Season.WINTER && year > 1){
+            System.out.println("Nous voici en fin d'année !");
+            bribeFactionMenu();
             year++;
         }
     }
@@ -156,7 +156,7 @@ public class Game {
         int choice =0;
         printInfosFactions();
         Scanner sc = new Scanner(System.in);
-        while (choice<1 || choice >scenario.getListFactions().getFactions().size()) {
+        while (choice<1 || choice >scenario.getListFactions().getFactions().size()-1) {
             while (!sc.hasNextInt()) {
                 sc = new Scanner(System.in);
             }
@@ -170,6 +170,7 @@ public class Game {
         int i=0;
         System.out.println("Voici la liste des factions : ");
         for(Faction faction : scenario.getListFactions().getFactions()){
+            if(faction.getNameFaction()==NameFaction.LOYALISTE)break;
             i++;
             System.out.println(i+" - ");
             System.out.println(faction.toString());
