@@ -50,7 +50,7 @@ public class Game {
     // TODO Condition de perte
     private boolean isLoose(){
 
-        return false;
+        return Faction.globalSatisfaction > 30.0;
     }
 
     private int chooseChoice(Event event) {
