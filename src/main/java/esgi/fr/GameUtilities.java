@@ -36,19 +36,16 @@ public class GameUtilities {
             JsonElement fileElement = JsonParser.parseReader(new FileReader(input));
             JsonObject fileObject = fileElement.getAsJsonObject();
 
-            // Extracting the basic fields
-            String name = fileObject.get("name").getAsString();
-            String story = fileObject.get("story").getAsString();
-            System.out.println(name + "\n");
-            System.out.println(story + "\n");
+            // Extract Global Information of the scenario
+            parseGlobalInformation(fileObject);
 
-            //JsonObject eventJson = fileObject.get("events").getAsJsonObject();
-            parseEvent(fileObject);
-
+            // Extract startParameters
             JsonObject gameParametersJson = fileObject.get("gameStartParameters").getAsJsonObject();
             JsonObject startParametersJson = gameParametersJson.get("NORMAL").getAsJsonObject();
-
             parseStartParameters(startParametersJson);
+
+            // Extract Events of the scenario
+            parseEvent(fileObject);
 
             JsonObject factionJson = startParametersJson.get("factions").getAsJsonObject();
             parseFaction(factionJson);
@@ -56,6 +53,19 @@ public class GameUtilities {
         }catch (FileNotFoundException e){
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Return a JsonObject from the Json File (Object)
+     *
+     * @param fileObject path to find the json selected by the user
+     */
+    public static void parseGlobalInformation(JsonObject fileObject){
+        // Extracting the basic fields
+        String name = fileObject.get("name").getAsString();
+        String story = fileObject.get("story").getAsString();
+        System.out.println(name + "\n");
+        System.out.println(story + "\n");
     }
 
     /**
