@@ -107,7 +107,7 @@ public class Game {
 
     private void chooseFactions(){
         String choice="";
-        Scanner sc = new Scanner(System.in);
+        //Scanner sc = new Scanner(System.in);
         System.out.println("Voici la liste des factions : ");
         System.out.println("1 - CAPITALISTE");
         System.out.println("2 - COMMUNISTE");
@@ -117,5 +117,7 @@ public class Game {
         System.out.println("6 - ECOLOGISTE");
         System.out.println("7 - NATIONALISTE");
         System.out.println("8 - LOYALIST");
+
+
     }
 }
