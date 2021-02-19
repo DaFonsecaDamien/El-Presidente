@@ -2,14 +2,14 @@ package esgi.fr;
 
 public class Faction implements ManageFactions{
 
-    private NameFaction nameFaction;
-    private int satisfaction;
-    private int supportersNumber;
+    private String name;
+    private int satisfactionPercentage;
+    private int numberOfPartisans;
 
-    public Faction(NameFaction nameFaction, int satisfaction, int supportersNumber) {
-        this.nameFaction = nameFaction;
-        this.satisfaction = satisfaction;
-        this.supportersNumber = supportersNumber;
+    public Faction(String name, int satisfactionPercentage, int numberOfPartisans) {
+        this.name = name;
+        this.satisfactionPercentage = satisfactionPercentage;
+        this.numberOfPartisans = numberOfPartisans;
     }
 
     @Override

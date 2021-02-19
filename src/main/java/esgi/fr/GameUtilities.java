@@ -1,16 +1,11 @@
 package esgi.fr;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonObject;
+import com.google.gson.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.Reader;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class GameUtilities {
@@ -18,11 +13,11 @@ public class GameUtilities {
     /**
      * Return the list of json from a directory (File object)
      *
-     * @param dir directory where to get the jsons
+     * @param fileDir directory where to get the jsons
      */
-    public static List<File> allJsonFromDir(File dir) {
-        assert null != dir;
-        return Arrays.stream(Objects.requireNonNull(dir.listFiles())).filter(file -> {
+    public static List<File> allJsonFromDir(File fileDir) {
+        assert null != fileDir;
+        return Arrays.stream(Objects.requireNonNull(fileDir.listFiles())).filter(file -> {
             String name = file.getName();
             int i = name.lastIndexOf('.');
             return (i > 0) && name.substring(i + 1).equals("json");
@@ -34,15 +29,32 @@ public class GameUtilities {
      *
      * @param path path to find the json selected by the user
      */
-    public static JsonObject parseJsonToObject(String path){
+    public static void parseJsonToObject(String path){
         // parse le Json du scenario grâce au path en paramètre
-        String json = "";
-        JsonObject convertedObject = new Gson().fromJson(json, JsonObject.class);
-        return convertedObject;
-    }
-    
-//    String pathToScenariosDir = ".\\src\\ressources\\scenarios";
-//    List<File> scenariosJson = GameUtilities.allJsonFromDir(new File(pathToScenariosDir));
-//    System.out.println(scenariosJson);
+        File input = new File(path);
+        try{
+            JsonElement fileElement = JsonParser.parseReader(new FileReader(input));
+            JsonObject fileObject = fileElement.getAsJsonObject();
 
+            // Extracting the basic fields
+            String name = fileObject.get("name").getAsString();
+            String story = fileObject.get("story").getAsString();
+            System.out.println(name + "\n");
+            System.out.println(story + "\n");
+
+            //JsonObject eventJson = fileObject.get("events").getAsJsonObject();
+            parseEvent(fileObject);
+
+            JsonObject gameParametersJson = fileObject.get("gameStartParameters").getAsJsonObject();
+            JsonObject startParametersJson = gameParametersJson.get("NORMAL").getAsJsonObject();
+
+            parseStartParameters(startParametersJson);
+
+            JsonObject factionJson = startParametersJson.get("factions").getAsJsonObject();
+            parseFaction(factionJson);
+
+        }catch (FileNotFoundException e){
+            e.printStackTrace();
+        }
+    }
 }
