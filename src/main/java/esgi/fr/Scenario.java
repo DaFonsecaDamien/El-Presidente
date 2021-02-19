@@ -11,22 +11,27 @@ public class Scenario {
     private int foodUnit;
     private int industryPercentage;
     private int agriculturePercentage;
-    private Map<NameFaction,Integer> supportersNumber;
-    private Map<NameFaction,Integer> satisfactionPercentage;
+    private ListFaction listFactions;
 
-    public Scenario(List<Event> events, int treasury, int foodUnit, int industryPercentage, int agriculturePercentage, Map<NameFaction, Integer> supportersNumber, Map<NameFaction, Integer> satisfactionPercentage) {
+    public Scenario(List<Event> events,String name,String story, int treasury, int foodUnit, int industryPercentage, int agriculturePercentage, ListFaction factions) {
         this.events = events;
+        this.name = name;
+        this.story = story;
         this.treasury = treasury;
         this.foodUnit = foodUnit;
         this.industryPercentage = industryPercentage;
         this.agriculturePercentage = agriculturePercentage;
-        this.supportersNumber = supportersNumber;
-        this.satisfactionPercentage = satisfactionPercentage;
+        this.listFactions = factions;
     }
+
 
     public List<Event> getEvents() {
         return events;
     }
+
+    public String getName() { return name; }
+
+    public String getStory() { return story; }
 
     public int getTreasury() {
         return treasury;
@@ -40,15 +45,13 @@ public class Scenario {
         return agriculturePercentage;
     }
 
-    public Map<NameFaction, Integer> getSupportersNumber() {
-        return supportersNumber;
-    }
-
-    public Map<NameFaction, Integer> getSatisfactionPercentage() {
-        return satisfactionPercentage;
-    }
-
     public int getFoodUnit() {
         return foodUnit;
+    }
+
+    public ListFaction getListFactions() { return listFactions; }
+
+    public void setTreasury(int treasury) {
+        this.treasury = treasury;
     }
 }

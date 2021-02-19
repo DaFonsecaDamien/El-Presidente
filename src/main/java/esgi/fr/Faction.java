@@ -2,24 +2,63 @@ package esgi.fr;
 
 public class Faction implements ManageFactions{
 
-    private String name;
+    public static double globalSatisfaction; // Public ??
+    private NameFaction nameFaction;
     private int satisfactionPercentage;
-    private int numberOfPartisans;
+    private int supportersNumber;
 
-    public Faction(String name, int satisfactionPercentage, int numberOfPartisans) {
-        this.name = name;
+
+
+    public Faction(NameFaction nameFaction, int satisfaction, int supportersNumber) {
+        this.nameFaction = nameFaction;
+        this.satisfactionPercentage = satisfaction;
+        this.supportersNumber = supportersNumber;
+    }
+
+    public NameFaction getNameFaction() {
+        return nameFaction;
+    }
+
+    public int getSatisfactionPercentage() {
+        return satisfactionPercentage;
+    }
+
+    public int getSupportersNumber() {
+        return supportersNumber;
+    }
+
+    public void setNameFaction(NameFaction nameFaction) {
+        this.nameFaction = nameFaction;
+    }
+
+    public void setSatisfactionPercentage(int satisfactionPercentage) {
         this.satisfactionPercentage = satisfactionPercentage;
-        this.numberOfPartisans = numberOfPartisans;
+    }
+
+    public void setSupportersNumber(int supportersNumber) {
+        this.supportersNumber = supportersNumber;
     }
 
     @Override
-    public void setSatisfaction(int newSatisfaction) {
-
+    public boolean bribeFaction(int treasurer) {
+        if(satisfactionPercentage >99 || supportersNumber*15>treasurer){
+            return false;
+        }
+        satisfactionPercentage += 10;
+        return true;
     }
 
     @Override
-    public void setSupportersNumber(int newSupportersNumber) {
-
+    public String toString() {
+        return "Nom : " + nameFaction +
+                "\nPourcentage de satisfaction : " + satisfactionPercentage +
+                "\nNombre de partisans : " + supportersNumber;
     }
 
+    public double calculGlobalSatisfaction(){
+
+        
+        return globalSatisfaction;
+
+    }
 }
