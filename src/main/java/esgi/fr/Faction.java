@@ -2,6 +2,7 @@ package esgi.fr;
 
 public class Faction implements ManageFactions{
 
+    public static double globalSatisfaction;
     private NameFaction nameFaction;
     private int satisfaction;
     private int supportersNumber;
@@ -32,5 +33,10 @@ public class Faction implements ManageFactions{
 
     public int getSupportersNumber() {
         return supportersNumber;
+    }
+
+    public double calculGlobalSatisfaction(){
+
+        return globalSatisfaction;
     }
 }
