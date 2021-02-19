@@ -16,7 +16,7 @@ public class Game {
         this.mode = mode;
         this.scenario = scenario;
         this.year = 0;
-        this.season = Season.WINTER;
+        this.season = Season.SPRING;
     }
 
     public Scenario getScenario() {
@@ -24,10 +24,10 @@ public class Game {
     }
 
     public boolean run(List<Event> events){
-        nextEvent();
         int choice=0;
         //on parcours la list de event
         for(Event event: events){
+            manageYear();
             //on vérifie si on a pas perdu lol
             if(isLoose()){
                 //afficher les resultats et sortir
@@ -35,6 +35,7 @@ public class Game {
             }
             //le user choisit un choix
             choice = chooseChoice(event);
+            season = season.next();
             //si le choix provoque des evenements ...
             if(event.getChoices().get(choice).getRelatedEvents() != null){
                 //...on le parcour! tout en véérifiant si la fonction return pas false pour eviter de boucler pour rien
@@ -76,11 +77,10 @@ public class Game {
     }
 
 
-    private void nextEvent(){
+    private void manageYear(){
         System.out.println("annee numero : "+(year+1));
         System.out.println("saison "+season);
-        season = season.next();
-        if(season == Season.WINTER && year > 1){
+        if(season == Season.WINTER){
             System.out.println("Nous voici en fin d'année !");
             bribeFactionMenu();
             year++;
