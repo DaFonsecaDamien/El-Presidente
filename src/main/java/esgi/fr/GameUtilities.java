@@ -47,6 +47,7 @@ public class GameUtilities {
             // Extract Events of the scenario
             parseEvent(fileObject);
 
+            // Extract Faction with parameters
             JsonObject factionJson = startParametersJson.get("factions").getAsJsonObject();
             parseFaction(factionJson);
 
@@ -90,7 +91,13 @@ public class GameUtilities {
      * @param factionJson path to find the json selected by the user
      */
     public static void parseFaction(JsonObject factionJson){
-
+//        ArrayList<String> factions = new ArrayList<String>();
+//        for (Map.Entry<String,JsonElement> entry : factionJson.entrySet()) {
+//            JsonArray array = entry.getValue().getAsJsonObject().getAsJsonArray("factions");
+//            for (JsonElement factionHolder : array) {
+//                factions.add(factionHolder.getAsJsonObject().getAsJsonPrimitive("name").getAsString());
+//            }
+//        }
     }
 
     /**
@@ -106,7 +113,7 @@ public class GameUtilities {
             JsonObject eventJsonObject = eventElement.getAsJsonObject();
             //Extract data
             String name = eventJsonObject.get("name").getAsString();
-            System.out.println(name);
+            System.out.println("\n"+name + "\n");
             // Get all Choices
             ArrayList<Choice> listChoice = parseChoice(eventJsonObject);
         }
@@ -149,8 +156,9 @@ public class GameUtilities {
             JsonObject effectJsonObject = effectElement.getAsJsonObject();
             //Extract data
 //            if(effectJsonObject.has("actionOnFaction")){
-//                 String name = actionOnFaction.get("name").getAsString();
-//                 String story = actionOnFaction.get("story").getAsString();
+//                JsonObject effet = effectJsonObject.get("actionOnFaction").getAsJsonObject();
+//                int satis = effet.get("MILITARISTS").getAsInt();
+//                int sati = effet.get("RELIGIOUS").getAsInt();
 //            }
 //            String choice = effectJsonObject.get("actionOnFaction").getAsString();
             // Get all Effects
