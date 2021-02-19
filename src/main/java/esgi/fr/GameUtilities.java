@@ -82,4 +82,25 @@ public class GameUtilities {
     public static void parseFaction(JsonObject factionJson){
 
     }
+
+
+    /**
+     * Return a JsonObject from the Json File (Object)
+     *
+     * @param fileObject fileObject global
+     */
+    public static void parseEvent(JsonObject fileObject){
+        JsonArray jsonArrayOfEvent = fileObject.get("events").getAsJsonArray();
+        ArrayList<Event> events = new ArrayList<>();
+        for(JsonElement eventElement : jsonArrayOfEvent){
+            //Get the jsonObject
+            JsonObject eventJsonObject = eventElement.getAsJsonObject();
+            //Extract data
+            String name = eventJsonObject.get("name").getAsString();
+            System.out.println(name);
+            // Get all Choices
+            ArrayList<Choice> listChoice = parseChoice(eventJsonObject);
+        }
+
+    }
 }
