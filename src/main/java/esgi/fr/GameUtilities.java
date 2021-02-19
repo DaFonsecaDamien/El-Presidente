@@ -102,7 +102,7 @@ public class GameUtilities {
         }
 
     }
-    
+
     /**
      * Return a JsonObject from the Json File (Object)
      *
@@ -123,5 +123,41 @@ public class GameUtilities {
         }
 
         return choices;
+    }
+    
+    /**
+     * Return a JsonObject from the Json File (Object)
+     *
+     * @param fileObject path to find the json selected by the user
+     * @return
+     */
+    private static ArrayList<Effect> parseEffects(JsonObject fileObject) {
+        JsonArray jsonArrayOfEffect = fileObject.get("effects").getAsJsonArray();
+        ArrayList<Effect> effects = new ArrayList<>();
+        for(JsonElement effectElement : jsonArrayOfEffect){
+            //Get the jsonObject
+            JsonObject effectJsonObject = effectElement.getAsJsonObject();
+            //Extract data
+//            if(effectJsonObject.has("actionOnFaction")){
+//                 String name = actionOnFaction.get("name").getAsString();
+//                 String story = actionOnFaction.get("story").getAsString();
+//            }
+//            String choice = effectJsonObject.get("actionOnFaction").getAsString();
+            // Get all Effects
+//            JsonObject effectsJson = fileObject.get("effects").getAsJsonObject();
+//            parseEffects(effectsJson);
+        }
+        return effects;
+    }
+
+    /**
+     * Check if key exist
+     *
+     * @param response,key  respon
+     */
+    private static boolean checkIfKeyExists(String response, String key) {
+        JsonParser parser = new JsonParser();
+        JsonObject jsonObject = parser.parse(response).getAsJsonObject();
+        return jsonObject.has(key);
     }
 }
