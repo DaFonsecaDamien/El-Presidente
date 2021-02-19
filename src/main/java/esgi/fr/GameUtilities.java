@@ -83,7 +83,6 @@ public class GameUtilities {
 
     }
 
-
     /**
      * Return a JsonObject from the Json File (Object)
      *
@@ -102,5 +101,27 @@ public class GameUtilities {
             ArrayList<Choice> listChoice = parseChoice(eventJsonObject);
         }
 
+    }
+    
+    /**
+     * Return a JsonObject from the Json File (Object)
+     *
+     * @param fileObject eventJson Object
+     * @return
+     */
+    public static ArrayList<Choice> parseChoice(JsonObject fileObject){
+        JsonArray jsonArrayOfChoice = fileObject.get("choices").getAsJsonArray();
+        ArrayList<Choice> choices = new ArrayList<>();
+        for(JsonElement choiceElement : jsonArrayOfChoice){
+            //Get the jsonObject
+            JsonObject choiceJsonObject = choiceElement.getAsJsonObject();
+            //Extract data
+            String choice = choiceJsonObject.get("choice").getAsString();
+            System.out.println(choice);
+            // Get all Effects
+            ArrayList<Effect> listEffect = parseEffects(choiceJsonObject);
+        }
+
+        return choices;
     }
 }
