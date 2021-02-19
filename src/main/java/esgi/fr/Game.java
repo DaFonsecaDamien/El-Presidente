@@ -67,7 +67,6 @@ public class Game {
 
         Scanner sc = new Scanner(System.in);
         while (myChoice < 1 || myChoice > event.getChoices().size()) {
-            System.out.println("Rentrez un bon numéro ");
             while (!sc.hasNextInt()) {
                 sc = new Scanner(System.in);
                 System.out.println("Rentrez un bon numéro ");
@@ -91,6 +90,7 @@ public class Game {
 
         String choice="";
         Scanner sc = new Scanner(System.in);
+        System.out.println("Vous avez "+scenario.getTreasury()+"pieces d'or dans votre trésorerie");
         do{
             System.out.println("Voulez vous soudoyer un faction ?");
             System.out.println("tapez sur 'o' si vous le voulez");
@@ -98,26 +98,77 @@ public class Game {
             choice = sc.nextLine();
 
             if(choice.equals("o")){
-                chooseFactions();
+                chooseFactionsToBribe();
             }
 
         }while(choice.equals("o"));
 
     }
 
-    private void chooseFactions(){
-        String choice="";
-        //Scanner sc = new Scanner(System.in);
+    private void chooseFactionsToBribe(){
+        int choice=0;
+        NameFaction nameFactionChoose = NameFaction.CAPITALISTE;
+
+        choice = getChoiceFaction();
+
+        switch (choice){
+            case 1:
+                nameFactionChoose = NameFaction.CAPITALISTE;
+                break;
+            case 2:
+                nameFactionChoose = NameFaction.COMMUNISTE;
+                break;
+            case 3:
+                nameFactionChoose = NameFaction.LIBERAU;
+                break;
+            case 4:
+                nameFactionChoose = NameFaction.RELIGIEU;
+                break;
+            case 5:
+                nameFactionChoose = NameFaction.MILITARISTE;
+                break;
+            case 6:
+                nameFactionChoose = NameFaction.ECOLOGISTE;
+                break;
+            case 7:
+                nameFactionChoose = NameFaction.NATIONALISTE;
+                break;
+            case 8:
+                nameFactionChoose = NameFaction.LOYALISTE;
+                break;
+        }
+        System.out.println("Vous avez choisi de soudoyer la factions des "+nameFactionChoose+"S");
+
+        for(Faction faction : scenario.getFactions()){
+            if(faction.getNameFaction()==nameFactionChoose){
+                faction.bribeFaction();
+                return;
+            }
+        }
+
+
+    }
+
+    private int getChoiceFaction(){
+        int choice =0;
+        printInfosFactions();
+        Scanner sc = new Scanner(System.in);
+        while (choice<1 || choice >scenario.getFactions().size()) {
+            while (!sc.hasNextInt()) {
+                sc = new Scanner(System.in);
+            }
+            choice = sc.nextInt();
+        }
+
+        return choice;
+    }
+
+    private void printInfosFactions(){
         System.out.println("Voici la liste des factions : ");
-        System.out.println("1 - CAPITALISTE");
-        System.out.println("2 - COMMUNISTE");
-        System.out.println("3 - LIBERAU");
-        System.out.println("4 - RELIGIEU");
-        System.out.println("5 - MILITARISTE");
-        System.out.println("6 - ECOLOGISTE");
-        System.out.println("7 - NATIONALISTE");
-        System.out.println("8 - LOYALIST");
-
-
+        for(Faction faction : scenario.getFactions()){
+            System.out.println(faction.toString());
+            System.out.println("Or requis : "+faction.getSupportersNumber()*15);
+        }
+        System.out.println("choisissez celle que vous voulez soudoyer");
     }
 }

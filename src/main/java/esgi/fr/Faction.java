@@ -40,4 +40,11 @@ public class Faction implements ManageFactions{
     public void bribeFaction() {
 
     }
+
+    @Override
+    public String toString() {
+        return "\nNom : " + nameFaction +
+                "\nPourcentage de satisfaction : " + satisfaction +
+                "\nNombre de partisans : " + supportersNumber;
+    }
 }

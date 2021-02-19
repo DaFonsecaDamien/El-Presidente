@@ -116,7 +116,7 @@ public class App
         factions.add(new Faction(NameFaction.NATIONALISTE,60,10));
         factions.add(new Faction(NameFaction.LOYALISTE,100,10));
 
-        Scenario scenario = new Scenario(events,name,story,30,120,21,54,factions);
+        Scenario scenario = new Scenario(events,name,story,700,500,35,40,factions);
         Game game = new Game(level,mode,scenario);
         boolean resultGame = game.run(scenario.getEvents());
 
