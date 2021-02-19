@@ -37,8 +37,8 @@ public class Faction implements ManageFactions{
     }
 
     @Override
-    public boolean bribeFaction(int tresorerie) {
-        if(satisfactionPercentage >99 || supportersNumber*15>tresorerie){
+    public boolean bribeFaction(int treasurer) {
+        if(satisfactionPercentage >99 || supportersNumber*15>treasurer){
             return false;
         }
         satisfactionPercentage += 10;

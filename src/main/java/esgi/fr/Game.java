@@ -92,10 +92,9 @@ public class Game {
         String choice="";
         Scanner sc = new Scanner(System.in);
         do{
-            System.out.println("Vous avez "+scenario.getTreasury()+" pieces d'or dans votre trésorerie");
+            System.out.println("Vous avez "+scenario.getTreasury()+" pieces d'or dans votre trésorerie\n");
             System.out.println("Voulez vous soudoyer une faction ?");
-            System.out.println("tapez sur 'o' si vous le voulez");
-            System.out.println("sinon tapez autre part");
+            System.out.println("Si oui tapez sur 'o' sinon tapez sur n'importe quelle autres touches");
             choice = sc.nextLine();
 
             if(choice.equals("o")){
@@ -140,29 +139,24 @@ public class Game {
         }
         System.out.println("Vous avez choisi de soudoyer la factions des "+nameFactionChoose+"S");
 
-        for(Faction faction : scenario.getFactions()){
-            if(faction.getNameFaction()==nameFactionChoose){
-                if(!faction.bribeFaction(scenario.getTreasury())){
-                    System.out.println("Vous n'etes pas en meusure de soudoyer cette faction");
-                    return;
-                }
-                else{
-                    scenario.setTreasury(scenario.getTreasury()-15*faction.getSupportersNumber());
-                    System.out.println("La satisfaction de la faction "+nameFactionChoose+" a auguementé de 10%!");
-                    return;
-                }
+        Faction faction = scenario.getListFactions().getOneFaction(nameFactionChoose);
 
-            }
+        if(faction.bribeFaction(scenario.getTreasury())){
+            scenario.setTreasury(scenario.getTreasury()-15*faction.getSupportersNumber());
+
+            Faction loyalistFaction = scenario.getListFactions().getOneFaction(NameFaction.LOYALISTE);
+            loyalistFaction.setSatisfactionPercentage(loyalistFaction.getSatisfactionPercentage()-10);
+            System.out.println("La satisfaction de la faction "+nameFactionChoose+" a auguementé de 10%!");
+        }else{
+            System.out.println("Vous n'etes pas en meusure de soudoyer cette faction");
         }
-
-
     }
 
     private int getChoiceFaction(){
         int choice =0;
         printInfosFactions();
         Scanner sc = new Scanner(System.in);
-        while (choice<1 || choice >scenario.getFactions().size()) {
+        while (choice<1 || choice >scenario.getListFactions().getFactions().size()) {
             while (!sc.hasNextInt()) {
                 sc = new Scanner(System.in);
             }
@@ -175,7 +169,7 @@ public class Game {
     private void printInfosFactions(){
         int i=0;
         System.out.println("Voici la liste des factions : ");
-        for(Faction faction : scenario.getFactions()){
+        for(Faction faction : scenario.getListFactions().getFactions()){
             i++;
             System.out.println(i+" - ");
             System.out.println(faction.toString());

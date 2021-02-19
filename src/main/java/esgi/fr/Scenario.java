@@ -11,9 +11,9 @@ public class Scenario {
     private int foodUnit;
     private int industryPercentage;
     private int agriculturePercentage;
-    private List<Faction> factions;
+    private ListFaction listFactions;
 
-    public Scenario(List<Event> events,String name,String story, int treasury, int foodUnit, int industryPercentage, int agriculturePercentage, List<Faction> factions) {
+    public Scenario(List<Event> events,String name,String story, int treasury, int foodUnit, int industryPercentage, int agriculturePercentage, ListFaction factions) {
         this.events = events;
         this.name = name;
         this.story = story;
@@ -21,7 +21,7 @@ public class Scenario {
         this.foodUnit = foodUnit;
         this.industryPercentage = industryPercentage;
         this.agriculturePercentage = agriculturePercentage;
-        this.factions = factions;
+        this.listFactions = factions;
     }
 
 
@@ -49,7 +49,7 @@ public class Scenario {
         return foodUnit;
     }
 
-    public List<Faction> getFactions() { return factions; }
+    public ListFaction getListFactions() { return listFactions; }
 
     public void setTreasury(int treasury) {
         this.treasury = treasury;
