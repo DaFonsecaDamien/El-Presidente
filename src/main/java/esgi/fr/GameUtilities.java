@@ -105,7 +105,7 @@ public class GameUtilities {
      *
      * @param fileObject fileObject global
      */
-    public static void parseEvent(JsonObject fileObject){
+    public static ArrayList<Event> parseEvent(JsonObject fileObject){
         JsonArray jsonArrayOfEvent = fileObject.get("events").getAsJsonArray();
         ArrayList<Event> events = new ArrayList<>();
         for(JsonElement eventElement : jsonArrayOfEvent){
@@ -113,11 +113,31 @@ public class GameUtilities {
             JsonObject eventJsonObject = eventElement.getAsJsonObject();
             //Extract data
             String name = eventJsonObject.get("name").getAsString();
-            System.out.println("\n"+name + "\n");
+            System.out.println("\nNEW EVENT : "+name + "\n");
             // Get all Choices
             ArrayList<Choice> listChoice = parseChoice(eventJsonObject);
         }
+        return events;
+    }
 
+    /**
+     * Return a JsonObject from the Json File (Object)
+     *
+     * @param fileObject fileObject global
+     */
+    public static ArrayList<Event> parseRelatedEvent(JsonObject fileObject){
+        JsonArray jsonArrayOfRelatedEvent = fileObject.get("relatedEvents").getAsJsonArray();
+        ArrayList<Event> relatedEvents = new ArrayList<>();
+        for(JsonElement eventElement : jsonArrayOfRelatedEvent){
+            //Get the jsonObject
+            JsonObject eventJsonObject = eventElement.getAsJsonObject();
+            //Extract data
+            String name = eventJsonObject.get("name").getAsString();
+            System.out.println("\nNEW RELATED EVENT : "+name + "\n");
+            // Get all Choices
+            ArrayList<Choice> listChoice = parseChoice(eventJsonObject);
+        }
+        return relatedEvents;
     }
 
     /**
@@ -137,6 +157,11 @@ public class GameUtilities {
             System.out.println(choice);
             // Get all Effects
             ArrayList<Effect> listEffect = parseEffects(choiceJsonObject);
+            // Get related Event of the choice
+            if(choiceJsonObject.has("relatedEvents")){
+                System.out.println("\n ************RELATED EVENT************ \n");
+                ArrayList<Event> relatedEvent = parseRelatedEvent(choiceJsonObject);
+            }
         }
 
         return choices;
@@ -151,19 +176,29 @@ public class GameUtilities {
     private static ArrayList<Effect> parseEffects(JsonObject fileObject) {
         JsonArray jsonArrayOfEffect = fileObject.get("effects").getAsJsonArray();
         ArrayList<Effect> effects = new ArrayList<>();
-        for(JsonElement effectElement : jsonArrayOfEffect){
+        for(JsonElement effectElement : jsonArrayOfEffect) {
             //Get the jsonObject
             JsonObject effectJsonObject = effectElement.getAsJsonObject();
             //Extract data
-//            if(effectJsonObject.has("actionOnFaction")){
-//                JsonObject effet = effectJsonObject.get("actionOnFaction").getAsJsonObject();
-//                int satis = effet.get("MILITARISTS").getAsInt();
-//                int sati = effet.get("RELIGIOUS").getAsInt();
-//            }
-//            String choice = effectJsonObject.get("actionOnFaction").getAsString();
-            // Get all Effects
-//            JsonObject effectsJson = fileObject.get("effects").getAsJsonObject();
-//            parseEffects(effectsJson);
+            if(effectJsonObject.has("actionOnFaction")){
+                JsonObject effectActionOnFaction = effectJsonObject.get("actionOnFaction").getAsJsonObject();
+                Set<Map.Entry<String, JsonElement>> entries = effectActionOnFaction.entrySet();
+                for(Map.Entry<String, JsonElement> entry: entries) {
+                    System.out.println("\t Effet pour les " + entry.getKey() + " est de " + entry.getValue());
+                }
+            }
+            if(effectJsonObject.has("actionOnFactor")){
+                JsonObject effectActionOnFactor = effectJsonObject.get("actionOnFactor").getAsJsonObject();
+                Set<Map.Entry<String, JsonElement>> entries = effectActionOnFactor.entrySet();
+                for(Map.Entry<String, JsonElement> entry: entries) {
+                    System.out.println("\t L'effet pour les " + entry.getKey() + " est de " + entry.getValue());
+                }
+            }
+            if(!effectJsonObject.has("actionOnFactor") && !effectJsonObject.has("actionOnFaction")){
+                     //Partisan en -
+                String effetPartisans = effectJsonObject.get("partisans").getAsString();
+                System.out.println("\t PARTISANS : "+effetPartisans);
+            }
         }
         return effects;
     }
