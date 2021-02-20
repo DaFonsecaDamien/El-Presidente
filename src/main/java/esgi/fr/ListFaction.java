@@ -40,9 +40,9 @@ public class ListFaction {
 
     }
 
-    public void setAllSatisfaction(int reducedNumber){
+    public void setAllSatisfaction(int number){
         for(Faction faction : factions){
-            faction.setSatisfactionPercentage(faction.getSatisfactionPercentage() + reducedNumber);
+            faction.setSatisfactionPercentage(faction.getSatisfactionPercentage() + number);
         }
     }
 

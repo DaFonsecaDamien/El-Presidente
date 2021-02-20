@@ -259,11 +259,9 @@ public class Game {
         if(scenario.getFoodUnit() + 40 * scenario.getAgriculturePercentage() < scenario.getListFactions().getAllSuportersNumber()){
             System.out.println(" FAMINE !\n");
             killPeople();
-        }else if(40 * scenario.getAgriculturePercentage()  >= scenario.getListFactions().getAllSuportersNumber() * 1.10){
+        }else if(40 * scenario.getAgriculturePercentage() >= scenario.getListFactions().getAllSuportersNumber() * 1.10){
             System.out.println(" EXCEDENT !\n");
             increasePeople();
-
-
         }
     }
 
@@ -319,18 +317,18 @@ public class Game {
 
         int allSuportersNumber = scenario.getListFactions().getAllSuportersNumber();
 
-        int numbersSuportersToAdd = randomPercentage * allSuportersNumber / 100;
+        int totalNumbersOfSuportersToAdd = randomPercentage * allSuportersNumber / 100;
 
-        while (allSuportersNumber > 0 ){
-            int randomSuporterToFaction = (int)(Math.random() * allSuportersNumber) + 1;
-            allSuportersNumber -= randomSuporterToFaction;
+        while (totalNumbersOfSuportersToAdd > 0 ){
+            int randomNumberOfSupportersToAdd = (int)(Math.random() + totalNumbersOfSuportersToAdd) + 1;
+            totalNumbersOfSuportersToAdd -= randomNumberOfSupportersToAdd;
             Faction randomFaction = randomFaction();
-            randomFaction.setSupportersNumber(randomFaction.getSupportersNumber() + randomSuporterToFaction);
+            randomFaction.setSupportersNumber(randomFaction.getSupportersNumber() + randomNumberOfSupportersToAdd);
         }
 
         Faction factionChosen = randomFaction();
 
-        factionChosen.setSupportersNumber(factionChosen.getSupportersNumber() - numbersSuportersToAdd);
+        factionChosen.setSupportersNumber(factionChosen.getSupportersNumber() - totalNumbersOfSuportersToAdd);
 
     }
 
