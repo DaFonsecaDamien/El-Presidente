@@ -15,8 +15,8 @@ public class Game {
         this.level = level;
         this.mode = mode;
         this.scenario = scenario;
-        this.year = 0;
-        this.season = Season.SPRING;
+        this.year = 1;
+        this.season = Season.WINTER;
     }
 
     public Scenario getScenario() {
@@ -27,7 +27,6 @@ public class Game {
         int choice=0;
         //on parcours la list de event
         for(Event event: events){
-            manageYear();
             //on vérifie si on a pas perdu lol
             if(isLoose()){
                 //afficher les resultats et sortir
@@ -36,7 +35,8 @@ public class Game {
             //le user choisit un choix
             choice = chooseChoice(event);
             season = season.next();
-            scenario.setFoodUnit(scenario.getFoodUnit()-scenario.getListFactions().getAllSupotersNumber());
+            manageAgriculture();
+            manageYear();
             //si le choix provoque des evenements ...
             if(event.getChoices().get(choice).getRelatedEvents() != null){
                 //...on le parcour! tout en véérifiant si la fonction return pas false pour eviter de boucler pour rien
@@ -78,22 +78,18 @@ public class Game {
 
 
     private void manageYear(){
-        System.out.println("annee numero : "+(year+1));
+        System.out.println("annee numero : "+year);
         System.out.println("saison "+season);
         if(season == Season.WINTER){
             System.out.println("Nous voici en fin d'année !");
 
-            int gainOr = 10*scenario.getIndustryPercentage();
-            scenario.setTreasury(scenario.getTreasury()+gainOr);
-            System.out.println("Voic ce que l'ile vous rapporte en or : "+gainOr);
+            manageTreasurer();
             System.out.println("Vous avez au total : "+scenario.getTreasury()+" pieces d'or dans votre trésorerie\n");
 
-            int gainFood = 40*scenario.getAgriculturePercentage();
-            scenario.setFoodUnit(scenario.getFoodUnit()+gainFood);
-            System.out.println("Voici ce que l'ile vous rapporte en nourriture : "+gainFood);
             System.out.println("Vous avez au total "+scenario.getFoodUnit()+" unités de nouritures en stock");
 
             bribeFactionMenu();
+            //marketPlace();
             year++;
         }
     }
@@ -191,4 +187,23 @@ public class Game {
             System.out.println("Vous n'etes pas en meusure de soudoyer cette faction\n");
         }
     }
+
+    private void manageAgriculture(){
+        int foodUnitConsumed = scenario.getListFactions().getAllSupotersNumber();
+        scenario.setFoodUnit(scenario.getFoodUnit()-foodUnitConsumed);
+        System.out.println("Votre ile a consomé "+foodUnitConsumed+"unités de noriture");
+
+        int gainFood = 10*scenario.getAgriculturePercentage();
+        scenario.setFoodUnit(scenario.getFoodUnit()+gainFood);
+        System.out.println("Voici ce que l'ile vous a rapporté en nouriture cette saison: "+gainFood);
+    }
+
+    private void manageTreasurer(){
+        int gainOr = 10*scenario.getIndustryPercentage();
+        scenario.setTreasury(scenario.getTreasury()+gainOr);
+        System.out.println("Voic ce que l'ile vous rapporte en or cette année: "+gainOr);
+    }
+    
+
+
 }
