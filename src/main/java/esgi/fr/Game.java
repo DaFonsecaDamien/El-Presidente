@@ -106,14 +106,14 @@ public class Game {
         Scanner sc = new Scanner(System.in);
         do{
             System.out.println("Voulez vous soudoyer une faction ?");
-            System.out.println("Si oui tapez sur 'o' sinon tapez sur n'importe quelle autres touches");
+            System.out.println("Si oui tapez sur 'o' sinon tapez sur 'n'");
             choice = sc.nextLine();
 
             if(choice.equals("o")){
                 chooseFactionsToBribe();
             }
 
-        }while(choice.equals("o"));
+        }while(!choice.equals("n"));printInfosFactions();
 
     }
 
@@ -223,9 +223,12 @@ public class Game {
 
         System.out.println("Voulez vous achetez des unités de nourriture ?");
         System.out.println("Cette opération vous coutera 8 or par unité\n");
-        System.out.println("Si oui tapez sur 'o' sinon tapez sur n'importe quelle autres touches\n");
+        System.out.println("Si oui tapez sur 'o' sinon tapez sur 'n'\n");
 
-        choice = sc.nextLine();
+        do{
+            choice = sc.nextLine();
+        }while (!choice.equals("o") && !choice.equals("n"));
+
         if(choice.equals("o")){
             buyFoodUnits();
         }
