@@ -76,7 +76,6 @@ public class Game {
         return myChoice-1;
     }
 
-
     private void manageYear(){
         if(season == Season.WINTER){
             System.out.println("Nous voici en fin d'année !");

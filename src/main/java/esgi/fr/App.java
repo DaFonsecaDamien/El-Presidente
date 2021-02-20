@@ -125,9 +125,9 @@ public class App
 
         String scenarioDir = ".\\src\\ressources\\scenarios";
         String scenarioTest = ".\\src\\ressources\\scenarios\\attackOnTitans.json";
-        List<File> scenariosJson = GameUtilities.allJsonFromDir(new File(scenarioDir));
-        System.out.println(scenariosJson);
-        GameUtilities.parseJsonToObject(scenarioTest);
+        //List<File> scenariosJson = GameUtilities.allJsonFromDir(new File(scenarioDir));
+        //System.out.println(scenariosJson);
+        //GameUtilities.parseJsonToObject(scenarioTest);
     }
 
     private static void printResult(boolean resultGame){
