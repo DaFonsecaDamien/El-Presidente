@@ -93,7 +93,7 @@ public class Game {
 
             bribeFactionMenu();
             marketPlace();
-            //yearBilan();
+            yearBilan();
             year++;
         }
         System.out.println("annee numero : "+year);
@@ -148,6 +148,7 @@ public class Game {
         }
         printResultBribe(nameFactionChoose);
     }
+
 
     private int getChoiceFaction(){
         int choice =0;
@@ -267,15 +268,52 @@ public class Game {
 
     private void killPeople(){
         System.out.println(" MORT !\n");
-        int max = 8;
-        int min = 1;
-        int range = max - min + 1;
-        int randomFaction = (int)(Math.random() * range) + min;
+        int range = 8;
         do{
+            int randomFaction = (int)(Math.random() * range) + 1;
+            NameFaction nameFactionChosen =  chooseFaction(randomFaction);
+            Faction factionChosen = scenario.getListFactions().getOneFaction(nameFactionChosen);
+            factionChosen.setSupportersNumber(factionChosen.getSupportersNumber() - 1);
 
-            getChoiceFaction();
+            scenario.getListFactions().setAllSatisfaction(-2);
+
         }while(scenario.getFoodUnit() + 40 * scenario.getAgriculturePercentage() < scenario.getListFactions().getAllSuportersNumber());
     }
+
+    private NameFaction chooseFaction(int factionChosen){
+
+        NameFaction nameFactionChosen = NameFaction.CAPITALISTE;
+
+        switch (factionChosen){
+            case 1:
+                nameFactionChosen = NameFaction.CAPITALISTE;
+                break;
+            case 2:
+                nameFactionChosen = NameFaction.COMMUNISTE;
+                break;
+            case 3:
+                nameFactionChosen = NameFaction.LIBERAU;
+                break;
+            case 4:
+                nameFactionChosen = NameFaction.RELIGIEU;
+                break;
+            case 5:
+                nameFactionChosen = NameFaction.MILITARISTE;
+                break;
+            case 6:
+                nameFactionChosen = NameFaction.ECOLOGISTE;
+                break;
+            case 7:
+                nameFactionChosen = NameFaction.NATIONALISTE;
+                break;
+            case 8:
+                nameFactionChosen = NameFaction.LOYALISTE;
+                break;
+
+        }
+    return nameFactionChosen;
+    }
+
 
 
 }
