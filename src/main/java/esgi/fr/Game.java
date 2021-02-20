@@ -274,7 +274,6 @@ public class Game {
         }while(scenario.getFoodUnit() + 40 * scenario.getAgriculturePercentage() < scenario.getListFactions().getAllSuportersNumber());
     }
 
-
     private void increasePeople(){
         int randomPercentage = (int)(Math.random() * 10) + 1;
         int totalNumbersOfSuportersToAdd = randomPercentage * scenario.getListFactions().getAllSuportersNumber() / 100;

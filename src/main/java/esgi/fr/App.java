@@ -1,11 +1,7 @@
 package esgi.fr;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
-import java.util.TreeMap;
+import java.util.*;
 
 /**
  * Hello world!
@@ -79,9 +75,21 @@ public class App
 //
         //utilitaire (ces données servent a simuler notre application)
         List<Effect> effects = new ArrayList<>();
-        effects.add(new Effect("typeAction","action",3));
-        effects.add(new Effect("typeAction","action",3));
-        effects.add(new Effect("typeAction","action",3));
+            HashMap<String ,Integer> actions = new HashMap<>();
+            actions.put("Nationaliste",12);
+            actions.put("Reigieux",-2);
+
+            HashMap<String ,Integer> actions2 = new HashMap<>();
+            actions2.put("Partisans",12);
+
+            HashMap<String ,Integer> actions3 = new HashMap<>();
+            actions.put("INDUSTRY",12);
+            actions.put("TREASURY",-2);
+            actions3.put("AGRICULTURE",-4);
+
+        effects.add(new Effect("actionOnFaction",actions));
+        effects.add(new Effect(null,actions2));
+        effects.add(new Effect("actionOnFactor",actions3));
 
             List<Choice> otherChoice = new ArrayList<>();
             otherChoice.add(new Choice(effects,"nameChoice",null));
