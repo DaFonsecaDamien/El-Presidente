@@ -93,6 +93,7 @@ public class Game {
 
             bribeFactionMenu();
             marketPlace();
+            yearBilan();
             year++;
         }
         System.out.println("annee numero : "+year);
@@ -147,6 +148,7 @@ public class Game {
         }
         printResultBribe(nameFactionChoose);
     }
+
 
     private int getChoiceFaction(){
         int choice =0;
@@ -250,6 +252,94 @@ public class Game {
 
     }
 
+    private void yearBilan(){
+        System.out.println("C'est l'heure du bilan de fin d'année ! \n");
 
+
+        if(scenario.getFoodUnit() + 40 * scenario.getAgriculturePercentage() < scenario.getListFactions().getAllSuportersNumber()){
+            System.out.println(" FAMINE !\n");
+            killPeople();
+        }else if(40 * scenario.getAgriculturePercentage()  >= scenario.getListFactions().getAllSuportersNumber() * 1.10){
+            System.out.println(" EXCEDENT !\n");
+            increasePeople();
+
+
+        }
+    }
+
+    private void killPeople(){
+        System.out.println(" MORT !\n");
+
+        do{
+            Faction factionChosen = randomFaction();
+            factionChosen.setSupportersNumber(factionChosen.getSupportersNumber() - 1);
+
+            scenario.getListFactions().setAllSatisfaction(-2);
+
+        }while(scenario.getFoodUnit() + 40 * scenario.getAgriculturePercentage() < scenario.getListFactions().getAllSuportersNumber());
+    }
+
+    private NameFaction chooseFaction(int factionChosen){
+
+        NameFaction nameFactionChosen = NameFaction.CAPITALISTE;
+
+        switch (factionChosen){
+            case 1:
+                nameFactionChosen = NameFaction.CAPITALISTE;
+                break;
+            case 2:
+                nameFactionChosen = NameFaction.COMMUNISTE;
+                break;
+            case 3:
+                nameFactionChosen = NameFaction.LIBERAU;
+                break;
+            case 4:
+                nameFactionChosen = NameFaction.RELIGIEU;
+                break;
+            case 5:
+                nameFactionChosen = NameFaction.MILITARISTE;
+                break;
+            case 6:
+                nameFactionChosen = NameFaction.ECOLOGISTE;
+                break;
+            case 7:
+                nameFactionChosen = NameFaction.NATIONALISTE;
+                break;
+            case 8:
+                nameFactionChosen = NameFaction.LOYALISTE;
+                break;
+
+        }
+    return nameFactionChosen;
+    }
+
+    private void increasePeople(){
+
+        int randomPercentage = (int)(Math.random() * 10) + 1;
+
+        int allSuportersNumber = scenario.getListFactions().getAllSuportersNumber();
+
+        int numbersSuportersToAdd = randomPercentage * allSuportersNumber / 100;
+
+        while (allSuportersNumber > 0 ){
+            int randomSuporterToFaction = (int)(Math.random() * allSuportersNumber) + 1;
+            allSuportersNumber -= randomSuporterToFaction;
+            Faction randomFaction = randomFaction();
+            randomFaction.setSupportersNumber(randomFaction.getSupportersNumber() + randomSuporterToFaction);
+        }
+
+        Faction factionChosen = randomFaction();
+
+        factionChosen.setSupportersNumber(factionChosen.getSupportersNumber() - numbersSuportersToAdd);
+
+    }
+
+    private Faction randomFaction(){
+        int range = 8;
+        int randomFaction = (int)(Math.random() * range) + 1;
+        NameFaction nameFactionChosen =  chooseFaction(randomFaction);
+        Faction factionChosen = scenario.getListFactions().getOneFaction(nameFactionChosen);
+        return factionChosen;
+    }
 
 }
