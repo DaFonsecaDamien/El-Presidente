@@ -3,12 +3,15 @@ package esgi.fr;
 import java.util.List;
 
 public class Event {
-    List<Choice> choices;
-    String name;
 
-    public Event(List<Choice> choices, String name) {
-        this.choices = choices;
+    String name;
+    Season season;
+    List<Choice> choices;
+
+    public Event(List<Choice> choices, String name, Season season) {
         this.name = name;
+        this.choices = choices;
+        this.season = season;
     }
 
     public List<Choice> getChoices() {
@@ -17,5 +20,9 @@ public class Event {
 
     public String getName() {
         return name;
+    }
+
+    public Season getSeason(){
+        return season;
     }
 }

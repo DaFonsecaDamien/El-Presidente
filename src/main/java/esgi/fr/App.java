@@ -75,8 +75,8 @@ public class App
         }
 
 
-        //TODO creer une fonction ou une classe pour récuperer le json des infos du jeux, des events, choix, effets, events des choix
-
+//        //TODO creer une fonction ou une classe pour récuperer le json des infos du jeux, des events, choix, effets, events des choix
+//
         //utilitaire (ces données servent a simuler notre application)
         List<Effect> effects = new ArrayList<>();
         effects.add(new Effect("typeAction","action",3));
@@ -89,9 +89,9 @@ public class App
             otherChoice.add(new Choice(effects,"nameChoice",null));
 
             List<Event> relatedEvents = new ArrayList<>();
-            relatedEvents.add(new Event(otherChoice,"name"));
-            relatedEvents.add(new Event(otherChoice,"name"));
-            relatedEvents.add(new Event(otherChoice,"name"));
+            relatedEvents.add(new Event(otherChoice,"name",Season.WINTER));
+            relatedEvents.add(new Event(otherChoice,"name",Season.WINTER));
+            relatedEvents.add(new Event(otherChoice,"name",Season.WINTER));
 
         List<Choice> choices = new ArrayList<>();
         choices.add(new Choice(effects,"nameChoice",relatedEvents));
@@ -99,35 +99,35 @@ public class App
         choices.add(new Choice(effects,"nameChoice",null));
 
         List<Event> events = new ArrayList<>();
-        events.add(new Event(choices,"name"));
-        events.add(new Event(choices,"name"));
-        events.add(new Event(choices,"name"));
+        events.add(new Event(choices,"name",Season.WINTER));
+        events.add(new Event(choices,"name",Season.WINTER));
+        events.add(new Event(choices,"name",Season.WINTER));
 
-        Map<NameFaction,Integer> supportersNumber = new TreeMap<NameFaction,Integer>();
-        supportersNumber.put(NameFaction.CAPITALISTE,12);
-        supportersNumber.put(NameFaction.COMMUNISTE,14);
-        supportersNumber.put(NameFaction.LIBERAU,15);
-        supportersNumber.put(NameFaction.RELIGIEU,16);
-        supportersNumber.put(NameFaction.MILITARISTE,20);
-        supportersNumber.put(NameFaction.ECOLOGISTE,18);
-        supportersNumber.put(NameFaction.NATIONALISTE,23);
-        supportersNumber.put(NameFaction.LOYALISTE,10);
+        String name ="Attaque des titans";
+        String story = "une bien longue histoir";
 
-        Map<NameFaction,Integer> satisfactionNumber = new TreeMap<NameFaction,Integer>();
-        satisfactionNumber.put(NameFaction.CAPITALISTE,12);
-        satisfactionNumber.put(NameFaction.COMMUNISTE,14);
-        satisfactionNumber.put(NameFaction.LIBERAU,15);
-        satisfactionNumber.put(NameFaction.RELIGIEU,16);
-        satisfactionNumber.put(NameFaction.MILITARISTE,20);
-        satisfactionNumber.put(NameFaction.ECOLOGISTE,18);
-        satisfactionNumber.put(NameFaction.NATIONALISTE,23);
-        satisfactionNumber.put(NameFaction.LOYALISTE,10);
+        List<Faction> factions = new ArrayList<>();
+        factions.add(new Faction(NameFaction.CAPITALISTE,60,10));
+        factions.add(new Faction(NameFaction.COMMUNISTE,60,10));
+        factions.add(new Faction(NameFaction.LIBERAU,60,10));
+        factions.add(new Faction(NameFaction.RELIGIEU,60,10));
+        factions.add(new Faction(NameFaction.MILITARISTE,50,10));
+        factions.add(new Faction(NameFaction.ECOLOGISTE,60,10));
+        factions.add(new Faction(NameFaction.NATIONALISTE,60,10));
+        factions.add(new Faction(NameFaction.LOYALISTE,100,10));
+        ListFaction listFaction = new ListFaction(factions);
 
-        Scenario scenario = new Scenario(events,30,120,21,54,supportersNumber,satisfactionNumber);
+        Scenario scenario = new Scenario(events,name,story,700,500,35,40,listFaction);
         Game game = new Game(level,mode,scenario);
         boolean resultGame = game.run(scenario.getEvents());
 
         printResult(resultGame);
+
+        //String scenarioDir = ".\\src\\ressources\\scenarios";
+        //String scenarioTest = ".\\src\\ressources\\scenarios\\attackOnTitans.json";
+        //List<File> scenariosJson = GameUtilities.allJsonFromDir(new File(scenarioDir));
+        //System.out.println(scenariosJson);
+        //GameUtilities.parseJsonToObject(scenarioTest);
     }
 
     private static void printResult(boolean resultGame){

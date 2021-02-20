@@ -5,29 +5,36 @@ import java.util.Map;
 
 public class Scenario {
     private List<Event> events;
-    private int Treasury;
+    private String name;
+    private String story;
+    private int treasury;
     private int foodUnit;
     private int industryPercentage;
-    private int AgriculturePercentage;
-    private Map<NameFaction,Integer> supportersNumber;
-    private Map<NameFaction,Integer> satisfactionPercentage;
+    private int agriculturePercentage;
+    private ListFaction listFactions;
 
-    public Scenario(List<Event> events, int treasury, int foodUnit, int industryPercentage, int agriculturePercentage, Map<NameFaction, Integer> supportersNumber, Map<NameFaction, Integer> satisfactionPercentage) {
+    public Scenario(List<Event> events,String name,String story, int treasury, int foodUnit, int industryPercentage, int agriculturePercentage, ListFaction factions) {
         this.events = events;
-        this.Treasury = treasury;
+        this.name = name;
+        this.story = story;
+        this.treasury = treasury;
         this.foodUnit = foodUnit;
         this.industryPercentage = industryPercentage;
-        this.AgriculturePercentage = agriculturePercentage;
-        this.supportersNumber = supportersNumber;
-        this.satisfactionPercentage = satisfactionPercentage;
+        this.agriculturePercentage = agriculturePercentage;
+        this.listFactions = factions;
     }
+
 
     public List<Event> getEvents() {
         return events;
     }
 
+    public String getName() { return name; }
+
+    public String getStory() { return story; }
+
     public int getTreasury() {
-        return Treasury;
+        return treasury;
     }
 
     public int getIndustryPercentage() {
@@ -35,18 +42,20 @@ public class Scenario {
     }
 
     public int getAgriculturePercentage() {
-        return AgriculturePercentage;
-    }
-
-    public Map<NameFaction, Integer> getSupportersNumber() {
-        return supportersNumber;
-    }
-
-    public Map<NameFaction, Integer> getSatisfactionPercentage() {
-        return satisfactionPercentage;
+        return agriculturePercentage;
     }
 
     public int getFoodUnit() {
         return foodUnit;
+    }
+
+    public ListFaction getListFactions() { return listFactions; }
+
+    public void setTreasury(int treasury) {
+        this.treasury = treasury;
+    }
+
+    public void setFoodUnit(int foodUnit) {
+        this.foodUnit = foodUnit;
     }
 }
