@@ -258,21 +258,20 @@ public class Game {
 
         if(scenario.getFoodUnit() + 40 * scenario.getAgriculturePercentage() < scenario.getListFactions().getAllSuportersNumber()){
             System.out.println(" FAMINE !\n");
-
             killPeople();
         }else if(40 * scenario.getAgriculturePercentage()  >= scenario.getListFactions().getAllSuportersNumber() * 1.10){
             System.out.println(" EXCEDENT !\n");
+            increasePeople();
+
 
         }
     }
 
     private void killPeople(){
         System.out.println(" MORT !\n");
-        int range = 8;
+
         do{
-            int randomFaction = (int)(Math.random() * range) + 1;
-            NameFaction nameFactionChosen =  chooseFaction(randomFaction);
-            Faction factionChosen = scenario.getListFactions().getOneFaction(nameFactionChosen);
+            Faction factionChosen = randomFaction();
             factionChosen.setSupportersNumber(factionChosen.getSupportersNumber() - 1);
 
             scenario.getListFactions().setAllSatisfaction(-2);
@@ -314,6 +313,33 @@ public class Game {
     return nameFactionChosen;
     }
 
+    private void increasePeople(){
 
+        int randomPercentage = (int)(Math.random() * 10) + 1;
+
+        int allSuportersNumber = scenario.getListFactions().getAllSuportersNumber();
+
+        int numbersSuportersToAdd = randomPercentage * allSuportersNumber / 100;
+
+        while (allSuportersNumber > 0 ){
+            int randomSuporterToFaction = (int)(Math.random() * allSuportersNumber) + 1;
+            allSuportersNumber -= randomSuporterToFaction;
+            Faction randomFaction = randomFaction();
+            randomFaction.setSupportersNumber(randomFaction.getSupportersNumber() + randomSuporterToFaction);
+        }
+
+        Faction factionChosen = randomFaction();
+
+        factionChosen.setSupportersNumber(factionChosen.getSupportersNumber() - numbersSuportersToAdd);
+
+    }
+
+    private Faction randomFaction(){
+        int range = 8;
+        int randomFaction = (int)(Math.random() * range) + 1;
+        NameFaction nameFactionChosen =  chooseFaction(randomFaction);
+        Faction factionChosen = scenario.getListFactions().getOneFaction(nameFactionChosen);
+        return factionChosen;
+    }
 
 }
