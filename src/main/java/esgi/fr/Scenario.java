@@ -54,4 +54,8 @@ public class Scenario {
     public void setTreasury(int treasury) {
         this.treasury = treasury;
     }
+
+    public void setFoodUnit(int foodUnit) {
+        this.foodUnit = foodUnit;
+    }
 }

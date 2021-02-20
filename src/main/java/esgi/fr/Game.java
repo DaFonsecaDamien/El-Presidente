@@ -36,6 +36,7 @@ public class Game {
             //le user choisit un choix
             choice = chooseChoice(event);
             season = season.next();
+            scenario.setFoodUnit(scenario.getFoodUnit()-scenario.getListFactions().getAllSupotersNumber());
             //si le choix provoque des evenements ...
             if(event.getChoices().get(choice).getRelatedEvents() != null){
                 //...on le parcour! tout en véérifiant si la fonction return pas false pour eviter de boucler pour rien
@@ -81,6 +82,17 @@ public class Game {
         System.out.println("saison "+season);
         if(season == Season.WINTER){
             System.out.println("Nous voici en fin d'année !");
+
+            int gainOr = 10*scenario.getIndustryPercentage();
+            scenario.setTreasury(scenario.getTreasury()+gainOr);
+            System.out.println("Voic ce que l'ile vous rapporte en or : "+gainOr);
+            System.out.println("Vous avez au total : "+scenario.getTreasury()+" pieces d'or dans votre trésorerie\n");
+
+            int gainFood = 40*scenario.getAgriculturePercentage();
+            scenario.setFoodUnit(scenario.getFoodUnit()+gainFood);
+            System.out.println("Voici ce que l'ile vous rapporte en nourriture : "+gainFood);
+            System.out.println("Vous avez au total "+scenario.getFoodUnit()+" unités de nouritures en stock");
+
             bribeFactionMenu();
             year++;
         }
@@ -91,7 +103,6 @@ public class Game {
         String choice="";
         Scanner sc = new Scanner(System.in);
         do{
-            System.out.println("Vous avez "+scenario.getTreasury()+" pieces d'or dans votre trésorerie\n");
             System.out.println("Voulez vous soudoyer une faction ?");
             System.out.println("Si oui tapez sur 'o' sinon tapez sur n'importe quelle autres touches");
             choice = sc.nextLine();

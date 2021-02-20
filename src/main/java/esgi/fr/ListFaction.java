@@ -21,4 +21,12 @@ public class ListFaction {
         }
         return null;
     }
+
+    public int getAllSupotersNumber(){
+        int somme = 0;
+        for(Faction faction : factions){
+            somme+= faction.getSupportersNumber();
+        }
+        return somme;
+    }
 }
