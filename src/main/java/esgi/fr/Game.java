@@ -50,9 +50,7 @@ public class Game {
 
     // TODO Condition de perte
     private boolean isLoose(){
-
     double globalSatisfaction = scenario.getListFactions().getAllSatisfactionNumber();
-
         return globalSatisfaction < 10.0;
     }
 
@@ -79,8 +77,6 @@ public class Game {
         }
         return myChoice-1;
     }
-
-
 
     private void manageYear(){
         if(season == Season.WINTER){
@@ -148,7 +144,6 @@ public class Game {
         }
         printResultBribe(nameFactionChoose);
     }
-
 
     private int getChoiceFaction(){
         int choice =0;
@@ -258,7 +253,6 @@ public class Game {
     private void yearBilan(){
         System.out.println("C'est l'heure du bilan de fin d'année ! \n");
 
-
         if(scenario.getFoodUnit() + 40 * scenario.getAgriculturePercentage() < scenario.getListFactions().getAllSuportersNumber()){
             System.out.println(" FAMINE !\n");
             killPeople();
@@ -328,11 +322,6 @@ public class Game {
             Faction randomFaction = randomFaction();
             randomFaction.setSupportersNumber(randomFaction.getSupportersNumber() + randomNumberOfSupportersToAdd);
         }
-
-        Faction factionChosen = randomFaction();
-
-        factionChosen.setSupportersNumber(factionChosen.getSupportersNumber() - totalNumbersOfSuportersToAdd);
-
     }
 
     private Faction randomFaction(){
