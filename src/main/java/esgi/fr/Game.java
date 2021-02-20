@@ -93,6 +93,7 @@ public class Game {
 
             bribeFactionMenu();
             marketPlace();
+            //yearBilan();
             year++;
         }
         System.out.println("annee numero : "+year);
@@ -250,6 +251,31 @@ public class Game {
 
     }
 
+    private void yearBilan(){
+        System.out.println("C'est l'heure du bilan de fin d'année ! \n");
+
+
+        if(scenario.getFoodUnit() + 40 * scenario.getAgriculturePercentage() < scenario.getListFactions().getAllSuportersNumber()){
+            System.out.println(" FAMINE !\n");
+
+            killPeople();
+        }else if(40 * scenario.getAgriculturePercentage()  >= scenario.getListFactions().getAllSuportersNumber() * 1.10){
+            System.out.println(" EXCEDENT !\n");
+
+        }
+    }
+
+    private void killPeople(){
+        System.out.println(" MORT !\n");
+        int max = 8;
+        int min = 1;
+        int range = max - min + 1;
+        int randomFaction = (int)(Math.random() * range) + min;
+        do{
+
+            getChoiceFaction();
+        }while(scenario.getFoodUnit() + 40 * scenario.getAgriculturePercentage() < scenario.getListFactions().getAllSuportersNumber());
+    }
 
 
 }
