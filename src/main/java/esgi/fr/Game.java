@@ -50,7 +50,7 @@ public class Game {
 
     // TODO Condition de perte
     private boolean isLoose(){
-    double globalSatisfaction = scenario.getListFactions().getAllSatisfactionNumber();
+    double globalSatisfaction = scenario.getListFactions().getGlobalSatisfactionPercentage();
         return globalSatisfaction < 10.0;
     }
 
@@ -266,70 +266,21 @@ public class Game {
         System.out.println(" MORT !\n");
 
         do{
-            Faction factionChosen = randomFaction();
-            factionChosen.setSupportersNumber(factionChosen.getSupportersNumber() - 1);
+            Faction randomFaction = scenario.getListFactions().getRandomFaction();
+            randomFaction.setSupportersNumber(randomFaction.getSupportersNumber() - 1);
 
             scenario.getListFactions().setAllSatisfaction(-2);
 
         }while(scenario.getFoodUnit() + 40 * scenario.getAgriculturePercentage() < scenario.getListFactions().getAllSuportersNumber());
     }
 
-    private NameFaction chooseFaction(int factionChosen){
-
-        NameFaction nameFactionChosen = NameFaction.CAPITALISTE;
-
-        switch (factionChosen){
-            case 1:
-                nameFactionChosen = NameFaction.CAPITALISTE;
-                break;
-            case 2:
-                nameFactionChosen = NameFaction.COMMUNISTE;
-                break;
-            case 3:
-                nameFactionChosen = NameFaction.LIBERAU;
-                break;
-            case 4:
-                nameFactionChosen = NameFaction.RELIGIEU;
-                break;
-            case 5:
-                nameFactionChosen = NameFaction.MILITARISTE;
-                break;
-            case 6:
-                nameFactionChosen = NameFaction.ECOLOGISTE;
-                break;
-            case 7:
-                nameFactionChosen = NameFaction.NATIONALISTE;
-                break;
-            case 8:
-                nameFactionChosen = NameFaction.LOYALISTE;
-                break;
-
-        }
-    return nameFactionChosen;
-    }
 
     private void increasePeople(){
-
         int randomPercentage = (int)(Math.random() * 10) + 1;
+        int totalNumbersOfSuportersToAdd = randomPercentage * scenario.getListFactions().getAllSuportersNumber() / 100;
 
-        int allSuportersNumber = scenario.getListFactions().getAllSuportersNumber();
-
-        int totalNumbersOfSuportersToAdd = randomPercentage * allSuportersNumber / 100;
-
-        while (totalNumbersOfSuportersToAdd > 0 ){
-            int randomNumberOfSupportersToAdd = (int)(Math.random() + totalNumbersOfSuportersToAdd) + 1;
-            totalNumbersOfSuportersToAdd -= randomNumberOfSupportersToAdd;
-            Faction randomFaction = randomFaction();
-            randomFaction.setSupportersNumber(randomFaction.getSupportersNumber() + randomNumberOfSupportersToAdd);
-        }
+        scenario.getListFactions().setAllSupportersNumberInRandomsFactions(totalNumbersOfSuportersToAdd);
     }
 
-    private Faction randomFaction(){
-        int range = 8;
-        int randomFaction = (int)(Math.random() * range) + 1;
-        NameFaction nameFactionChosen =  chooseFaction(randomFaction);
-        Faction factionChosen = scenario.getListFactions().getOneFaction(nameFactionChosen);
-        return factionChosen;
-    }
 
 }
