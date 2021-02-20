@@ -50,7 +50,10 @@ public class Game {
 
     // TODO Condition de perte
     private boolean isLoose(){
-        return false;
+
+    double globalSatisfaction = scenario.getListFactions().getAllSatisfactionNumber();
+
+        return globalSatisfaction < 10.0;
     }
 
     private int chooseChoice(Event event) {
@@ -65,6 +68,7 @@ public class Game {
         }
 
 
+
         Scanner sc = new Scanner(System.in);
         while (myChoice < 1 || myChoice > event.getChoices().size()) {
             while (!sc.hasNextInt()) {
@@ -75,6 +79,8 @@ public class Game {
         }
         return myChoice-1;
     }
+
+
 
     private void manageYear(){
         if(season == Season.WINTER){
@@ -188,7 +194,7 @@ public class Game {
     }
 
     private void manageAgriculture(){
-        int foodUnitConsumed = scenario.getListFactions().getAllSupotersNumber();
+        int foodUnitConsumed = scenario.getListFactions().getAllSuportersNumber();
         scenario.setFoodUnit(scenario.getFoodUnit()-foodUnitConsumed);
         System.out.println("Votre ile a consomé "+foodUnitConsumed+" unités de nourriture");
 
@@ -207,9 +213,9 @@ public class Game {
         String choice = "";
         Scanner sc = new Scanner(System.in);
 
-        System.out.println("Vous pouvez achetez des unites de nouriturs pour subvenir aux besoins");
+        System.out.println("Vous pouvez achetez des unites de nouritures pour subvenir aux besoins");
         System.out.println("des citoyens de votre ile\n");
-        System.out.println("Vous avez "+scenario.getListFactions().getAllSupotersNumber()+" citoyens dans votre ile");
+        System.out.println("Vous avez "+scenario.getListFactions().getAllSuportersNumber()+" citoyens dans votre ile");
         System.out.println("Vous avez "+scenario.getFoodUnit()+" unités de nourriture\n");
         System.out.println("Soyez prévoyant !\n");
 
@@ -243,5 +249,7 @@ public class Game {
         System.out.println("Vous avez dépensé au total "+nbFoodUnitBought*8+" pièces d'or\n");
 
     }
+
+
 
 }

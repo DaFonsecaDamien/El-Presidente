@@ -6,6 +6,7 @@ public class Faction implements ManageFactions{
     private int satisfactionPercentage;
     private int supportersNumber;
 
+
     public Faction(NameFaction nameFaction, int satisfaction, int supportersNumber) {
         this.nameFaction = nameFaction;
         this.satisfactionPercentage = satisfaction;
@@ -51,5 +52,8 @@ public class Faction implements ManageFactions{
                 "\nSatisfaction : " + satisfactionPercentage +"%"+
                 "\nNombre de partisans : " + supportersNumber;
     }
+
+
+
 
 }

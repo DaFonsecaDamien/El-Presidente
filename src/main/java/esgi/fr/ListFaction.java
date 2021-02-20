@@ -22,11 +22,22 @@ public class ListFaction {
         return null;
     }
 
-    public int getAllSupotersNumber(){
+    public int getAllSuportersNumber(){
         int somme = 0;
         for(Faction faction : factions){
             somme+= faction.getSupportersNumber();
         }
         return somme;
     }
+
+    public double getAllSatisfactionNumber(){
+        double sommeSatisfactionNumber = 0;
+        for(Faction faction : factions){
+            sommeSatisfactionNumber += faction.getSatisfactionPercentage() * faction.getSupportersNumber();
+        }
+
+        return sommeSatisfactionNumber / getAllSuportersNumber();
+
+    }
+
 }
