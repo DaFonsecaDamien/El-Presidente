@@ -48,7 +48,7 @@ public class Faction implements ManageFactions{
     @Override
     public String toString() {
         return "Nom : " + nameFaction +
-                "\nPourcentage de satisfaction : " + satisfactionPercentage +
+                "\nSatisfaction : " + satisfactionPercentage +"%"+
                 "\nNombre de partisans : " + supportersNumber;
     }
 

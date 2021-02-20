@@ -132,23 +132,8 @@ public class Game {
             case 7:
                 nameFactionChoose = NameFaction.NATIONALISTE;
                 break;
-            case 8:
-                nameFactionChoose = NameFaction.LOYALISTE;
-                break;
         }
-        System.out.println("Vous avez choisi de soudoyer la factions des "+nameFactionChoose+"S");
-
-        Faction factionChosen = scenario.getListFactions().getOneFaction(nameFactionChoose);
-
-        if(factionChosen.bribeFaction(scenario.getTreasury())){
-            scenario.setTreasury(scenario.getTreasury()-15*factionChosen.getSupportersNumber());
-
-            Faction loyalistFaction = scenario.getListFactions().getOneFaction(NameFaction.LOYALISTE);
-            loyalistFaction.setSatisfactionPercentage(loyalistFaction.getSatisfactionPercentage()-(factionChosen.getSupportersNumber()*15)/10);
-            System.out.println("La satisfaction de la faction "+nameFactionChoose+" a auguementé de 10%!");
-        }else{
-            System.out.println("Vous n'etes pas en meusure de soudoyer cette faction");
-        }
+        printResultBribe(nameFactionChoose);
     }
 
     private int getChoiceFaction(){
@@ -172,10 +157,27 @@ public class Game {
             if(faction.getNameFaction()==NameFaction.LOYALISTE)break;
             i++;
             System.out.println(i+" - ");
-            System.out.println(faction.toString());
+            System.out.println(faction);
             System.out.println("Or requis : "+faction.getSupportersNumber()*15);
             System.out.println();
         }
         System.out.println("choisissez celle que vous voulez soudoyer");
+    }
+
+    private void printResultBribe(NameFaction nameFactionChoose){
+        System.out.println("Vous avez choisi de soudoyer la factions des "+nameFactionChoose+"S");
+
+        Faction factionChosen = scenario.getListFactions().getOneFaction(nameFactionChoose);
+
+        if(factionChosen.bribeFaction(scenario.getTreasury())){
+            scenario.setTreasury(scenario.getTreasury()-15*factionChosen.getSupportersNumber());
+            System.out.println("Leur satisfaction a auguementé de 10%!\n");
+
+            Faction loyalistFaction = scenario.getListFactions().getOneFaction(NameFaction.LOYALISTE);
+            loyalistFaction.setSatisfactionPercentage(loyalistFaction.getSatisfactionPercentage()-(factionChosen.getSupportersNumber()*15)/10);
+            System.out.println("La satisfaction de la faction loyaliste est desormais de "+loyalistFaction.getSatisfactionPercentage()+"%\n");
+        }else{
+            System.out.println("Vous n'etes pas en meusure de soudoyer cette faction\n");
+        }
     }
 }
