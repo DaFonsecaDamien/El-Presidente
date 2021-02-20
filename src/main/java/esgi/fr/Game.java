@@ -78,20 +78,20 @@ public class Game {
 
 
     private void manageYear(){
-        System.out.println("annee numero : "+year);
-        System.out.println("saison "+season);
         if(season == Season.WINTER){
             System.out.println("Nous voici en fin d'année !");
 
             manageTreasurer();
-            System.out.println("Vous avez au total : "+scenario.getTreasury()+" pieces d'or dans votre trésorerie\n");
 
-            System.out.println("Vous avez au total "+scenario.getFoodUnit()+" unités de nouritures en stock");
+            System.out.println("Vous avez au total : "+scenario.getTreasury()+" pieces d'or dans votre trésorerie\n");
+            System.out.println("Vous avez au total "+scenario.getFoodUnit()+" unités de nouriture en stock");
 
             bribeFactionMenu();
-            //marketPlace();
+            marketPlace();
             year++;
         }
+        System.out.println("annee numero : "+year);
+        System.out.println("saison "+season);
     }
 
     private void bribeFactionMenu(){
@@ -191,7 +191,7 @@ public class Game {
     private void manageAgriculture(){
         int foodUnitConsumed = scenario.getListFactions().getAllSupotersNumber();
         scenario.setFoodUnit(scenario.getFoodUnit()-foodUnitConsumed);
-        System.out.println("Votre ile a consomé "+foodUnitConsumed+"unités de noriture");
+        System.out.println("Votre ile a consomé "+foodUnitConsumed+" unités de nourriture");
 
         int gainFood = 10*scenario.getAgriculturePercentage();
         scenario.setFoodUnit(scenario.getFoodUnit()+gainFood);
@@ -203,7 +203,46 @@ public class Game {
         scenario.setTreasury(scenario.getTreasury()+gainOr);
         System.out.println("Voic ce que l'ile vous rapporte en or cette année: "+gainOr);
     }
-    
 
+    private void marketPlace(){
+        String choice = "";
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("Vous pouvez achetez des unites de nouriturs pour subvenir aux besoins");
+        System.out.println("des citoyens de votre ile\n");
+        System.out.println("Vous avez "+scenario.getListFactions().getAllSupotersNumber()+" citoyens dans votre ile");
+        System.out.println("Vous avez "+scenario.getFoodUnit()+" unités de nourriture\n");
+        System.out.println("Soyez prévoyant !\n");
+
+        System.out.println("Voulez vous achetez des unités de nourriture ?");
+        System.out.println("Cette opération vous coutera 8 or par unité\n");
+        System.out.println("Si oui tapez sur 'o' sinon tapez sur n'importe quelle autres touches\n");
+
+        choice = sc.nextLine();
+        if(choice.equals("o")){
+            buyFoodUnits();
+        }
+    }
+
+    private void buyFoodUnits(){
+        int nbFoodUnitBought=0;
+        Scanner sc = new Scanner(System.in);
+        int nbUnitFoodMaxPossible = scenario.getTreasury() / 8;
+        System.out.println("Combien d'unités de nourriture voulez vous acheter ?");
+
+        while(nbFoodUnitBought<1 || nbFoodUnitBought > nbUnitFoodMaxPossible){
+            System.out.println("Vous pouvez achetez jusqu'a "+nbUnitFoodMaxPossible+" unités de nourriture\n");
+            while (!sc.hasNextInt()){
+                sc = new Scanner(System.in);
+            }
+            nbFoodUnitBought = sc.nextInt();
+        }
+        scenario.setTreasury(scenario.getTreasury()-8*nbFoodUnitBought);
+        scenario.setFoodUnit(scenario.getFoodUnit()+nbFoodUnitBought);
+
+        System.out.println("Vous avez acheté "+nbFoodUnitBought+" unités de nourriture !");
+        System.out.println("Vous avez dépensé au total "+nbFoodUnitBought*8+" pièces d'or\n");
+
+    }
 
 }
