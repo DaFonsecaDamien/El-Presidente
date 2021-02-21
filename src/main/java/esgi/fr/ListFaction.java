@@ -42,23 +42,26 @@ public class ListFaction {
 
     public void setAllSatisfaction(int number){
         for(Faction faction : factions){
-            faction.setSatisfactionPercentage(faction.getSatisfactionPercentage() + number);
+            if(faction.getSatisfactionPercentage()!=0){
+                faction.setSatisfactionPercentage(faction.getSatisfactionPercentage() + number);
+            }
         }
     }
 
     public void setAllSupportersNumberInRandomsFactions(int numbersOfSupporters){
-        int randomNumberOfSupporters=0;
+        int randomNumberOfSupporters=1;
         int posOrNeg = numbersOfSupporters > 0 ? 1 : -1;
 
         while (numbersOfSupporters != 0 ){
-            randomNumberOfSupporters = (int)(Math.random() + numbersOfSupporters) + posOrNeg;
+            randomNumberOfSupporters = (int)(Math.random() * numbersOfSupporters) + posOrNeg;
             numbersOfSupporters -= randomNumberOfSupporters;
             Faction randomFaction = getRandomFaction();
             if(posOrNeg==-1){
-                while(randomFaction.getSupportersNumber()<randomNumberOfSupporters){
-                    int feltSupportersToRemove = randomNumberOfSupporters - randomFaction.getSupportersNumber();
+                while(randomFaction.getSupportersNumber() + randomNumberOfSupporters<0 && getAllSuportersNumber()!=0){
+                    randomNumberOfSupporters = randomNumberOfSupporters + randomFaction.getSupportersNumber();
                     randomFaction.setSupportersNumber(0);
-                    Faction randomFaction1 = getRandomFaction();
+                    randomFaction.setSatisfactionPercentage(0);
+                    randomFaction = getRandomFaction();
                 }
             }
             randomFaction.setSupportersNumber(randomFaction.getSupportersNumber() + randomNumberOfSupporters);

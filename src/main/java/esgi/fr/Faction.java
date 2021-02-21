@@ -31,16 +31,21 @@ public class Faction implements ManageFactions{
     }
 
     public void setSatisfactionPercentage(int satisfactionPercentage) {
+        if(this.satisfactionPercentage+satisfactionPercentage<0){
+            this.satisfactionPercentage = 0;
+            return;
+        }
         this.satisfactionPercentage = satisfactionPercentage;
     }
 
     public void setSupportersNumber(int supportersNumber) {
+
         this.supportersNumber = supportersNumber;
     }
 
     @Override
-    public boolean bribeFaction(int treasurer) {
-        if(satisfactionPercentage>99 || satisfactionPercentage<1 || supportersNumber*15>treasurer){
+    public boolean bribeFaction() {
+        if(satisfactionPercentage>99 || satisfactionPercentage<1 || nameFaction==NameFaction.LOYALISTE){
             return false;
         }
         satisfactionPercentage += 10;
