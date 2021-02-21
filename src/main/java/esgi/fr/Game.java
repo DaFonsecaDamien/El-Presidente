@@ -222,17 +222,17 @@ public class Game {
         System.out.println("C'est l'heure du bilan de fin d'année ! \n");
 
         if(scenario.getFoodUnit() + 40 * scenario.getAgriculturePercentage() < scenario.getListFactions().getAllSuportersNumber()){
-            System.out.println(" FAMINE !\n");
+            System.out.println(" Malheureusement vous n'avez pas de quoi nourrir tous vos citoyens ...  \n");
             killPeople();
         }else if(40 * scenario.getAgriculturePercentage() >= scenario.getListFactions().getAllSuportersNumber() * 1.10){
-            System.out.println(" EXCEDENT !\n");
+            System.out.println(" Bonne nouvelle : votre agricultre se porte bien !  !\n");
             increasePeople();
         }
     }
 
     private void killPeople(){
-        System.out.println(" MORT !\n");
-
+        System.out.println(" Vos citoyens meurent de faim ... !\n");
+    //TODO indiquer le nombre de citoynes morts
         do{
             Faction randomFaction = scenario.getListFactions().getRandomFaction();
             randomFaction.setSupportersNumber(randomFaction.getSupportersNumber() - 1);
