@@ -21,4 +21,78 @@ public class ListFaction {
         }
         return null;
     }
+
+    public int getAllSuportersNumber(){
+        int somme = 0;
+        for(Faction faction : factions){
+            somme+= faction.getSupportersNumber();
+        }
+        return somme;
+    }
+
+    public double getGlobalSatisfactionPercentage(){
+        double sommeSatisfactionNumber = 0;
+        for(Faction faction : factions){
+            sommeSatisfactionNumber += faction.getSatisfactionPercentage() * faction.getSupportersNumber();
+        }
+
+        return sommeSatisfactionNumber / getAllSuportersNumber();
+
+    }
+
+    public void setAllSatisfaction(int number){
+        for(Faction faction : factions){
+            faction.setSatisfactionPercentage(faction.getSatisfactionPercentage() + number);
+        }
+    }
+
+    public void setAllSupportersNumberInRandomsFactions(int totalNumbersOfSuportersToAdd){
+        int randomNumberOfSupportersToAdd=0;
+        while (totalNumbersOfSuportersToAdd > 0 ){
+            randomNumberOfSupportersToAdd = (int)(Math.random() + totalNumbersOfSuportersToAdd) + 1;
+            totalNumbersOfSuportersToAdd -= randomNumberOfSupportersToAdd;
+            Faction randomFaction = getRandomFaction();
+            randomFaction.setSupportersNumber(randomFaction.getSupportersNumber() + randomNumberOfSupportersToAdd);
+        }
+    }
+
+    public Faction getRandomFaction(){
+        int randomFaction = (int)(Math.random() * 8) + 1;
+        Faction factionChosen = chooseFaction(randomFaction);
+        return factionChosen;
+    }
+
+    public Faction chooseFaction(int factionChosen){
+
+        NameFaction nameFactionChosen = NameFaction.CAPITALISTE;
+
+        switch (factionChosen){
+            case 1:
+                nameFactionChosen = NameFaction.CAPITALISTE;
+                break;
+            case 2:
+                nameFactionChosen = NameFaction.COMMUNISTE;
+                break;
+            case 3:
+                nameFactionChosen = NameFaction.LIBERAU;
+                break;
+            case 4:
+                nameFactionChosen = NameFaction.RELIGIEU;
+                break;
+            case 5:
+                nameFactionChosen = NameFaction.MILITARISTE;
+                break;
+            case 6:
+                nameFactionChosen = NameFaction.ECOLOGISTE;
+                break;
+            case 7:
+                nameFactionChosen = NameFaction.NATIONALISTE;
+                break;
+            case 8:
+                nameFactionChosen = NameFaction.LOYALISTE;
+                break;
+        }
+        return getOneFaction(nameFactionChosen);
+    }
+
 }

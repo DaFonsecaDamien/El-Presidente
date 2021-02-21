@@ -1,25 +1,21 @@
 package esgi.fr;
 
+import java.util.HashMap;
+
 public class Effect {
     private String typeAction;
-    private String action;
-    private int value;
+    private HashMap<String,Integer> actions;
 
-    public Effect(String typeAction, String action, int value) {
+    public Effect(String typeAction, HashMap<String, Integer> actions) {
         this.typeAction = typeAction;
-        this.action = action;
-        this.value = value;
+        this.actions = actions;
     }
 
     public String getTypeAction() {
         return typeAction;
     }
 
-    public String getAction() {
-        return action;
-    }
-
-    public int getValue() {
-        return value;
+    public HashMap<String, Integer> getActions() {
+        return actions;
     }
 }

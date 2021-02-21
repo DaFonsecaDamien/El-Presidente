@@ -2,9 +2,11 @@ package esgi.fr;
 
 public class Faction implements ManageFactions{
 
+    public static double globalSatisfaction;
     private NameFaction nameFaction;
     private int satisfactionPercentage;
     private int supportersNumber;
+
 
     public Faction(NameFaction nameFaction, int satisfaction, int supportersNumber) {
         this.nameFaction = nameFaction;
@@ -38,7 +40,7 @@ public class Faction implements ManageFactions{
 
     @Override
     public boolean bribeFaction(int treasurer) {
-        if(satisfactionPercentage >99 || supportersNumber*15>treasurer){
+        if(satisfactionPercentage>99 || satisfactionPercentage<1 || supportersNumber*15>treasurer){
             return false;
         }
         satisfactionPercentage += 10;
@@ -48,8 +50,11 @@ public class Faction implements ManageFactions{
     @Override
     public String toString() {
         return "Nom : " + nameFaction +
-                "\nPourcentage de satisfaction : " + satisfactionPercentage +
+                "\nSatisfaction : " + satisfactionPercentage +"%"+
                 "\nNombre de partisans : " + supportersNumber;
     }
+
+
+
 
 }

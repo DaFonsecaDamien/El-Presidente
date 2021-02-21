@@ -15,8 +15,8 @@ public class Game {
         this.level = level;
         this.mode = mode;
         this.scenario = scenario;
-        this.year = 0;
-        this.season = Season.SPRING;
+        this.year = 1;
+        this.season = Season.WINTER;
     }
 
     public Scenario getScenario() {
@@ -27,7 +27,6 @@ public class Game {
         int choice=0;
         //on parcours la list de event
         for(Event event: events){
-            manageYear();
             //on vérifie si on a pas perdu lol
             if(isLoose()){
                 //afficher les resultats et sortir
@@ -36,6 +35,8 @@ public class Game {
             //le user choisit un choix
             choice = chooseChoice(event);
             season = season.next();
+            manageAgriculture();
+            manageYear();
             //si le choix provoque des evenements ...
             if(event.getChoices().get(choice).getRelatedEvents() != null){
                 //...on le parcour! tout en véérifiant si la fonction return pas false pour eviter de boucler pour rien
@@ -49,7 +50,8 @@ public class Game {
 
     // TODO Condition de perte
     private boolean isLoose(){
-        return false;
+    double globalSatisfaction = scenario.getListFactions().getGlobalSatisfactionPercentage();
+        return globalSatisfaction < 10.0;
     }
 
     private int chooseChoice(Event event) {
@@ -64,6 +66,7 @@ public class Game {
         }
 
 
+
         Scanner sc = new Scanner(System.in);
         while (myChoice < 1 || myChoice > event.getChoices().size()) {
             while (!sc.hasNextInt()) {
@@ -75,15 +78,22 @@ public class Game {
         return myChoice-1;
     }
 
-
     private void manageYear(){
-        System.out.println("annee numero : "+(year+1));
-        System.out.println("saison "+season);
         if(season == Season.WINTER){
             System.out.println("Nous voici en fin d'année !");
+
+            manageTreasurer();
+
+            System.out.println("Vous avez au total : "+scenario.getTreasury()+" pieces d'or dans votre trésorerie\n");
+            System.out.println("Vous avez au total "+scenario.getFoodUnit()+" unités de nouriture en stock");
+
             bribeFactionMenu();
+            marketPlace();
+            yearBilan();
             year++;
         }
+        System.out.println("annee numero : "+year);
+        System.out.println("saison "+season);
     }
 
     private void bribeFactionMenu(){
@@ -91,16 +101,15 @@ public class Game {
         String choice="";
         Scanner sc = new Scanner(System.in);
         do{
-            System.out.println("Vous avez "+scenario.getTreasury()+" pieces d'or dans votre trésorerie\n");
             System.out.println("Voulez vous soudoyer une faction ?");
-            System.out.println("Si oui tapez sur 'o' sinon tapez sur n'importe quelle autres touches");
+            System.out.println("Si oui tapez sur 'o' sinon tapez sur 'n'");
             choice = sc.nextLine();
 
             if(choice.equals("o")){
                 chooseFactionsToBribe();
             }
 
-        }while(choice.equals("o"));
+        }while(!choice.equals("n"));printInfosFactions();
 
     }
 
@@ -132,23 +141,8 @@ public class Game {
             case 7:
                 nameFactionChoose = NameFaction.NATIONALISTE;
                 break;
-            case 8:
-                nameFactionChoose = NameFaction.LOYALISTE;
-                break;
         }
-        System.out.println("Vous avez choisi de soudoyer la factions des "+nameFactionChoose+"S");
-
-        Faction factionChosen = scenario.getListFactions().getOneFaction(nameFactionChoose);
-
-        if(factionChosen.bribeFaction(scenario.getTreasury())){
-            scenario.setTreasury(scenario.getTreasury()-15*factionChosen.getSupportersNumber());
-
-            Faction loyalistFaction = scenario.getListFactions().getOneFaction(NameFaction.LOYALISTE);
-            loyalistFaction.setSatisfactionPercentage(loyalistFaction.getSatisfactionPercentage()-(factionChosen.getSupportersNumber()*15)/10);
-            System.out.println("La satisfaction de la faction "+nameFactionChoose+" a auguementé de 10%!");
-        }else{
-            System.out.println("Vous n'etes pas en meusure de soudoyer cette faction");
-        }
+        printResultBribe(nameFactionChoose);
     }
 
     private int getChoiceFaction(){
@@ -172,10 +166,120 @@ public class Game {
             if(faction.getNameFaction()==NameFaction.LOYALISTE)break;
             i++;
             System.out.println(i+" - ");
-            System.out.println(faction.toString());
+            System.out.println(faction);
             System.out.println("Or requis : "+faction.getSupportersNumber()*15);
             System.out.println();
         }
         System.out.println("choisissez celle que vous voulez soudoyer");
     }
+
+    private void printResultBribe(NameFaction nameFactionChoose){
+        System.out.println("Vous avez choisi de soudoyer la factions des "+nameFactionChoose+"S");
+
+        Faction factionChosen = scenario.getListFactions().getOneFaction(nameFactionChoose);
+
+        if(factionChosen.bribeFaction(scenario.getTreasury())){
+            scenario.setTreasury(scenario.getTreasury()-15*factionChosen.getSupportersNumber());
+            System.out.println("Leur satisfaction a auguementé de 10%!\n");
+
+            Faction loyalistFaction = scenario.getListFactions().getOneFaction(NameFaction.LOYALISTE);
+            loyalistFaction.setSatisfactionPercentage(loyalistFaction.getSatisfactionPercentage()-(factionChosen.getSupportersNumber()*15)/10);
+            System.out.println("La satisfaction de la faction loyaliste est desormais de "+loyalistFaction.getSatisfactionPercentage()+"%\n");
+        }else{
+            System.out.println("Vous n'etes pas en meusure de soudoyer cette faction\n");
+        }
+    }
+
+    private void manageAgriculture(){
+        int foodUnitConsumed = scenario.getListFactions().getAllSuportersNumber();
+        scenario.setFoodUnit(scenario.getFoodUnit()-foodUnitConsumed);
+        System.out.println("Votre ile a consomé "+foodUnitConsumed+" unités de nourriture");
+
+        int gainFood = 10*scenario.getAgriculturePercentage();
+        scenario.setFoodUnit(scenario.getFoodUnit()+gainFood);
+        System.out.println("Voici ce que l'ile vous a rapporté en nouriture cette saison: "+gainFood);
+    }
+
+    private void manageTreasurer(){
+        int gainOr = 10*scenario.getIndustryPercentage();
+        scenario.setTreasury(scenario.getTreasury()+gainOr);
+        System.out.println("Voic ce que l'ile vous rapporte en or cette année: "+gainOr);
+    }
+
+    private void marketPlace(){
+        String choice = "";
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("Vous pouvez achetez des unites de nouritures pour subvenir aux besoins");
+        System.out.println("des citoyens de votre ile\n");
+        System.out.println("Vous avez "+scenario.getListFactions().getAllSuportersNumber()+" citoyens dans votre ile");
+        System.out.println("Vous avez "+scenario.getFoodUnit()+" unités de nourriture\n");
+        System.out.println("Soyez prévoyant !\n");
+
+        System.out.println("Voulez vous achetez des unités de nourriture ?");
+        System.out.println("Cette opération vous coutera 8 or par unité\n");
+        System.out.println("Si oui tapez sur 'o' sinon tapez sur 'n'\n");
+
+        do{
+            choice = sc.nextLine();
+        }while (!choice.equals("o") && !choice.equals("n"));
+
+        if(choice.equals("o")){
+            buyFoodUnits();
+        }
+    }
+
+    private void buyFoodUnits(){
+        int nbFoodUnitBought=0;
+        Scanner sc = new Scanner(System.in);
+        int nbUnitFoodMaxPossible = scenario.getTreasury() / 8;
+        System.out.println("Combien d'unités de nourriture voulez vous acheter ?");
+
+        while(nbFoodUnitBought<1 || nbFoodUnitBought > nbUnitFoodMaxPossible){
+            System.out.println("Vous pouvez achetez jusqu'a "+nbUnitFoodMaxPossible+" unités de nourriture\n");
+            while (!sc.hasNextInt()){
+                sc = new Scanner(System.in);
+            }
+            nbFoodUnitBought = sc.nextInt();
+        }
+        scenario.setTreasury(scenario.getTreasury()-8*nbFoodUnitBought);
+        scenario.setFoodUnit(scenario.getFoodUnit()+nbFoodUnitBought);
+
+        System.out.println("Vous avez acheté "+nbFoodUnitBought+" unités de nourriture !");
+        System.out.println("Vous avez dépensé au total "+nbFoodUnitBought*8+" pièces d'or\n");
+
+    }
+
+    private void yearBilan(){
+        System.out.println("C'est l'heure du bilan de fin d'année ! \n");
+
+        if(scenario.getFoodUnit() + 40 * scenario.getAgriculturePercentage() < scenario.getListFactions().getAllSuportersNumber()){
+            System.out.println(" FAMINE !\n");
+            killPeople();
+        }else if(40 * scenario.getAgriculturePercentage() >= scenario.getListFactions().getAllSuportersNumber() * 1.10){
+            System.out.println(" EXCEDENT !\n");
+            increasePeople();
+        }
+    }
+
+    private void killPeople(){
+        System.out.println(" MORT !\n");
+
+        do{
+            Faction randomFaction = scenario.getListFactions().getRandomFaction();
+            randomFaction.setSupportersNumber(randomFaction.getSupportersNumber() - 1);
+
+            scenario.getListFactions().setAllSatisfaction(-2);
+
+        }while(scenario.getFoodUnit() + 40 * scenario.getAgriculturePercentage() < scenario.getListFactions().getAllSuportersNumber());
+    }
+
+    private void increasePeople(){
+        int randomPercentage = (int)(Math.random() * 10) + 1;
+        int totalNumbersOfSuportersToAdd = randomPercentage * scenario.getListFactions().getAllSuportersNumber() / 100;
+
+        scenario.getListFactions().setAllSupportersNumberInRandomsFactions(totalNumbersOfSuportersToAdd);
+    }
+
+
 }
