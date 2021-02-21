@@ -52,10 +52,16 @@ public class Scenario {
     public ListFaction getListFactions() { return listFactions; }
 
     public void setTreasury(int treasury) {
+        if(this.treasury+treasury<0){
+            this.treasury = 0;
+            return;
+        }
         this.treasury = treasury;
     }
 
-    public void setFoodUnit(int foodUnit) {
-        this.foodUnit = foodUnit;
-    }
+    public void setFoodUnit(int foodUnit) { this.foodUnit = foodUnit; }
+
+    public void setIndustryPercentage(int industryPercentage) { this.industryPercentage = industryPercentage; }
+
+    public void setAgriculturePercentage(int agriculturePercentage) { this.agriculturePercentage = agriculturePercentage; }
 }

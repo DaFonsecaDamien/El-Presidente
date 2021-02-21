@@ -1,6 +1,7 @@
 package esgi.fr;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Game {
@@ -25,21 +26,16 @@ public class Game {
 
     public boolean run(List<Event> events){
         int choice=0;
-        //on parcours la list de event
         for(Event event: events){
-            //on vérifie si on a pas perdu lol
-            if(isLoose()){
-                //afficher les resultats et sortir
-                return false;
+            System.out.println("Satisfaction gobal de l'ile : "+scenario.getListFactions().getGlobalSatisfactionPercentage()+"\n\n");
+            if(!chooseChoice(event)){
+               return false;
             }
-            //le user choisit un choix
-            choice = chooseChoice(event);
             season = season.next();
             manageAgriculture();
             manageYear();
-            //si le choix provoque des evenements ...
+
             if(event.getChoices().get(choice).getRelatedEvents() != null){
-                //...on le parcour! tout en véérifiant si la fonction return pas false pour eviter de boucler pour rien
                 if(!run(event.getChoices().get(choice).getRelatedEvents())){
                     return false;
                 }
@@ -54,28 +50,31 @@ public class Game {
         return globalSatisfaction < 10.0;
     }
 
-    private int chooseChoice(Event event) {
-        int myChoice = 0;
+    private boolean chooseChoice(Event event) {
+        int choice = 0;
         int i=0;
 
         System.out.println(event.getName());
 
-        for(Choice choice : event.getChoices()){
+        for(Choice theChoice : event.getChoices()){
             i++;
-            System.out.println(i+" : "+choice.getName());
+            System.out.println(i+" : "+theChoice.getName());
         }
 
-
-
         Scanner sc = new Scanner(System.in);
-        while (myChoice < 1 || myChoice > event.getChoices().size()) {
+        while (choice < 1 || choice > event.getChoices().size()) {
             while (!sc.hasNextInt()) {
                 sc = new Scanner(System.in);
                 System.out.println("Rentrez un bon numéro ");
             }
-            myChoice = sc.nextInt();
+            choice = sc.nextInt();
         }
-        return myChoice-1;
+        manageEffect(choice,event);
+
+        if(isLoose()){
+            return false;
+        }
+        return true;
     }
 
     private void manageYear(){
@@ -163,7 +162,6 @@ public class Game {
         int i=0;
         System.out.println("Voici la liste des factions : ");
         for(Faction faction : scenario.getListFactions().getFactions()){
-            if(faction.getNameFaction()==NameFaction.LOYALISTE)break;
             i++;
             System.out.println(i+" - ");
             System.out.println(faction);
@@ -174,11 +172,15 @@ public class Game {
     }
 
     private void printResultBribe(NameFaction nameFactionChoose){
-        System.out.println("Vous avez choisi de soudoyer la factions des "+nameFactionChoose+"S");
-
         Faction factionChosen = scenario.getListFactions().getOneFaction(nameFactionChoose);
 
-        if(factionChosen.bribeFaction(scenario.getTreasury())){
+        if(factionChosen.getSupportersNumber()*15>scenario.getTreasury()){
+            System.out.println("Pas assez d'argent");
+            return;
+        }
+
+        System.out.println("Vous avez choisi de soudoyer la factions des "+nameFactionChoose+"S");
+        if(factionChosen.bribeFaction()){
             scenario.setTreasury(scenario.getTreasury()-15*factionChosen.getSupportersNumber());
             System.out.println("Leur satisfaction a auguementé de 10%!\n");
 
@@ -278,8 +280,113 @@ public class Game {
         int randomPercentage = (int)(Math.random() * 10) + 1;
         int totalNumbersOfSuportersToAdd = randomPercentage * scenario.getListFactions().getAllSuportersNumber() / 100;
 
-        scenario.getListFactions().setAllSupportersNumberInRandomsFactions(totalNumbersOfSuportersToAdd);
+        scenario.getListFactions().addSpportersInFactions(totalNumbersOfSuportersToAdd);
     }
 
+    private void manageEffect(int choice,Event event){
+        System.out.println("Conséquences : ");
+        System.out.println("\n-------------------------------\n");
+        for(Effect effect : event.getChoices().get(choice).getEffects()){
 
+            if(effect.getTypeAction()==null){
+                getEffectSupporters(effect);
+            }
+
+            else if(effect.getTypeAction().equals("actionOnFaction")){
+               getEffectOnFaction(effect);
+            }
+
+            else if(effect.getTypeAction().equals("actionOnFactor")){
+                getEffectOnFactor(effect);
+            }
+        }
+        System.out.println("\n-------------------------------\n");
+    }
+
+    private void getEffectSupporters(Effect effect){
+        int value = effect.getActions().get("partisans");
+
+        if(value<0 && scenario.getListFactions().getAllSuportersNumber()>0){
+            scenario.getListFactions().removeSpportersInFactions(value);
+            System.out.println("-    "+(-value)+" citoyens ont quitté l'ile");
+        }
+        else if(value>0){
+            scenario.getListFactions().addSpportersInFactions(value);
+            System.out.println("-    "+value+" ont rejoint votre ile");
+        }
+        if(scenario.getListFactions().getAllSuportersNumber()==0){System.out.println("-    Aucun citoyens dans votre ile");}
+    }
+
+    private void getEffectOnFaction(Effect effect){
+        for (Map.Entry action : effect.getActions().entrySet()){
+            int value = action.getValue().hashCode();
+            NameFaction nameFaction = NameFaction.CAPITALISTE;
+            switch (action.getKey().toString()){
+                case "ECOLOGISTS":
+                    nameFaction = NameFaction.ECOLOGISTE;
+                    break;
+                case "CAPITALISTS":
+                    nameFaction = NameFaction.CAPITALISTE;
+                    break;
+                case "LOYALISTS":
+                    nameFaction = NameFaction.LOYALISTE;
+                    break;
+                case "LIBERALS":
+                    nameFaction = NameFaction.LIBERAU;
+                    break;
+                case "RELIGIOUS":
+                    nameFaction = NameFaction.RELIGIEU;
+                    break;
+                case "MILITARISTS":
+                    nameFaction = NameFaction.MILITARISTE;
+                    break;
+                case "NATIONALISTS":
+                    nameFaction = NameFaction.NATIONALISTE;
+                    break;
+                case "COMMUNISTS":
+                    nameFaction = NameFaction.COMMUNISTE;
+                    break;
+            }
+            Faction faction = scenario.getListFactions().getOneFaction(nameFaction);
+            faction.setSatisfactionPercentage(value);
+            System.out.println("-    "+value+"% de satisfaction chez les "+nameFaction+"S");
+        }
+    }
+
+    private void getEffectOnFactor(Effect effect){
+        for (Map.Entry action : effect.getActions().entrySet()) {
+            int value = action.getValue().hashCode();
+            switch (action.getKey().toString()) {
+                case "AGRICULTURE":
+                    if(value<0 && scenario.getAgriculturePercentage()>0){
+                        scenario.setAgriculturePercentage(scenario.getAgriculturePercentage()+value);
+                    }
+                    else if(value>0){
+                        scenario.setAgriculturePercentage(scenario.getAgriculturePercentage()+value);
+                    }
+                    System.out.println("-    "+value+"% de surface dédié à l'agriculture");
+                    if(scenario.getAgriculturePercentage()==0){System.out.println("-    Aucun pourcentage de surface dédié pour l'agriculture");}
+                    break;
+                case "INDUSTRY":
+                    if(value<0 && scenario.getIndustryPercentage()>0){
+                        scenario.setIndustryPercentage(scenario.getIndustryPercentage()+value);
+                    }
+                    else if(value>0){
+                        scenario.setIndustryPercentage(scenario.getIndustryPercentage()+value);
+                    }
+                    System.out.println("-    "+value+"% de surface dédié à l'industrie");
+                    if(scenario.getIndustryPercentage()==0){System.out.println("-    Aucun pourcentage de surface dédié pour l'industrie");}
+                    break;
+                case "TREASURY":
+                    if(value<0 && scenario.getTreasury()>0){
+                        scenario.setTreasury(scenario.getTreasury()+value);
+                    }
+                    else if(value>0){
+                        scenario.setTreasury(scenario.getTreasury()+value);
+                    }
+                    System.out.println("-    "+value+" pièces d'or");
+                    if(scenario.getTreasury()==0){System.out.println("-    Votre trésorerie est vide");}
+            }
+        }
+    }
 }

@@ -13,15 +13,15 @@ import java.util.TreeMap;
  */
 public class App 
 {
-    public static void main( String[] args )
-    {
+    public static void main( String[] args ){
+
         Scanner sc = new Scanner(System.in);
 
         String choiceMode;
         String choiceLevel;
 
         Mode mode;
-        Level level;
+        Level level = Level.Medium;
 
         System.out.println("****ELPRESIDENTE****");
 
@@ -67,57 +67,7 @@ public class App
                 level = Level.Difficult;
                 System.out.println("Vous avez choisi le niveau Difficil");
                 break;
-
-            default:
-                level = Level.Medium;
-                System.out.println("Vous avez choisi le niveau Moyen");
-                break;
         }
-
-//
-//        //TODO creer une fonction ou une classe pour récuperer le json des infos du jeux, des events, choix, effets, events des choix
-//
-//        //utilitaire (ces données servent a simuler notre application)
-//        List<Effect> effects = new ArrayList<>();
-//        effects.add(new Effect("typeAction","action",3));
-//        effects.add(new Effect("typeAction","action",3));
-//        effects.add(new Effect("typeAction","action",3));
-//
-//            List<Choice> otherChoice = new ArrayList<>();
-//            otherChoice.add(new Choice(effects,"nameChoice",null));
-//            otherChoice.add(new Choice(effects,"nameChoice",null));
-//            otherChoice.add(new Choice(effects,"nameChoice",null));
-//
-//            List<Event> relatedEvents = new ArrayList<>();
-//            relatedEvents.add(new Event(otherChoice,"name",Season.WINTER));
-//            relatedEvents.add(new Event(otherChoice,"name",Season.WINTER));
-//            relatedEvents.add(new Event(otherChoice,"name",Season.WINTER));
-//
-//        List<Choice> choices = new ArrayList<>();
-//        choices.add(new Choice(effects,"nameChoice",relatedEvents));
-//        choices.add(new Choice(effects,"nameChoice",relatedEvents));
-//        choices.add(new Choice(effects,"nameChoice",null));
-//
-//        List<Event> events = new ArrayList<>();
-//        events.add(new Event(choices,"name",Season.WINTER));
-//        events.add(new Event(choices,"name",Season.WINTER));
-//        events.add(new Event(choices,"name",Season.WINTER));
-//
-//        String name ="Attaque des titans";
-//        String story = "une bien longue histoir";
-//
-//        List<Faction> factions = new ArrayList<>();
-//        factions.add(new Faction(NameFaction.CAPITALISTE,60,10));
-//        factions.add(new Faction(NameFaction.COMMUNISTE,60,10));
-//        factions.add(new Faction(NameFaction.LIBERAU,60,10));
-//        factions.add(new Faction(NameFaction.RELIGIEU,60,10));
-//        factions.add(new Faction(NameFaction.MILITARISTE,50,10));
-//        factions.add(new Faction(NameFaction.ECOLOGISTE,60,10));
-//        factions.add(new Faction(NameFaction.NATIONALISTE,60,10));
-//        factions.add(new Faction(NameFaction.LOYALISTE,100,10));
-//        ListFaction listFaction = new ListFaction(factions);
-//
-//        Scenario scenario = new Scenario(events,name,story,700,500,35,40,listFaction);
 
         String scenarioDir = "src/ressources/scenarios";
         String scenarioTest = "src/ressources/scenarios/attackOnTitans.json";
@@ -133,6 +83,16 @@ public class App
     }
 
     private static void printResult(boolean resultGame){
-//        afficher le résultat
+        if(resultGame){
+            System.out.println("Felicitation vous avez fait les bons choix, vous  etes le meilleur presendent que le monde ai jammais connu");
+            System.out.println("Vous avez su prendre les bonnes décisions aux bon moments");
+            System.out.println("Nous espérons voir votre patrie s'agrandir et se développer d'avantages");
+            System.out.println("A la prochaine !");
+        }else{
+            System.out.println("Coup d'etat !!");
+            System.out.println("Votre patrie vous a rejeté !");
+            System.out.println("Ca n'est pas si facil de devenir le présidents parfait");
+            System.out.println("Retentez votre chance une prochaine fois");
+        }
     }
 }

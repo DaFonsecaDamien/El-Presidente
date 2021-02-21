@@ -1,12 +1,13 @@
 package esgi.fr;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class Effect {
     private String typeAction;
-    private HashMap<String,Integer> actions;
+    private Map<String,Integer> actions;
 
-    public Effect(String typeAction, HashMap<String, Integer> actions) {
+    public Effect(String typeAction, Map<String, Integer> actions) {
         this.typeAction = typeAction;
         this.actions = actions;
     }
@@ -15,7 +16,7 @@ public class Effect {
         return typeAction;
     }
 
-    public HashMap<String, Integer> getActions() {
+    public Map<String, Integer> getActions() {
         return actions;
     }
 }
