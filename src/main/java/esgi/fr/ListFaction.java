@@ -46,14 +46,31 @@ public class ListFaction {
         }
     }
 
-    public void setAllSupportersNumberInRandomsFactions(int totalNumbersOfSuportersToAdd){
-        int randomNumberOfSupportersToAdd=0;
-        while (totalNumbersOfSuportersToAdd > 0 ){
-            randomNumberOfSupportersToAdd = (int)(Math.random() + totalNumbersOfSuportersToAdd) + 1;
-            totalNumbersOfSuportersToAdd -= randomNumberOfSupportersToAdd;
+    public void setAllSupportersNumberInRandomsFactions(int numbersOfSupporters){
+        int randomNumberOfSupporters=0;
+        int posOrNeg = numbersOfSupporters > 0 ? 1 : -1;
+
+        while (numbersOfSupporters != 0 ){
+            randomNumberOfSupporters = (int)(Math.random() + numbersOfSupporters) + posOrNeg;
+            numbersOfSupporters -= randomNumberOfSupporters;
             Faction randomFaction = getRandomFaction();
-            randomFaction.setSupportersNumber(randomFaction.getSupportersNumber() + randomNumberOfSupportersToAdd);
+            if(posOrNeg==-1){
+                while(randomFaction.getSupportersNumber()<randomNumberOfSupporters){
+                    int feltSupportersToRemove = randomNumberOfSupporters - randomFaction.getSupportersNumber();
+                    randomFaction.setSupportersNumber(0);
+                    Faction randomFaction1 = getRandomFaction();
+                }
+            }
+            randomFaction.setSupportersNumber(randomFaction.getSupportersNumber() + randomNumberOfSupporters);
         }
+    }
+
+    public void addSpportersInFactions(int numbersOfSupportersToAdd){
+        setAllSupportersNumberInRandomsFactions(numbersOfSupportersToAdd);
+    }
+
+    public void removeSpportersInFactions(int numbersOfSupportersToRemove){
+        setAllSupportersNumberInRandomsFactions(numbersOfSupportersToRemove);
     }
 
     public Faction getRandomFaction(){

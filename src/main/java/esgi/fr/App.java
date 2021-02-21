@@ -80,11 +80,11 @@ public class App
             actionsOnFaction.put("RELIGIOUS",-2);
 
             Map<String ,Integer> actionSuporters = new HashMap<>();
-            actionSuporters.put("partisans",12);
+            actionSuporters.put("partisans",-12);
 
             Map<String ,Integer> actionOnFactor = new HashMap<>();
-            actionsOnFaction.put("INDUSTRY",12);
-            actionsOnFaction.put("TREASURY",-2);
+            actionOnFactor.put("INDUSTRY",12);
+            actionOnFactor.put("TREASURY",-2);
             actionOnFactor.put("AGRICULTURE",-4);
 
         effects.add(new Effect("actionOnFaction",actionsOnFaction));
@@ -139,6 +139,16 @@ public class App
     }
 
     private static void printResult(boolean resultGame){
-//        afficher le résultat
+        if(resultGame){
+            System.out.println("Felicitation vous avez fait les bons choix, vous  etes le meilleur presendent que le monde ai jammais connu");
+            System.out.println("Vous avez su prendre les bonnes décisions aux bon moments");
+            System.out.println("Nous espérons voir votre patrie s'agrandir et se développer d'avantages");
+            System.out.println("A la prochaine !");
+        }else{
+            System.out.println("Coup d'etat !!");
+            System.out.println("Votre patrie vous a rejeté !");
+            System.out.println("Ca n'est pas si facil de devenir le présidents parfait");
+            System.out.println("Retentez votre chance une prochaine fois");
+        }
     }
 }
