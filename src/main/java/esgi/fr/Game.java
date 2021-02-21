@@ -1,6 +1,7 @@
 package esgi.fr;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Game {
@@ -34,6 +35,7 @@ public class Game {
             }
             //le user choisit un choix
             choice = chooseChoice(event);
+            manageEffect(choice,event);
             season = season.next();
             manageAgriculture();
             manageYear();
@@ -281,5 +283,97 @@ public class Game {
         scenario.getListFactions().setAllSupportersNumberInRandomsFactions(totalNumbersOfSuportersToAdd);
     }
 
+    private void manageEffect(int choice,Event event){
+        System.out.println("Conséquences : ");
+        System.out.println("\n-------------------------------\n");
+        for(Effect effect : event.getChoices().get(choice).getEffects()){
+            if(effect.getTypeAction()==null){
+                int nbSupporters = effect.getActions().get("partisans");
+                scenario.getListFactions().setAllSupportersNumberInRandomsFactions(nbSupporters);
+                if(nbSupporters<0){
+                    System.out.println("Vous avez perdu : "+nbSupporters+" citoyens");
+                }
+                else{
+                    System.out.println(nbSupporters+" citoyens ont rejoint votre ile");
+                }
+            }
+            if(effect.getTypeAction()!=null && effect.getTypeAction().equals("actionOnFaction")){
+                for (Map.Entry action : effect.getActions().entrySet()){
+                    int value = action.getValue().hashCode();
+                    NameFaction nameFaction = NameFaction.CAPITALISTE;
+                    switch (action.getKey().toString()){
+                        case "ECOLOGISTS":
+                            nameFaction = NameFaction.ECOLOGISTE;
+                            break;
+                        case "CAPITALISTS":
+                            nameFaction = NameFaction.CAPITALISTE;
+                            break;
+                        case "LOYALISTS":
+                            nameFaction = NameFaction.LOYALISTE;
+                            break;
+                        case "LIBERALS":
+                            nameFaction = NameFaction.LIBERAU;
+                            break;
+                        case "RELIGIOUS":
+                            nameFaction = NameFaction.RELIGIEU;
+                            break;
+                        case "MILITARISTS":
+                            nameFaction = NameFaction.MILITARISTE;
+                            break;
+                        case "NATIONALISTS":
+                            nameFaction = NameFaction.NATIONALISTE;
+                            break;
+                        case "COMMUNISTS":
+                            nameFaction = NameFaction.COMMUNISTE;
+                            break;
+                    }
 
+                    Faction faction = scenario.getListFactions().getOneFaction(nameFaction);
+                    faction.setSatisfactionPercentage(value);
+                    System.out.println(action.getKey().toString());
+                    if(value>0){
+                        System.out.println("la faction des "+nameFaction+"S a gangné "+value+"% de satisfaction");
+                    }
+                    else{
+                        System.out.println("la faction des "+nameFaction+"S a perdu "+value+"% de satisfaction");
+                    }
+                }
+            }
+            else if(effect.getTypeAction()!=null && effect.getTypeAction().equals("actionOnFactor")){
+                for (Map.Entry action : effect.getActions().entrySet()) {
+                    int value = action.getValue().hashCode();
+                    switch (action.getKey().toString()) {
+                        case "AGRICULTURE":
+                            scenario.setAgriculturePercentage(value);
+                            if(value>0){
+                                System.out.println("Vous avez gagné "+value+"% de surface dédié à l'agriculture");
+                            }
+                            else{
+                                System.out.println("Vous avez perdu "+value+"% de surface dédié à l'agriculture");
+                            }
+                            break;
+                        case "INDUSTRY":
+                            scenario.setIndustryPercentage(value);
+                            if(value>0){
+                                System.out.println("Vous avez gagné "+value+"% de surface dédié à l'industrie");
+                            }
+                            else{
+                                System.out.println("Vous avez perdu "+value+"% de surface dédié à l'industrie");
+                            }
+                            break;
+                        case "TREASURY":
+                            scenario.setTreasury(value);
+                            if(value>0){
+                                System.out.println("Vous avez gagné "+value+"pièces d'or");
+                            }
+                            else{
+                                System.out.println("Vous avez perdu "+value+"pièces d'or");
+                            }
+                            break;
+                    }
+                }
+            }
+        }
+        System.out.println("\n-------------------------------\n");
+    }
 }

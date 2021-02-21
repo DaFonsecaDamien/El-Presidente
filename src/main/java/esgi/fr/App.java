@@ -75,14 +75,14 @@ public class App
 //
         //utilitaire (ces données servent a simuler notre application)
         List<Effect> effects = new ArrayList<>();
-            HashMap<String ,Integer> actions = new HashMap<>();
+            Map<String ,Integer> actions = new HashMap<>();
             actions.put("Nationaliste",12);
             actions.put("Reigieux",-2);
 
-            HashMap<String ,Integer> actions2 = new HashMap<>();
-            actions2.put("Partisans",12);
+            Map<String ,Integer> actions2 = new HashMap<>();
+            actions2.put("partisans",12);
 
-            HashMap<String ,Integer> actions3 = new HashMap<>();
+            Map<String ,Integer> actions3 = new HashMap<>();
             actions.put("INDUSTRY",12);
             actions.put("TREASURY",-2);
             actions3.put("AGRICULTURE",-4);
