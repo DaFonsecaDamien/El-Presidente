@@ -69,7 +69,7 @@ public class Game {
             }
             choice = sc.nextInt();
         }
-        manageEffect(choice,event);
+        manageEffect(choice-1,event);
 
         if(isLoose()){
             return false;
