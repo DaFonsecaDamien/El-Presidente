@@ -15,65 +15,65 @@ public class App
 {
     public static void main( String[] args )
     {
-//        Scanner sc = new Scanner(System.in);
-//
-//        String choiceMode;
-//        String choiceLevel;
-//
-//        Mode mode;
-//        Level level;
-//
-//        System.out.println("****ELPRESIDENTE****");
-//
-//        do {
-//            System.out.println("Choisissez un mode");
-//            System.out.println("1 - Mode normal");
-//            System.out.println("2 - Mode bac a sable");
-//            choiceMode = sc.nextLine();
-//        }while(!choiceMode.equals("1") && !choiceMode.equals("2"));
-//
-//
-//        switch (choiceMode){
-//            case "1":
-//                mode = Mode.NORMAL;
-//                System.out.println("Vous avez choisi le mode normal");
-//                break;
-//            case "2":
-//                mode = Mode.SANDBOX;
-//                System.out.println("Vous avez choisi le mode bac à sable");
-//                break;
-//            default:
-//                mode = Mode.NORMAL;
-//                break;
-//        }
-//        do{
-//            System.out.println("Choisissez votre niveau de difficulté:");
-//            System.out.println("1 - Facil");
-//            System.out.println("2 - Moyen");
-//            System.out.println("3 - Difficile");
-//            choiceLevel = sc.nextLine();
-//        }while(!choiceLevel.equals("1") && !choiceLevel.equals("2") &&!choiceLevel.equals("3"));
-//
-//        switch (choiceLevel){
-//            case "1":
-//               level = Level.Simple;
-//               System.out.println("Vous avez choisi le niveau Facil");
-//               break;
-//            case "2":
-//                level = Level.Medium;
-//                System.out.println("Vous avez choisi le niveau Moyen");
-//                break;
-//            case "3":
-//                level = Level.Difficult;
-//                System.out.println("Vous avez choisi le niveau Difficil");
-//                break;
-//
-//            default:
-//                level = Level.Medium;
-//                System.out.println("Vous avez choisi le niveau Moyen");
-//                break;
-//        }
-//
+        Scanner sc = new Scanner(System.in);
+
+        String choiceMode;
+        String choiceLevel;
+
+        Mode mode;
+        Level level;
+
+        System.out.println("****ELPRESIDENTE****");
+
+        do {
+            System.out.println("Choisissez un mode");
+            System.out.println("1 - Mode normal");
+            System.out.println("2 - Mode bac a sable");
+            choiceMode = sc.nextLine();
+        }while(!choiceMode.equals("1") && !choiceMode.equals("2"));
+
+
+        switch (choiceMode){
+            case "1":
+                mode = Mode.NORMAL;
+                System.out.println("Vous avez choisi le mode normal");
+                break;
+            case "2":
+                mode = Mode.SANDBOX;
+                System.out.println("Vous avez choisi le mode bac à sable");
+                break;
+            default:
+                mode = Mode.NORMAL;
+                break;
+        }
+        do{
+            System.out.println("Choisissez votre niveau de difficulté:");
+            System.out.println("1 - Facil");
+            System.out.println("2 - Moyen");
+            System.out.println("3 - Difficile");
+            choiceLevel = sc.nextLine();
+        }while(!choiceLevel.equals("1") && !choiceLevel.equals("2") &&!choiceLevel.equals("3"));
+
+        switch (choiceLevel){
+            case "1":
+               level = Level.Simple;
+               System.out.println("Vous avez choisi le niveau Facil");
+               break;
+            case "2":
+                level = Level.Medium;
+                System.out.println("Vous avez choisi le niveau Moyen");
+                break;
+            case "3":
+                level = Level.Difficult;
+                System.out.println("Vous avez choisi le niveau Difficil");
+                break;
+
+            default:
+                level = Level.Medium;
+                System.out.println("Vous avez choisi le niveau Moyen");
+                break;
+        }
+
 //
 //        //TODO creer une fonction ou une classe pour récuperer le json des infos du jeux, des events, choix, effets, events des choix
 //
@@ -118,16 +118,18 @@ public class App
 //        ListFaction listFaction = new ListFaction(factions);
 //
 //        Scenario scenario = new Scenario(events,name,story,700,500,35,40,listFaction);
-//        Game game = new Game(level,mode,scenario);
-//        boolean resultGame = game.run(scenario.getEvents());
-//
-//        printResult(resultGame);
 
         String scenarioDir = ".\\src\\ressources\\scenarios";
         String scenarioTest = ".\\src\\ressources\\scenarios\\attackOnTitans.json";
         List<File> scenariosJson = GameUtilities.allJsonFromDir(new File(scenarioDir));
         System.out.println(scenariosJson);
-        GameUtilities.parseJsonToObject(scenarioTest);
+
+        Scenario scenario = GameUtilities.parseJsonToObject(scenarioTest);
+        Game game = new Game(level,mode,scenario);
+        boolean resultGame = game.run(scenario.getEvents());
+
+        printResult(resultGame);
+
     }
 
     private static void printResult(boolean resultGame){

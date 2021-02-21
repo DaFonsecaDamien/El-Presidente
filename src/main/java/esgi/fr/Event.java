@@ -8,10 +8,10 @@ public class Event {
     Season season;
     List<Choice> choices;
 
-    public Event(List<Choice> choices, String name, Season season) {
+    public Event(List<Choice> choices, String name) {
         this.name = name;
         this.choices = choices;
-        this.season = season;
+//        this.season = season;
     }
 
     public List<Choice> getChoices() {

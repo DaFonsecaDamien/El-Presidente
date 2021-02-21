@@ -13,7 +13,7 @@ public class Scenario {
     private int agriculturePercentage;
     private ListFaction listFactions;
 
-    public Scenario(List<Event> events,String name,String story, int treasury, int foodUnit, int industryPercentage, int agriculturePercentage, ListFaction factions) {
+    public Scenario(List<Event> events,String name,String story, int agriculturePercentage, int industryPercentage, int treasury, int foodUnit, ListFaction factions) {
         this.events = events;
         this.name = name;
         this.story = story;
