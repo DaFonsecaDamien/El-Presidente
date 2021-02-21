@@ -75,21 +75,21 @@ public class App
 //
         //utilitaire (ces données servent a simuler notre application)
         List<Effect> effects = new ArrayList<>();
-            Map<String ,Integer> actions = new HashMap<>();
-            actions.put("Nationaliste",12);
-            actions.put("Reigieux",-2);
+            Map<String ,Integer> actionsOnFaction = new HashMap<>();
+            actionsOnFaction.put("ECOLOGISTS",12);
+            actionsOnFaction.put("RELIGIOUS",-2);
 
-            Map<String ,Integer> actions2 = new HashMap<>();
-            actions2.put("partisans",12);
+            Map<String ,Integer> actionSuporters = new HashMap<>();
+            actionSuporters.put("partisans",12);
 
-            Map<String ,Integer> actions3 = new HashMap<>();
-            actions.put("INDUSTRY",12);
-            actions.put("TREASURY",-2);
-            actions3.put("AGRICULTURE",-4);
+            Map<String ,Integer> actionOnFactor = new HashMap<>();
+            actionsOnFaction.put("INDUSTRY",12);
+            actionsOnFaction.put("TREASURY",-2);
+            actionOnFactor.put("AGRICULTURE",-4);
 
-        effects.add(new Effect("actionOnFaction",actions));
-        effects.add(new Effect(null,actions2));
-        effects.add(new Effect("actionOnFactor",actions3));
+        effects.add(new Effect("actionOnFaction",actionsOnFaction));
+        effects.add(new Effect(null,actionSuporters));
+        effects.add(new Effect("actionOnFactor",actionOnFactor));
 
             List<Choice> otherChoice = new ArrayList<>();
             otherChoice.add(new Choice(effects,"nameChoice",null));

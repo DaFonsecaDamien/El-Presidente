@@ -330,7 +330,7 @@ public class Game {
 
                     Faction faction = scenario.getListFactions().getOneFaction(nameFaction);
                     faction.setSatisfactionPercentage(value);
-                    System.out.println(action.getKey().toString());
+                    System.out.println("Voici la faction concerné par l'action : "+action.getKey().toString());
                     if(value>0){
                         System.out.println("la faction des "+nameFaction+"S a gangné "+value+"% de satisfaction");
                     }
