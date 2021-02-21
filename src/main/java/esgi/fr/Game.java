@@ -44,9 +44,8 @@ public class Game {
         return true;
     }
 
-    // TODO Condition de perte
     private boolean isLoose(){
-    double globalSatisfaction = scenario.getListFactions().getGlobalSatisfactionPercentage();
+        double globalSatisfaction = scenario.getListFactions().getGlobalSatisfactionPercentage();
         return globalSatisfaction < 10.0;
     }
 
@@ -79,13 +78,10 @@ public class Game {
 
     private void manageYear(){
         if(season == Season.WINTER){
-            System.out.println("Nous voici en fin d'année !");
+            System.out.println("\n\nNous voici en fin d'année !\n\n");
 
             manageTreasurer();
-
-            System.out.println("Vous avez au total : "+scenario.getTreasury()+" pieces d'or dans votre trésorerie\n");
-            System.out.println("Vous avez au total "+scenario.getFoodUnit()+" unités de nouriture en stock");
-
+            printInfosIle();
             bribeFactionMenu();
             marketPlace();
             yearBilan();
@@ -97,58 +93,29 @@ public class Game {
 
     private void bribeFactionMenu(){
 
-        String choice="";
+        int choiceFaction=0;
+        String accept="";
         Scanner sc = new Scanner(System.in);
         do{
             System.out.println("Voulez vous soudoyer une faction ?");
             System.out.println("Si oui tapez sur 'o' sinon tapez sur 'n'");
-            choice = sc.nextLine();
+            accept = sc.nextLine();
 
-            if(choice.equals("o")){
-                chooseFactionsToBribe();
+            if(accept.equals("o")){
+                choiceFaction = getChoiceFaction();
+                Faction factionChosen = scenario.getListFactions().chooseFaction(choiceFaction);
+                printResultBribe(factionChosen);
             }
 
-        }while(!choice.equals("n"));printInfosFactions();
+        }while(!accept.equals("n"));printInfosFactions();
 
-    }
-
-    private void chooseFactionsToBribe(){
-        int choice=0;
-        NameFaction nameFactionChoose = NameFaction.CAPITALISTE;
-
-        choice = getChoiceFaction();
-
-        switch (choice){
-            case 1:
-                nameFactionChoose = NameFaction.CAPITALISTE;
-                break;
-            case 2:
-                nameFactionChoose = NameFaction.COMMUNISTE;
-                break;
-            case 3:
-                nameFactionChoose = NameFaction.LIBERAU;
-                break;
-            case 4:
-                nameFactionChoose = NameFaction.RELIGIEU;
-                break;
-            case 5:
-                nameFactionChoose = NameFaction.MILITARISTE;
-                break;
-            case 6:
-                nameFactionChoose = NameFaction.ECOLOGISTE;
-                break;
-            case 7:
-                nameFactionChoose = NameFaction.NATIONALISTE;
-                break;
-        }
-        printResultBribe(nameFactionChoose);
     }
 
     private int getChoiceFaction(){
         int choice =0;
         printInfosFactions();
         Scanner sc = new Scanner(System.in);
-        while (choice<1 || choice >scenario.getListFactions().getFactions().size()-1) {
+        while (choice<1 || choice >scenario.getListFactions().getFactions().size()) {
             while (!sc.hasNextInt()) {
                 sc = new Scanner(System.in);
             }
@@ -171,15 +138,14 @@ public class Game {
         System.out.println("choisissez celle que vous voulez soudoyer");
     }
 
-    private void printResultBribe(NameFaction nameFactionChoose){
-        Faction factionChosen = scenario.getListFactions().getOneFaction(nameFactionChoose);
+    private void printResultBribe(Faction factionChosen){
 
         if(factionChosen.getSupportersNumber()*15>scenario.getTreasury()){
             System.out.println("Pas assez d'argent");
             return;
         }
 
-        System.out.println("Vous avez choisi de soudoyer la factions des "+nameFactionChoose+"S");
+        System.out.println("Vous avez choisi de soudoyer la factions des "+factionChosen.getNameFaction()+"S");
         if(factionChosen.bribeFaction()){
             scenario.setTreasury(scenario.getTreasury()-15*factionChosen.getSupportersNumber());
             System.out.println("Leur satisfaction a auguementé de 10%!\n");
@@ -312,7 +278,7 @@ public class Game {
         }
         else if(value>0){
             scenario.getListFactions().addSpportersInFactions(value);
-            System.out.println("-    "+value+" ont rejoint votre ile");
+            System.out.println("-    "+value+" citoyens ont rejoint votre ile");
         }
         if(scenario.getListFactions().getAllSuportersNumber()==0){System.out.println("-    Aucun citoyens dans votre ile");}
     }
@@ -348,7 +314,7 @@ public class Game {
                     break;
             }
             Faction faction = scenario.getListFactions().getOneFaction(nameFaction);
-            faction.setSatisfactionPercentage(value);
+            faction.setSatisfactionPercentage(faction.getSatisfactionPercentage()+value);
             System.out.println("-    "+value+"% de satisfaction chez les "+nameFaction+"S");
         }
     }
@@ -362,7 +328,7 @@ public class Game {
                         scenario.setAgriculturePercentage(scenario.getAgriculturePercentage()+value);
                     }
                     else if(value>0){
-                        scenario.setAgriculturePercentage(scenario.getAgriculturePercentage()+value);
+                        manageIndustryAndAgricultureCumul(value,"AGRICULTURE");
                     }
                     System.out.println("-    "+value+"% de surface dédié à l'agriculture");
                     if(scenario.getAgriculturePercentage()==0){System.out.println("-    Aucun pourcentage de surface dédié pour l'agriculture");}
@@ -372,7 +338,7 @@ public class Game {
                         scenario.setIndustryPercentage(scenario.getIndustryPercentage()+value);
                     }
                     else if(value>0){
-                        scenario.setIndustryPercentage(scenario.getIndustryPercentage()+value);
+                        manageIndustryAndAgricultureCumul(value,"INDUSTRY");
                     }
                     System.out.println("-    "+value+"% de surface dédié à l'industrie");
                     if(scenario.getIndustryPercentage()==0){System.out.println("-    Aucun pourcentage de surface dédié pour l'industrie");}
@@ -388,5 +354,36 @@ public class Game {
                     if(scenario.getTreasury()==0){System.out.println("-    Votre trésorerie est vide");}
             }
         }
+    }
+
+    private void manageIndustryAndAgricultureCumul(int value, String factor){
+        if(scenario.getAgriculturePercentage()+scenario.getIndustryPercentage()==100)return;
+        if(value+scenario.getAgriculturePercentage()+scenario.getIndustryPercentage()<=100){
+            if(factor.equals("INDUSTRY")){
+                scenario.setIndustryPercentage(scenario.getIndustryPercentage()+value);
+            }
+            else if(factor.equals("AGRICULTURE")){
+                scenario.setAgriculturePercentage(scenario.getAgriculturePercentage()+value);
+            }
+        }
+        else {
+            int newValue = 100 - (scenario.getAgriculturePercentage() + scenario.getIndustryPercentage());
+            if (factor.equals("INDUSTRY")){
+                scenario.setIndustryPercentage(scenario.getIndustryPercentage()+newValue);
+            }
+            else if(factor.equals("AGRICULTURE")){
+                scenario.setAgriculturePercentage(scenario.getAgriculturePercentage()+newValue);
+            }
+        }
+    }
+
+    private void printInfosIle(){
+        System.out.println("----------------------\n\n");
+        System.out.println("Vous avez au total : "+scenario.getTreasury()+" pieces d'or dans votre trésorerie");
+        System.out.println("Vous avez au total "+scenario.getFoodUnit()+" unités de nouriture en stock");
+        System.out.println("l'agricuture occupe "+scenario.getAgriculturePercentage()+"% de la surface de votre ile");
+        System.out.println("l'industrie occupe "+scenario.getIndustryPercentage()+"% de la surface de votre ile");
+        System.out.println("Satisfaction gobal de l'ile : "+scenario.getListFactions().getGlobalSatisfactionPercentage()+"\n");
+        System.out.println("----------------------\n\n");
     }
 }

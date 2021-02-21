@@ -26,20 +26,19 @@ public class Faction implements ManageFactions{
         return supportersNumber;
     }
 
-    public void setNameFaction(NameFaction nameFaction) {
-        this.nameFaction = nameFaction;
-    }
-
     public void setSatisfactionPercentage(int satisfactionPercentage) {
-        if(this.satisfactionPercentage+satisfactionPercentage<0){
+        if(satisfactionPercentage<0){
             this.satisfactionPercentage = 0;
+            return;
+        }
+        if(satisfactionPercentage>100){
+            this.satisfactionPercentage = 100;
             return;
         }
         this.satisfactionPercentage = satisfactionPercentage;
     }
 
     public void setSupportersNumber(int supportersNumber) {
-
         this.supportersNumber = supportersNumber;
     }
 

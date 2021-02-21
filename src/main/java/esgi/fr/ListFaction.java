@@ -78,8 +78,7 @@ public class ListFaction {
 
     public Faction getRandomFaction(){
         int randomFaction = (int)(Math.random() * 8) + 1;
-        Faction factionChosen = chooseFaction(randomFaction);
-        return factionChosen;
+        return chooseFaction(randomFaction);
     }
 
     public Faction chooseFaction(int factionChosen){
@@ -106,10 +105,10 @@ public class ListFaction {
                 nameFactionChosen = NameFaction.ECOLOGISTE;
                 break;
             case 7:
-                nameFactionChosen = NameFaction.NATIONALISTE;
+                nameFactionChosen = NameFaction.LOYALISTE;
                 break;
             case 8:
-                nameFactionChosen = NameFaction.LOYALISTE;
+                nameFactionChosen = NameFaction.NATIONALISTE;
                 break;
         }
         return getOneFaction(nameFactionChosen);
