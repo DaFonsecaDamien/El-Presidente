@@ -25,41 +25,35 @@ public class GameUtilities {
     }
 
     /**
-     * Return a JsonObject from the Json File (Object)
+     * Return a Scenario from the Json File (Object)
      *
      * @param path path to find the json selected by the user
-     * @return
+     * @return Scenario gameScenario
      */
     public static Scenario parseJsonToObject(String path){
-        // parse le Json du scenario grâce au path en paramètre
         File input = new File(path);
         try{
             JsonElement fileElement = JsonParser.parseReader(new FileReader(input));
             JsonObject fileObject = fileElement.getAsJsonObject();
 
             // Extract Global Information of the scenario
-//            parseGlobalInformation(fileObject);
             parseScenarioName(fileObject);
             parseScenarioStory(fileObject);
 
-
-            // Extract startParameters
+            // Extract the gameStartParameters and parse it
             JsonObject gameParametersJson = fileObject.get("gameStartParameters").getAsJsonObject();
             JsonObject startParametersJson = gameParametersJson.get("NORMAL").getAsJsonObject();
-//            parseStartParameters(startParametersJson);
+
             parseAgriculturePercentage(startParametersJson);
             parseIndustryPercentage(startParametersJson);
             parseTreasury(startParametersJson);
             parseFoodUnits(startParametersJson);
 
-            // Extract Events of the scenario
-            ArrayList<Event> gameEvents = parseEvent(fileObject);
-
             // Extract Faction with parameters
             ArrayList<Faction> gameFactions = parseFaction(startParametersJson);
             ListFaction listGameFaction = new ListFaction(gameFactions);
 
-            // Create ALL THE INSTANCE
+            // Create an instance of gameScenario
             Scenario gameScenario = new Scenario(
                     parseEvent(fileObject),
                     parseScenarioName(fileObject),
@@ -81,75 +75,74 @@ public class GameUtilities {
     /**
      * Return the name of the scenario
      *
-     * @param fileObject JsonObject with the json
+     * @param fileObject JsonObject with the json inside
+     * @return String name
      */
     public static String parseScenarioName(JsonObject fileObject){
-        // Extracting the basic fields
         String name = fileObject.get("name").getAsString();
-//        System.out.println(name + "\n");
         return name;
     }
 
     /**
-     * Return a JsonObject from the Json File (Object)
+     * Return the scenario story
      *
-     * @param fileObject path to find the json selected by the user
+     * @param fileObject JsonObject with the json inside
+     * @return String story
      */
     public static String parseScenarioStory(JsonObject fileObject){
-        // Extracting the basic fields
         String story = fileObject.get("story").getAsString();
-//        System.out.println(story + "\n");
         return story;
     }
 
     /**
-     * Return a JsonObject from the Json File (Object)
+     * Return the percentage of the Agriculture
      *
-     * @param startParametersJson path to find the json selected by the user
+     * @param startParametersJson JsonObject with the special Element of game start parameters
+     * @return int agriculturePercentage
      */
     public static int parseAgriculturePercentage(JsonObject startParametersJson){
         int agriculturePercentage = startParametersJson.get("agriculturePercentage").getAsInt();
-//        System.out.println(agriculturePercentage);
         return agriculturePercentage;
     }
 
     /**
-     * Return a JsonObject from the Json File (Object)
+     * Return the percentage of the Industry
      *
-     * @param startParametersJson path to find the json selected by the user
+     * @param startParametersJson JsonObject with the special Element of game start parameters
+     * @return int industryPercentage
      */
     public static int parseIndustryPercentage(JsonObject startParametersJson){
         int industryPercentage = startParametersJson.get("industryPercentage").getAsInt();
-//        System.out.println(industryPercentage);
         return industryPercentage;
     }
 
     /**
-     * Return a JsonObject from the Json File (Object)
+     * Return the number of Treasury
      *
-     * @param startParametersJson path to find the json selected by the user
+     * @param startParametersJson JsonObject with the special Element of game start parameters
+     * @return int treasury
      */
     public static int parseTreasury(JsonObject startParametersJson){
         int treasury = startParametersJson.get("treasury").getAsInt();
-//        System.out.println(treasury);
         return treasury;
     }
 
     /**
-     * Return a JsonObject from the Json File (Object)
+     * Return the number of Food Units
      *
-     * @param startParametersJson path to find the json selected by the user
+     * @param startParametersJson JsonObject with the special Element of game start parameters
+     * @return int foodUnits
      */
     public static int parseFoodUnits(JsonObject startParametersJson){
         int foodUnits = startParametersJson.get("foodUnits").getAsInt();
-//        System.out.println(foodUnits);
         return foodUnits;
     }
 
     /**
-     * Return a JsonObject from the Json File (Object)
+     * Return an ArrayList of Faction
      *
-     * @param fileObject path to find the json selected by the user
+     * @param fileObject JsonObject with the special Element for the Faction
+     * @return ArrayList factions
      */
     public static ArrayList<Faction> parseFaction(JsonObject fileObject){
         JsonObject factionsObject = fileObject.get("factions").getAsJsonObject();
@@ -159,18 +152,39 @@ public class GameUtilities {
 
         for(Map.Entry<String, JsonElement> entry: entries) {
             JsonObject actualFactionElement = entry.getValue().getAsJsonObject();
-            String name = actualFactionElement.get("name").getAsString();
             int satisfactionPercentage = actualFactionElement.get("satisfactionPercentage").getAsInt();
             int numberOfPartisans = actualFactionElement.get("numberOfPartisans").getAsInt();
-//            System.out.println("\t" + name + "\t"+satisfactionPercentage+"\t"+numberOfPartisans);
-            NameFaction nameFaction = null;
-//            for (NameFaction elementFaction : NameFaction.values()) {
-//                if(name == elementFaction.label){
-//
-//                }
-//            }
-
-//             CREATE INSTANCE OF FACTION
+            // Check the right Faction
+            NameFaction nameFaction;
+            switch (entry.getKey()){
+                case "CAPITALISTS":
+                    nameFaction = NameFaction.CAPITALISTE;
+                    break;
+                case "COMMUNISTS":
+                    nameFaction = NameFaction.COMMUNISTE;
+                    break;
+                case "LIBERALS":
+                    nameFaction = NameFaction.LIBERAU;
+                    break;
+                case "RELIGIOUS":
+                    nameFaction = NameFaction.RELIGIEU;
+                    break;
+                case "MILITARISTS":
+                    nameFaction = NameFaction.MILITARISTE;
+                    break;
+                case "ECOLOGISTS":
+                    nameFaction = NameFaction.ECOLOGISTE;
+                    break;
+                case "NATIONALISTS":
+                    nameFaction = NameFaction.NATIONALISTE;
+                    break;
+                case "LOYALISTS":
+                    nameFaction = NameFaction.LOYALISTE;
+                    break;
+                default:
+                    throw new IllegalStateException("Unexpected value: " + entry.getKey());
+            }
+            //CREATE INSTANCE OF FACTION
             Faction faction = new Faction(nameFaction,satisfactionPercentage,numberOfPartisans);
             factions.add(faction);
         }
@@ -178,9 +192,10 @@ public class GameUtilities {
     }
 
     /**
-     * Return a JsonObject from the Json File (Object)
+     * Return an ArrayList of Event
      *
-     * @param fileObject fileObject global
+     * @param fileObject JsonObject with the special Element for the Event
+     * @return ArrayList events
      */
     public static ArrayList<Event> parseEvent(JsonObject fileObject){
         JsonArray jsonArrayOfEvent = fileObject.get("events").getAsJsonArray();
@@ -190,7 +205,6 @@ public class GameUtilities {
             JsonObject eventJsonObject = eventElement.getAsJsonObject();
             //Extract data
             String name = eventJsonObject.get("name").getAsString();
-//            System.out.println("\nNEW EVENT : "+name + "\n");
             // Get all Choices
             ArrayList<Choice> listChoice = parseChoice(eventJsonObject);
             // CREATE INSTANCE OF EVENT
@@ -201,9 +215,10 @@ public class GameUtilities {
     }
 
     /**
-     * Return a JsonObject from the Json File (Object)
+     * Return an ArrayList of RelatedEvent
      *
-     * @param fileObject fileObject global
+     * @param fileObject JsonObject with the special Element for the Related Event
+     * @return ArrayList relatedEvents
      */
     public static ArrayList<Event> parseRelatedEvent(JsonObject fileObject){
         JsonArray jsonArrayOfRelatedEvent = fileObject.get("relatedEvents").getAsJsonArray();
@@ -213,7 +228,6 @@ public class GameUtilities {
             JsonObject eventJsonObject = eventElement.getAsJsonObject();
             //Extract data
             String name = eventJsonObject.get("name").getAsString();
-//            System.out.println("\nNEW RELATED EVENT : "+name + "\n");
             // Get all Choices
             ArrayList<Choice> listChoice = parseChoice(eventJsonObject);
             // CREATE INSTANCE OF EVENT
@@ -224,10 +238,10 @@ public class GameUtilities {
     }
 
     /**
-     * Return a JsonObject from the Json File (Object)
+     * Return an ArrayList of Choice
      *
-     * @param fileObject eventJson Object
-     * @return
+     * @param fileObject JsonObject with the speacial Element for the choice
+     * @return ArrayList choices
      */
     public static ArrayList<Choice> parseChoice(JsonObject fileObject){
         JsonArray jsonArrayOfChoice = fileObject.get("choices").getAsJsonArray();
@@ -238,12 +252,10 @@ public class GameUtilities {
             JsonObject choiceJsonObject = choiceElement.getAsJsonObject();
             //Extract data
             String name = choiceJsonObject.get("choice").getAsString();
-//            System.out.println(name);
             // Get all Effects
             ArrayList<Effect> listEffect = parseEffects(choiceJsonObject);
             // Get related Event of the choice
             if(choiceJsonObject.has("relatedEvents")){
-//                System.out.println("\n ************RELATED EVENT************ \n");
                 relatedEvent = parseRelatedEvent(choiceJsonObject);
             }
             // CREATE INSTANCE OF CHOICE
@@ -254,10 +266,10 @@ public class GameUtilities {
     }
     
     /**
-     * Return a JsonObject from the Json File (Object)
+     * Return an ArrayList of Effect
      *
-     * @param fileObject path to find the json selected by the user
-     * @return
+     * @param fileObject JsonObject with the special Element for the Effect
+     * @return ArrayList effects
      */
     private static ArrayList<Effect> parseEffects(JsonObject fileObject) {
         JsonArray jsonArrayOfEffect = fileObject.get("effects").getAsJsonArray();
@@ -271,8 +283,9 @@ public class GameUtilities {
                 JsonObject effectActionOnFaction = effectJsonObject.get("actionOnFaction").getAsJsonObject();
                 Set<Map.Entry<String, JsonElement>> entries = effectActionOnFaction.entrySet();
                 for(Map.Entry<String, JsonElement> entry: entries) {
-//                    System.out.println("\t Effet pour les " + entry.getKey() + " est de " + entry.getValue());
-                    Effect effect = new Effect(typeAction,entry.getKey(),entry.getValue().getAsInt());
+                    HashMap<String,Integer> action = new HashMap<>();
+                    action.put(entry.getKey(),entry.getValue().getAsInt());
+                    Effect effect = new Effect(typeAction,action);
                     effects.add(effect);
                 }
             }
@@ -281,17 +294,18 @@ public class GameUtilities {
                 JsonObject effectActionOnFactor = effectJsonObject.get("actionOnFactor").getAsJsonObject();
                 Set<Map.Entry<String, JsonElement>> entries = effectActionOnFactor.entrySet();
                 for(Map.Entry<String, JsonElement> entry: entries) {
-//                    System.out.println("\t L'effet pour l'" + entry.getKey() + " est de " + entry.getValue());
-                    Effect effect = new Effect(typeAction,entry.getKey(),entry.getValue().getAsInt());
+                    HashMap<String,Integer> action = new HashMap<>();
+                    action.put(entry.getKey(),entry.getValue().getAsInt());
+                    Effect effect = new Effect(typeAction,action);
                     effects.add(effect);
                 }
             }
             if(!effectJsonObject.has("actionOnFactor") && !effectJsonObject.has("actionOnFaction")){
-                String typeAction = null;
                 int effectPartisans = effectJsonObject.get("partisans").getAsInt();
-                Effect effect = new Effect(typeAction,"partisans",effectPartisans);
+                HashMap<String,Integer> action = new HashMap<>();
+                action.put("partisans",effectPartisans);
+                Effect effect = new Effect(null,action);
                 effects.add(effect);
-//                System.out.println("\t PARTISANS : "+effectPartisans);
             }
         }
         return effects;
