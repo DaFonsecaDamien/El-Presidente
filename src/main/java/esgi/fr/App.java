@@ -1,11 +1,8 @@
 package esgi.fr;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Scanner;
-import java.util.TreeMap;
 
 /**
  * Hello world!
@@ -21,7 +18,7 @@ public class App
         String choiceLevel;
 
         Mode mode;
-        Level level = Level.Medium;
+        Difficulty difficulty = Difficulty.NORMAL;
 
         System.out.println("****ELPRESIDENTE****");
 
@@ -56,15 +53,15 @@ public class App
 
         switch (choiceLevel){
             case "1":
-               level = Level.Simple;
+               difficulty = Difficulty.EASY;
                System.out.println("Vous avez choisi le niveau Facil");
                break;
             case "2":
-                level = Level.Medium;
+                difficulty = Difficulty.NORMAL;
                 System.out.println("Vous avez choisi le niveau Moyen");
                 break;
             case "3":
-                level = Level.Difficult;
+                difficulty = Difficulty.HARD;
                 System.out.println("Vous avez choisi le niveau Difficil");
                 break;
         }
@@ -75,7 +72,7 @@ public class App
         System.out.println(scenariosJson);
 
         Scenario scenario = GameUtilities.parseJsonToObject(scenarioTest);
-        Game game = new Game(level,mode,scenario);
+        Game game = new Game(difficulty,mode,scenario);
         boolean resultGame = game.run(scenario.getEvents());
 
         printResult(resultGame);
