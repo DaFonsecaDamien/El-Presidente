@@ -119,8 +119,8 @@ public class App
 //
 //        Scenario scenario = new Scenario(events,name,story,700,500,35,40,listFaction);
 
-        String scenarioDir = ".\\src\\ressources\\scenarios";
-        String scenarioTest = ".\\src\\ressources\\scenarios\\attackOnTitans.json";
+        String scenarioDir = "src/ressources/scenarios";
+        String scenarioTest = "src/ressources/scenarios/attackOnTitans.json";
         List<File> scenariosJson = GameUtilities.allJsonFromDir(new File(scenarioDir));
         System.out.println(scenariosJson);
 
