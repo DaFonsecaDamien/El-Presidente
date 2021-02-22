@@ -45,7 +45,7 @@ public class App
         }
         do{
             System.out.println("Choisissez votre niveau de difficulté:");
-            System.out.println("1 - Facil");
+            System.out.println("1 - Facile");
             System.out.println("2 - Moyen");
             System.out.println("3 - Difficile");
             choiceLevel = sc.nextLine();
@@ -81,14 +81,14 @@ public class App
 
     private static void printResult(boolean resultGame){
         if(resultGame){
-            System.out.println("Felicitation vous avez fait les bons choix, vous  etes le meilleur presendent que le monde ai jammais connu");
+            System.out.println("Felicitation vous avez fait les bons choix, vous  êtes le meilleur président que le monde n'ai jammais connu");
             System.out.println("Vous avez su prendre les bonnes décisions aux bon moments");
             System.out.println("Nous espérons voir votre patrie s'agrandir et se développer d'avantages");
             System.out.println("A la prochaine !");
         }else{
             System.out.println("Coup d'etat !!");
             System.out.println("Votre patrie vous a rejeté !");
-            System.out.println("Ca n'est pas si facil de devenir le présidents parfait");
+            System.out.println("Ca n'est pas si facile de devenir le président parfait");
             System.out.println("Retentez votre chance une prochaine fois");
         }
     }

@@ -27,7 +27,7 @@ public class Game {
     public boolean run(List<Event> events){
         int choice=0;
         for(Event event: events){
-            System.out.println("Satisfaction gobal de l'ile : "+scenario.getListFactions().getGlobalSatisfactionPercentage()+"\n\n");
+            System.out.println("Satisfaction global de l'ile : "+scenario.getListFactions().getGlobalSatisfactionPercentage()+"\n\n");
             if(!chooseChoice(event)){
                return false;
             }
@@ -87,8 +87,8 @@ public class Game {
             yearBilan();
             year++;
         }
-        System.out.println("annee numero : "+year);
-        System.out.println("saison "+season);
+        System.out.println("Annee numero : "+year);
+        System.out.println("Saison "+season);
     }
 
     private void bribeFactionMenu(){
@@ -145,7 +145,7 @@ public class Game {
             return;
         }
 
-        System.out.println("Vous avez choisi de soudoyer la factions des "+factionChosen.getNameFaction()+"S");
+        System.out.println("Vous avez choisi de soudoyer la faction des "+factionChosen.getNameFaction()+"S");
         if(factionChosen.bribeFaction()){
             scenario.setTreasury(scenario.getTreasury()-15*factionChosen.getSupportersNumber());
             System.out.println("Leur satisfaction a auguementé de 10%!\n");
@@ -161,7 +161,7 @@ public class Game {
     private void manageAgriculture(){
         int foodUnitConsumed = scenario.getListFactions().getAllSuportersNumber();
         scenario.setFoodUnit(scenario.getFoodUnit()-foodUnitConsumed);
-        System.out.println("Votre ile a consomé "+foodUnitConsumed+" unités de nourriture");
+        System.out.println("Votre ile a consommé "+foodUnitConsumed+" unités de nourriture");
 
         int gainFood = 10*scenario.getAgriculturePercentage();
         scenario.setFoodUnit(scenario.getFoodUnit()+gainFood);
@@ -225,7 +225,7 @@ public class Game {
             System.out.println(" Malheureusement vous n'avez pas de quoi nourrir tous vos citoyens ...  \n");
             killPeople();
         }else if(40 * scenario.getAgriculturePercentage() >= scenario.getListFactions().getAllSuportersNumber() * 1.10){
-            System.out.println(" Bonne nouvelle : votre agricultre se porte bien !  !\n");
+            System.out.println(" Bonne nouvelle : votre agricultre se porte bien ...  !\n");
             increasePeople();
         }
     }
@@ -243,6 +243,7 @@ public class Game {
     }
 
     private void increasePeople(){
+        System.out.println(" ... si bien que la natalité de votre patrie augmente !\n");
         int randomPercentage = (int)(Math.random() * 10) + 1;
         int totalNumbersOfSuportersToAdd = randomPercentage * scenario.getListFactions().getAllSuportersNumber() / 100;
 
@@ -381,8 +382,8 @@ public class Game {
         System.out.println("----------------------\n\n");
         System.out.println("Vous avez au total : "+scenario.getTreasury()+" pieces d'or dans votre trésorerie");
         System.out.println("Vous avez au total "+scenario.getFoodUnit()+" unités de nouriture en stock");
-        System.out.println("l'agricuture occupe "+scenario.getAgriculturePercentage()+"% de la surface de votre ile");
-        System.out.println("l'industrie occupe "+scenario.getIndustryPercentage()+"% de la surface de votre ile");
+        System.out.println("L'agricuture occupe "+scenario.getAgriculturePercentage()+"% de la surface de votre ile");
+        System.out.println("L'industrie occupe "+scenario.getIndustryPercentage()+"% de la surface de votre ile");
         System.out.println("Satisfaction gobal de l'ile : "+scenario.getListFactions().getGlobalSatisfactionPercentage()+"\n");
         System.out.println("----------------------\n\n");
     }
