@@ -225,14 +225,14 @@ public class Game {
             System.out.println(" Malheureusement vous n'avez pas de quoi nourrir tous vos citoyens ...  \n");
             killPeople();
         }else if(40 * scenario.getAgriculturePercentage() >= scenario.getListFactions().getAllSuportersNumber() * 1.10){
-            System.out.println(" Bonne nouvelle : votre agricultre se porte bien ...  !\n");
+            System.out.println(" Bonne nouvelle : votre agricultre se porte bien  !\n");
             increasePeople();
         }
     }
 
     private void killPeople(){
         System.out.println(" Vos citoyens meurent de faim ... !\n");
-    //TODO indiquer le nombre de citoynes morts
+        int supportersBeforeStarving = scenario.getListFactions().getAllSuportersNumber();
         do{
             Faction randomFaction = scenario.getListFactions().getRandomFaction();
             randomFaction.setSupportersNumber(randomFaction.getSupportersNumber() - 1);
@@ -240,10 +240,12 @@ public class Game {
             scenario.getListFactions().setAllSatisfaction(-2);
 
         }while(scenario.getFoodUnit() + 40 * scenario.getAgriculturePercentage() < scenario.getListFactions().getAllSuportersNumber());
+        int supportersAfterStarving = supportersBeforeStarving - scenario.getListFactions().getAllSuportersNumber();
+        System.out.println(" La famine est terrible vous avez perdu " + supportersAfterStarving + " citoyen(s)  !\n");
     }
 
     private void increasePeople(){
-        System.out.println(" ... si bien que la natalité de votre patrie augmente !\n");
+        System.out.println(" Si bien que la natalité de votre patrie augmente !\n");
         int randomPercentage = (int)(Math.random() * 10) + 1;
         int totalNumbersOfSuportersToAdd = randomPercentage * scenario.getListFactions().getAllSuportersNumber() / 100;
 
