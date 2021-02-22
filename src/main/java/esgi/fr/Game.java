@@ -46,7 +46,15 @@ public class Game {
 
     private boolean isLoose(){
         double globalSatisfaction = scenario.getListFactions().getGlobalSatisfactionPercentage();
-        return globalSatisfaction < 10.0;
+        switch (difficulty){
+            case EASY:
+                return globalSatisfaction < 20.0;
+            case NORMAL:
+                return globalSatisfaction < 30.0;
+            case HARD:
+                return globalSatisfaction < 50.0;
+        }
+        return false;
     }
 
     private boolean chooseChoice(Event event) {
