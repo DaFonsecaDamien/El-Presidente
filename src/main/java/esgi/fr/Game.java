@@ -88,8 +88,9 @@ public class Game {
         if(season == Season.WINTER){
             System.out.println("\n\nNous voici en fin d'année !\n\n");
 
-            manageTreasurer();
+            manageIndustry();
             printInfosIle();
+            printInfosFactions();
             bribeFactionMenu();
             marketPlace();
             yearBilan();
@@ -115,7 +116,7 @@ public class Game {
                 printResultBribe(factionChosen);
             }
 
-        }while(!accept.equals("n"));printInfosFactions();
+        }while(!accept.equals("n"));
 
     }
 
@@ -168,18 +169,23 @@ public class Game {
 
     private void manageAgriculture(){
         int foodUnitConsumed = scenario.getListFactions().getAllSuportersNumber();
-        scenario.setFoodUnit(scenario.getFoodUnit()-foodUnitConsumed);
-        System.out.println("Votre ile a consommé "+foodUnitConsumed+" unités de nourriture");
-
-        int gainFood = 10*scenario.getAgriculturePercentage();
-        scenario.setFoodUnit(scenario.getFoodUnit()+gainFood);
-        System.out.println("Voici ce que l'ile vous a rapporté en nouriture cette saison: "+gainFood);
+        if(foodUnitConsumed>0){
+            scenario.setFoodUnit(scenario.getFoodUnit()-foodUnitConsumed);
+            System.out.println("Votre ile a consommé "+foodUnitConsumed+" unités de nourriture");
+        }
+        if(scenario.getAgriculturePercentage()>0){
+            int gainFood = 10*scenario.getAgriculturePercentage();
+            scenario.setFoodUnit(scenario.getFoodUnit()+gainFood);
+            System.out.println("Voici ce que l'ile vous a rapporté en nouriture cette saison: "+gainFood);
+        }
     }
 
-    private void manageTreasurer(){
-        int gainOr = 10*scenario.getIndustryPercentage();
-        scenario.setTreasury(scenario.getTreasury()+gainOr);
-        System.out.println("Voic ce que l'ile vous rapporte en or cette année: "+gainOr);
+    private void manageIndustry(){
+        if(scenario.getIndustryPercentage()>0){
+            int gainOr = 10*scenario.getIndustryPercentage();
+            scenario.setTreasury(scenario.getTreasury()+gainOr);
+            System.out.println("Voic ce que l'ile vous rapporte en or cette année: "+gainOr);
+        }
     }
 
     private void marketPlace(){
@@ -284,11 +290,13 @@ public class Game {
         int value = effect.getActions().get("partisans");
 
         if(value<0 && scenario.getListFactions().getAllSuportersNumber()>0){
-            scenario.getListFactions().removeSpportersInFactions((int)difficulty.getMultiplierPerte()*value);
+            value = (int)(difficulty.getMultiplierPerte()*value);
+            scenario.getListFactions().removeSpportersInFactions(value);
             System.out.println("-    "+(-value)+" citoyens ont quitté l'ile");
         }
         else if(value>0){
-            scenario.getListFactions().addSpportersInFactions((int)difficulty.getMultiplierGain()*value);
+            value = (int)(difficulty.getMultiplierGain()*value);
+            scenario.getListFactions().addSpportersInFactions(value);
             System.out.println("-    "+value+" citoyens ont rejoint votre ile");
         }
         if(scenario.getListFactions().getAllSuportersNumber()==0){System.out.println("-    Aucun citoyens dans votre ile");}
@@ -326,9 +334,11 @@ public class Game {
             }
             Faction faction = scenario.getListFactions().getOneFaction(nameFaction);
             if(value<0){
-                faction.setSatisfactionPercentage(faction.getSatisfactionPercentage()+(int)difficulty.getMultiplierPerte()*value);
-            }else{
-                faction.setSatisfactionPercentage(faction.getSatisfactionPercentage()+(int)difficulty.getMultiplierGain()*value);
+                value = (int)(difficulty.getMultiplierPerte()*value);
+                faction.setSatisfactionPercentage(faction.getSatisfactionPercentage()+value);
+            }else if(value>0){
+                value = (int)(difficulty.getMultiplierGain()*value);
+                faction.setSatisfactionPercentage(faction.getSatisfactionPercentage()+value);
             }
             System.out.println("-    "+value+"% de satisfaction chez les "+nameFaction+"S");
         }
@@ -340,9 +350,11 @@ public class Game {
             switch (action.getKey().toString()) {
                 case "AGRICULTURE":
                     if(value<0 && scenario.getAgriculturePercentage()>0){
-                        scenario.setAgriculturePercentage(scenario.getAgriculturePercentage()+(int)difficulty.getMultiplierPerte()*value);
+                        value = (int)(difficulty.getMultiplierPerte()*value);
+                        scenario.setAgriculturePercentage(scenario.getAgriculturePercentage()+value);
                     }
                     else if(value>0){
+                        value = (int)(difficulty.getMultiplierGain()*value);
                         manageIndustryAndAgricultureCumul(value,"AGRICULTURE");
                     }
                     System.out.println("-    "+value+"% de surface dédié à l'agriculture");
@@ -350,9 +362,11 @@ public class Game {
                     break;
                 case "INDUSTRY":
                     if(value<0 && scenario.getIndustryPercentage()>0){
-                        scenario.setIndustryPercentage(scenario.getIndustryPercentage()+(int)difficulty.getMultiplierPerte()*value);
+                        value = (int)(difficulty.getMultiplierPerte()*value);
+                        scenario.setIndustryPercentage(scenario.getIndustryPercentage()+value);
                     }
                     else if(value>0){
+                        value = (int)(difficulty.getMultiplierGain()*value);
                         manageIndustryAndAgricultureCumul(value,"INDUSTRY");
                     }
                     System.out.println("-    "+value+"% de surface dédié à l'industrie");
@@ -360,10 +374,12 @@ public class Game {
                     break;
                 case "TREASURY":
                     if(value<0 && scenario.getTreasury()>0){
-                        scenario.setTreasury(scenario.getTreasury()+(int)difficulty.getMultiplierPerte()*value);
+                        value = (int)(difficulty.getMultiplierPerte()*value);
+                        scenario.setTreasury(scenario.getTreasury()+value);
                     }
                     else if(value>0){
-                        scenario.setTreasury(scenario.getTreasury()+(int)difficulty.getMultiplierGain()*value);
+                        value = (int)(difficulty.getMultiplierGain()*value);
+                        scenario.setTreasury(scenario.getTreasury()+value);
                     }
                     System.out.println("-    "+value+" pièces d'or");
                     if(scenario.getTreasury()==0){System.out.println("-    Votre trésorerie est vide");}
@@ -375,19 +391,19 @@ public class Game {
         if(scenario.getAgriculturePercentage()+scenario.getIndustryPercentage()==100)return;
         if(value+scenario.getAgriculturePercentage()+scenario.getIndustryPercentage()<=100){
             if(factor.equals("INDUSTRY")){
-                scenario.setIndustryPercentage(scenario.getIndustryPercentage()+(int)difficulty.getMultiplierGain()*value);
+                scenario.setIndustryPercentage(scenario.getIndustryPercentage()+(int)(difficulty.getMultiplierGain()*value));
             }
             else if(factor.equals("AGRICULTURE")){
-                scenario.setAgriculturePercentage(scenario.getAgriculturePercentage()+(int)difficulty.getMultiplierGain()*value);
+                scenario.setAgriculturePercentage(scenario.getAgriculturePercentage()+(int)(difficulty.getMultiplierGain()*value));
             }
         }
         else {
             int newValue = 100 - (scenario.getAgriculturePercentage() + scenario.getIndustryPercentage());
             if (factor.equals("INDUSTRY")){
-                scenario.setIndustryPercentage(scenario.getIndustryPercentage()+(int)difficulty.getMultiplierGain()*newValue);
+                scenario.setIndustryPercentage(scenario.getIndustryPercentage()+(int)(difficulty.getMultiplierGain()*newValue));
             }
             else if(factor.equals("AGRICULTURE")){
-                scenario.setAgriculturePercentage(scenario.getAgriculturePercentage()+(int)difficulty.getMultiplierGain()*newValue);
+                scenario.setAgriculturePercentage(scenario.getAgriculturePercentage()+(int)(difficulty.getMultiplierGain()*newValue));
             }
         }
     }

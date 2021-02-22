@@ -64,6 +64,7 @@ public class Scenario {
     public void setIndustryPercentage(int industryPercentage) {
         if(industryPercentage<0){
             this.industryPercentage = 0;
+            return;
         }
         this.industryPercentage = industryPercentage;
     }
@@ -71,6 +72,19 @@ public class Scenario {
     public void setAgriculturePercentage(int agriculturePercentage) {
         if(agriculturePercentage<0){
             this.agriculturePercentage = 0;
+            return;
         }
-        this.agriculturePercentage = agriculturePercentage; }
+        this.agriculturePercentage = agriculturePercentage;
+    }
+
+    @Override
+    public String toString() {
+        return  name + "\n\n"+
+                story + "\n\n"+
+                "Or dans votre trésorerie : " + treasury +"\n"+
+                "Unité de nourritures en stock : " + foodUnit +"\n"+
+                "Surface de l'ile dédié à l'industrie : " + industryPercentage +"%\n"+
+                "Surface de l'ile dédié à l'agriculture : " + agriculturePercentage +"%\n"+
+                "Factions : " + listFactions.getFactions()+"\n";
+    }
 }
