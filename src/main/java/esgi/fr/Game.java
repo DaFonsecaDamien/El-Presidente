@@ -82,6 +82,7 @@ public class Game {
 
             manageTreasurer();
             printInfosIle();
+            printInfosFactions();
             bribeFactionMenu();
             marketPlace();
             yearBilan();
@@ -107,7 +108,7 @@ public class Game {
                 printResultBribe(factionChosen);
             }
 
-        }while(!accept.equals("n"));printInfosFactions();
+        }while(!accept.equals("n"));
 
     }
 
