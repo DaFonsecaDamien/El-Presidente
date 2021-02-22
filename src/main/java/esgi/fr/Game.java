@@ -9,15 +9,11 @@ public class Game {
     private Difficulty difficulty;
     private Mode mode;
     private Scenario scenario;
-    private int year;
-    private Season season;
 
     public Game(Difficulty difficulty, Mode mode, Scenario scenario) {
         this.difficulty = difficulty;
         this.mode = mode;
         this.scenario = scenario;
-        this.year = 1;
-        this.season = Season.WINTER;
     }
 
     public Scenario getScenario() {
@@ -31,7 +27,7 @@ public class Game {
             if(!chooseChoice(event)){
                return false;
             }
-            season = season.next();
+            scenario.setSeason(scenario.getSeason().next());
             manageAgriculture();
             manageYear();
 
@@ -85,7 +81,7 @@ public class Game {
     }
 
     private void manageYear(){
-        if(season == Season.WINTER){
+        if(scenario.getSeason() == Season.WINTER){
             System.out.println("\n\nNous voici en fin d'année !\n\n");
 
             manageIndustry();
@@ -94,10 +90,10 @@ public class Game {
             bribeFactionMenu();
             marketPlace();
             yearBilan();
-            year++;
+            scenario.setYear(scenario.getYear()+1);
         }
-        System.out.println("Annee numero : "+year);
-        System.out.println("Saison "+season);
+        System.out.println("Annee numero : "+scenario.getYear());
+        System.out.println("Saison "+scenario.getSeason());
     }
 
     private void bribeFactionMenu(){

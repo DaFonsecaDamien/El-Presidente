@@ -12,6 +12,8 @@ public class Scenario {
     private int industryPercentage;
     private int agriculturePercentage;
     private ListFaction listFactions;
+    private int year;
+    private Season season;
 
     public Scenario(List<Event> events,String name,String story, int agriculturePercentage, int industryPercentage, int treasury, int foodUnit, ListFaction factions) {
         this.events = events;
@@ -22,8 +24,17 @@ public class Scenario {
         this.industryPercentage = industryPercentage;
         this.agriculturePercentage = agriculturePercentage;
         this.listFactions = factions;
+        this.year = 1;
+        this.season = Season.WINTER;
     }
 
+    public int getYear() {
+        return year;
+    }
+
+    public Season getSeason() {
+        return season;
+    }
 
     public List<Event> getEvents() {
         return events;
@@ -50,6 +61,14 @@ public class Scenario {
     }
 
     public ListFaction getListFactions() { return listFactions; }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
+
+    public void setSeason(Season season) {
+        this.season = season;
+    }
 
     public void setTreasury(int treasury) {
         if(treasury<0){
