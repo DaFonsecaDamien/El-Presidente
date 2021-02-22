@@ -5,10 +5,10 @@ public enum Difficulty {
     NORMAL(1f,1f),
     HARD(1.5f,0.75f);
 
-    private float multiplierGain;
     private float multiplierPerte;
+    private float multiplierGain;
 
-    Difficulty(float multiplierGain, float multiplierPerte) {
+    Difficulty(float multiplierPerte,float multiplierGain) {
         this.multiplierGain = multiplierGain;
         this.multiplierPerte = multiplierPerte;
     }
