@@ -6,14 +6,14 @@ import java.util.Scanner;
 
 public class Game {
 
-    private Level level;
+    private Difficulty difficulty;
     private Mode mode;
     private Scenario scenario;
     private int year;
     private Season season;
 
-    public Game(Level level, Mode mode, Scenario scenario) {
-        this.level = level;
+    public Game(Difficulty difficulty, Mode mode, Scenario scenario) {
+        this.difficulty = difficulty;
         this.mode = mode;
         this.scenario = scenario;
         this.year = 1;
