@@ -1,18 +1,16 @@
 package esgi.fr;
 
 public enum Difficulty {
-    EASY(0.75f,1.5f,10f),
-    NORMAL(1f,1f,20f),
-    HARD(1.5f,0.75f,50f);
+    EASY(0.75f,1.5f),
+    NORMAL(1f,1f),
+    HARD(1.5f,0.75f);
 
-    private float multiplierGain;
     private float multiplierPerte;
-    private float minGlobalSatisfaction;
+    private float multiplierGain;
 
-    Difficulty(float multiplierGain, float multiplierPerte, float minGlobalSatisfaction) {
+    Difficulty(float multiplierPerte,float multiplierGain) {
         this.multiplierGain = multiplierGain;
         this.multiplierPerte = multiplierPerte;
-        this.minGlobalSatisfaction = minGlobalSatisfaction;
     }
 
     public float getMultiplierGain() {
@@ -23,7 +21,4 @@ public enum Difficulty {
         return multiplierPerte;
     }
 
-    public float getMinGlobalSatisfaction() {
-        return minGlobalSatisfaction;
-    }
 }

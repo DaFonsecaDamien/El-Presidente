@@ -55,7 +55,7 @@ public class GameUtilities {
 
             // Create an instance of gameScenario
             Scenario gameScenario = new Scenario(
-                    parseEvent(fileObject),
+                    parseEvent(fileObject, "events"),
                     parseScenarioName(fileObject),
                     parseScenarioStory(fileObject),
                     parseAgriculturePercentage(startParametersJson),
@@ -197,8 +197,8 @@ public class GameUtilities {
      * @param fileObject JsonObject with the special Element for the Event
      * @return ArrayList events
      */
-    public static ArrayList<Event> parseEvent(JsonObject fileObject){
-        JsonArray jsonArrayOfEvent = fileObject.get("events").getAsJsonArray();
+    public static ArrayList<Event> parseEvent(JsonObject fileObject, String nameObjectJson){
+        JsonArray jsonArrayOfEvent = fileObject.get(nameObjectJson).getAsJsonArray();
         ArrayList<Event> events = new ArrayList<>();
         for(JsonElement eventElement : jsonArrayOfEvent){
             //Get the jsonObject
@@ -212,29 +212,6 @@ public class GameUtilities {
             events.add(event);
         }
         return events;
-    }
-
-    /**
-     * Return an ArrayList of RelatedEvent
-     *
-     * @param fileObject JsonObject with the special Element for the Related Event
-     * @return ArrayList relatedEvents
-     */
-    public static ArrayList<Event> parseRelatedEvent(JsonObject fileObject){
-        JsonArray jsonArrayOfRelatedEvent = fileObject.get("relatedEvents").getAsJsonArray();
-        ArrayList<Event> relatedEvents = new ArrayList<>();
-        for(JsonElement eventElement : jsonArrayOfRelatedEvent){
-            //Get the jsonObject
-            JsonObject eventJsonObject = eventElement.getAsJsonObject();
-            //Extract data
-            String name = eventJsonObject.get("name").getAsString();
-            // Get all Choices
-            ArrayList<Choice> listChoice = parseChoice(eventJsonObject);
-            // CREATE INSTANCE OF EVENT
-            Event relatedEvent = new Event(listChoice,name);
-            relatedEvents.add(relatedEvent);
-        }
-        return relatedEvents;
     }
 
     /**
@@ -256,7 +233,7 @@ public class GameUtilities {
             ArrayList<Effect> listEffect = parseEffects(choiceJsonObject);
             // Get related Event of the choice
             if(choiceJsonObject.has("relatedEvents")){
-                relatedEvent = parseRelatedEvent(choiceJsonObject);
+                relatedEvent = parseEvent(choiceJsonObject, "relatedEvents");
             }
             // CREATE INSTANCE OF CHOICE
             Choice choice = new Choice(listEffect,name,relatedEvent);
