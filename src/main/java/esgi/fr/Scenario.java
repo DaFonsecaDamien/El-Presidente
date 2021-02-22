@@ -104,6 +104,7 @@ public class Scenario {
                 "Unité de nourritures en stock : " + foodUnit +"\n"+
                 "Surface de l'ile dédié à l'industrie : " + industryPercentage +"%\n"+
                 "Surface de l'ile dédié à l'agriculture : " + agriculturePercentage +"%\n"+
-                "Factions : " + listFactions.getFactions()+"\n";
+                "Factions : " + listFactions.getFactions()+"\n"+
+                "Nous somme en Hiver\n";
     }
 }
