@@ -22,7 +22,7 @@ public class Event implements Serializable {
         return name;
     }
 
-    public Season getSeason(){
+    public Season getSeason() {
         return season;
     }
 }

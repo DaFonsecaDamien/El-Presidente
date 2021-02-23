@@ -3,7 +3,7 @@ package esgi.fr;
 import java.io.Serializable;
 
 public class Faction implements ManageFactions, Serializable {
-    private NameFaction nameFaction;
+    private final NameFaction nameFaction;
     private int satisfactionPercentage;
     private int supportersNumber;
 
@@ -22,20 +22,20 @@ public class Faction implements ManageFactions, Serializable {
         return satisfactionPercentage;
     }
 
-    public int getSupportersNumber() {
-        return supportersNumber;
-    }
-
     public void setSatisfactionPercentage(int satisfactionPercentage) {
-        if(satisfactionPercentage<0){
+        if (satisfactionPercentage < 0) {
             this.satisfactionPercentage = 0;
             return;
         }
-        if(satisfactionPercentage>100){
+        if (satisfactionPercentage > 100) {
             this.satisfactionPercentage = 100;
             return;
         }
         this.satisfactionPercentage = satisfactionPercentage;
+    }
+
+    public int getSupportersNumber() {
+        return supportersNumber;
     }
 
     public void setSupportersNumber(int supportersNumber) {
@@ -44,7 +44,7 @@ public class Faction implements ManageFactions, Serializable {
 
     @Override
     public boolean bribeFaction() {
-        if(satisfactionPercentage>99 || satisfactionPercentage<1 || nameFaction==NameFaction.LOYALISTE){
+        if (satisfactionPercentage > 99 || satisfactionPercentage < 1 || nameFaction == NameFaction.LOYALISTE) {
             return false;
         }
         satisfactionPercentage += 10;
@@ -54,7 +54,7 @@ public class Faction implements ManageFactions, Serializable {
     @Override
     public String toString() {
         return "\n\nNom : " + nameFaction +
-                "\nSatisfaction : " + satisfactionPercentage +"%"+
+                "\nSatisfaction : " + satisfactionPercentage + "%" +
                 "\nNombre de partisans : " + supportersNumber;
     }
 }

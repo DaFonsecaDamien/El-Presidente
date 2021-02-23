@@ -4,8 +4,8 @@ import java.io.Serializable;
 import java.util.Map;
 
 public class Effect implements Serializable {
-    private String typeAction;
-    private Map<String,Integer> actions;
+    private final String typeAction;
+    private final Map<String, Integer> actions;
 
     public Effect(String typeAction, Map<String, Integer> actions) {
         this.typeAction = typeAction;

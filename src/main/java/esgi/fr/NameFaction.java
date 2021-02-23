@@ -11,14 +11,14 @@ public enum NameFaction {
     NATIONALISTE("LOYALISTS"),
     LOYALISTE("NATIONALISTS");
 
-    private String value;
+    private final String value;
 
     NameFaction(String value) {
         this.value = value;
     }
 
     // standard getters and setters
-    public String getValue(){
+    public String getValue() {
         return this.value;
     }
 }

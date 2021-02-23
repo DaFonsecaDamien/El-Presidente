@@ -4,11 +4,12 @@ public enum Season {
     WINTER,
     SPRING,
     SUMMER,
-    AUTUMN{
+    AUTUMN {
         @Override
-        public Season next(){
+        public Season next() {
             return values()[0];
-        };
+        }
+
     };
 
     public Season next() {

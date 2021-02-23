@@ -4,9 +4,9 @@ import java.io.Serializable;
 import java.util.List;
 
 public class Choice implements Serializable {
-    private List<Effect> effects;
-    private String name;
-    private List<Event> relatedEvents;
+    private final List<Effect> effects;
+    private final String name;
+    private final List<Event> relatedEvents;
 
     public Choice(List<Effect> effects, String name, List<Event> relatedEvents) {
         this.effects = effects;
