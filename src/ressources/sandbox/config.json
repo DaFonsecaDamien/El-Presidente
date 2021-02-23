@@ -1,0 +1,54 @@
+{
+  "name": "Bac à sable",
+  "story": "Le jeu peut se lancer en mode “bac à sable” : les conditions de départs sont celles fixés par un fichier de configuration annexe.",
+  "gameStartParameters": {
+    "NORMAL": {
+      "agriculturePercentage": 15,
+      "industryPercentage": 15,
+      "treasury": 200,
+      "foodUnits": 500,
+      "factions": {
+        "CAPITALISTS": {
+          "name": "Capitalists",
+          "satisfactionPercentage": 50,
+          "numberOfPartisans": 15
+        },
+        "COMMUNISTS": {
+          "name": "Communists",
+          "satisfactionPercentage": 50,
+          "numberOfPartisans": 15
+        },
+        "LIBERALS": {
+          "name": "Liberals",
+          "satisfactionPercentage": 50,
+          "numberOfPartisans": 15
+        },
+        "RELIGIOUS": {
+          "name": "Religious",
+          "satisfactionPercentage": 50,
+          "numberOfPartisans": 15
+        },
+        "MILITARISTS": {
+          "name": "Militarists",
+          "satisfactionPercentage": 50,
+          "numberOfPartisans": 15
+        },
+        "ECOLOGISTS": {
+          "name": "Ecologists",
+          "satisfactionPercentage": 50,
+          "numberOfPartisans": 15
+        },
+        "LOYALISTS": {
+          "name": "Loyalists",
+          "satisfactionPercentage": 100,
+          "numberOfPartisans": 15
+        },
+        "NATIONALISTS": {
+          "name": "Nationalists",
+          "satisfactionPercentage": 50,
+          "numberOfPartisans": 15
+        }
+      }
+    }
+  }
+}
