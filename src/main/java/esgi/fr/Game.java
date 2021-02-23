@@ -62,7 +62,7 @@ public class Game implements Serializable {
 
     private boolean isLoose() {
         double globalSatisfaction = scenario.getListFactions().getGlobalSatisfactionPercentage();
-        return difficulty.getMinGlobalSatisfaction() < globalSatisfaction;
+        return difficulty.getMinGlobalSatisfaction() > globalSatisfaction;
     }
 
     private boolean manageChoice(Event event) {
