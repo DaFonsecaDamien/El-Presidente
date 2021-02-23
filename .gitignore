@@ -17,5 +17,5 @@ buildNumber.properties
 # Ignore .iml
 *.iml
 
-# Ignore .save
+# Ignore save.bin
 src/ressources/save/save.bin
