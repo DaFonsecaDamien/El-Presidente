@@ -35,6 +35,7 @@ public class App
         else game = newGame();
 
         System.out.println(game.getScenario());
+        System.out.println("\n      ******Vous pouvez quitter la partie en tapant sur 'Q'******      \n\n");
         boolean resultGame = game.run(game.getScenario().getEvents());
         printResult(resultGame);
 

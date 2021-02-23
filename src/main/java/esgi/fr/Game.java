@@ -437,12 +437,14 @@ public class Game implements Serializable{
             objectOutputStream.writeObject(this);
             System.out.println("Votre partie a été sauvegardé avec succée !");
             objectOutputStream.close();
+            System.exit(1);
         }
         catch(IOException e){
             System.out.println("Impossible de savegarder votre partie : ");
             e.printStackTrace();
+            System.exit(-1);
         }
-        System.exit(-1);
+
     }
 
     private void menuQuitGame(){
