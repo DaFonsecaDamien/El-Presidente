@@ -1,4 +1,4 @@
-package esgi.fr;
+package esgi.fr.Faction;
 
 import java.io.Serializable;
 import java.util.List;

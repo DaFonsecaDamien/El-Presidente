@@ -1,5 +1,9 @@
 package esgi.fr;
 
+import esgi.fr.Event.Event;
+import esgi.fr.Faction.ListFaction;
+import esgi.fr.GameParameters.Season;
+
 import java.io.Serializable;
 import java.util.List;
 

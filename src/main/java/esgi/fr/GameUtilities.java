@@ -4,6 +4,12 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import esgi.fr.Event.Choice;
+import esgi.fr.Event.Effect;
+import esgi.fr.Event.Event;
+import esgi.fr.Faction.Faction;
+import esgi.fr.Faction.ListFaction;
+import esgi.fr.Faction.NameFaction;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -30,7 +36,7 @@ public class GameUtilities {
     /**
      * Return Map
      *
-     * @param fileDir directory where to get the jsons
+     * @param files directory where to get the jsons
      */
     public static Map<Integer, Map<String, String>> getScenarioName(List<File> files) throws FileNotFoundException {
         Map<Integer, Map<String, String>> indexPathString = new HashMap<>();
@@ -82,6 +88,9 @@ public class GameUtilities {
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
+            System.out.println(e.getMessage());
+            System.out.println("Votre programme est corrompu impossible d'établir le lien");
+            System.exit(1);
         }
         return null;
     }

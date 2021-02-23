@@ -1,5 +1,14 @@
 package esgi.fr;
 
+import esgi.fr.Event.Choice;
+import esgi.fr.Event.Effect;
+import esgi.fr.Event.Event;
+import esgi.fr.Faction.Faction;
+import esgi.fr.Faction.NameFaction;
+import esgi.fr.GameParameters.Difficulty;
+import esgi.fr.GameParameters.Mode;
+import esgi.fr.GameParameters.Season;
+
 import java.io.*;
 import java.util.List;
 import java.util.Map;
@@ -48,7 +57,6 @@ public class Game implements Serializable {
                 }
             }
         }
-
         return true;
     }
 

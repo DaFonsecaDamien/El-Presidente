@@ -1,5 +1,8 @@
 package esgi.fr;
 
+import esgi.fr.GameParameters.Difficulty;
+import esgi.fr.GameParameters.Mode;
+
 import java.io.*;
 import java.util.List;
 import java.util.Map;

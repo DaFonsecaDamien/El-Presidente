@@ -1,4 +1,4 @@
-package esgi.fr;
+package esgi.fr.GameParameters;
 
 import java.io.Serializable;
 
