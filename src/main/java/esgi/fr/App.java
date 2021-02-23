@@ -98,7 +98,6 @@ public class App {
         String scenarioDir = "src/ressources/scenarios";
 
         List<File> scenariosJson = GameUtilities.allJsonFromDir(new File(scenarioDir));
-        System.out.println(scenariosJson);
         Map<Integer, Map<String, String>> scenarioNames = GameUtilities.getScenarioName(scenariosJson);
 
         for (Map.Entry<Integer, Map<String, String>> indexEntry : scenarioNames.entrySet()) {
@@ -108,7 +107,7 @@ public class App {
         }
         int choiceScenario = 0;
         do {
-            System.out.println("Go choisir mon gars : ");
+            System.out.println("Veuillez choisir un scenario : ");
             choiceScenario = sc.nextInt();
         } while (choiceScenario < 1 || choiceScenario > scenarioNames.size());
 

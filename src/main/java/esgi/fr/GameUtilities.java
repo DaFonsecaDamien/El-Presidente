@@ -27,6 +27,11 @@ public class GameUtilities {
         }).collect(Collectors.toList());
     }
 
+    /**
+     * Return Map
+     *
+     * @param fileDir directory where to get the jsons
+     */
     public static Map<Integer, Map<String, String>> getScenarioName(List<File> files) throws FileNotFoundException {
         Map<Integer, Map<String, String>> indexPathString = new HashMap<>();
         int i = 1;

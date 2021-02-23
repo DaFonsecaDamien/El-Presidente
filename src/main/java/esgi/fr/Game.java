@@ -54,15 +54,7 @@ public class Game implements Serializable {
 
     private boolean isLoose() {
         double globalSatisfaction = scenario.getListFactions().getGlobalSatisfactionPercentage();
-        switch (difficulty) {
-            case EASY:
-                return globalSatisfaction < 20.0;
-            case NORMAL:
-                return globalSatisfaction < 30.0;
-            case HARD:
-                return globalSatisfaction < 50.0;
-        }
-        return false;
+        return difficulty.getMinGlobalSatisfaction() < globalSatisfaction;
     }
 
     private boolean manageChoice(Event event) {
