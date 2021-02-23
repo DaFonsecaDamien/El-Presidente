@@ -1,0 +1,22 @@
+package esgi.fr.Event;
+
+import java.io.Serializable;
+import java.util.Map;
+
+public class Effect implements Serializable {
+    private final String typeAction;
+    private final Map<String, Integer> actions;
+
+    public Effect(String typeAction, Map<String, Integer> actions) {
+        this.typeAction = typeAction;
+        this.actions = actions;
+    }
+
+    public String getTypeAction() {
+        return typeAction;
+    }
+
+    public Map<String, Integer> getActions() {
+        return actions;
+    }
+}
