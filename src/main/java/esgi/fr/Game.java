@@ -407,11 +407,11 @@ public class Game implements Serializable {
 
     private void saveGame() {
         try {
-            ObjectOutputStream objectOutputStream = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream("src/ressources/save/save.bin")));
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream("save.bin")));
             objectOutputStream.writeObject(this);
             System.out.println("Votre partie a été sauvegardé avec succée !");
             objectOutputStream.close();
-            System.exit(1);
+            System.exit(0);
         } catch (IOException e) {
             System.out.println("Impossible de savegarder votre partie : ");
             e.printStackTrace();
