@@ -1,7 +1,9 @@
 package esgi.fr;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 /**
@@ -10,7 +12,7 @@ import java.util.Scanner;
  */
 public class App 
 {
-    public static void main( String[] args ){
+    public static void main( String[] args ) throws FileNotFoundException {
 
         Scanner sc = new Scanner(System.in);
 
@@ -69,8 +71,27 @@ public class App
         String scenarioDir = "src/ressources/scenarios";
 
         List<File> scenariosJson = GameUtilities.allJsonFromDir(new File(scenarioDir));
+        System.out.println(scenariosJson);
+        Map<Integer,Map<String,String>> scenarioNames =  GameUtilities.getScenarioName(scenariosJson);
 
-        String scenarioTest = "src/ressources/scenarios/attackOnTitans.json";
+        for (Map.Entry<Integer, Map<String, String>> indexEntry : scenarioNames.entrySet()) {
+            for(Map.Entry<String, String> entry : indexEntry.getValue().entrySet()){
+                System.out.println(indexEntry.getKey() + " - " +entry.getValue());
+            }
+        }
+        int choiceScenario = 0;
+        do{
+            System.out.println("Go choisir mon gars : ");
+            choiceScenario = sc.nextInt();
+        }while(choiceScenario < 1 || choiceScenario > scenarioNames.size());
+
+        Map<String,String> pathName = scenarioNames.get(choiceScenario);
+
+        String scenarioTest = "";
+        for (Map.Entry<String, String> pathMap : pathName.entrySet()) {
+            scenarioTest = pathMap.getKey();
+        }
+  
         Scenario scenario = GameUtilities.parseJsonToObject(scenarioTest);
         Game game = new Game(difficulty,mode,scenario);
         System.out.println(scenario);

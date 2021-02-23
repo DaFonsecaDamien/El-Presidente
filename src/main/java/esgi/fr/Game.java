@@ -301,32 +301,11 @@ public class Game {
     private void getEffectOnFaction(Effect effect){
         for (Map.Entry action : effect.getActions().entrySet()){
             int value = action.getValue().hashCode();
-            NameFaction nameFaction = NameFaction.CAPITALISTE;
-            switch (action.getKey().toString()){
-                case "ECOLOGISTS":
-                    nameFaction = NameFaction.ECOLOGISTE;
-                    break;
-                case "CAPITALISTS":
-                    nameFaction = NameFaction.CAPITALISTE;
-                    break;
-                case "LOYALISTS":
-                    nameFaction = NameFaction.LOYALISTE;
-                    break;
-                case "LIBERALS":
-                    nameFaction = NameFaction.LIBERAU;
-                    break;
-                case "RELIGIOUS":
-                    nameFaction = NameFaction.RELIGIEU;
-                    break;
-                case "MILITARISTS":
-                    nameFaction = NameFaction.MILITARISTE;
-                    break;
-                case "NATIONALISTS":
-                    nameFaction = NameFaction.NATIONALISTE;
-                    break;
-                case "COMMUNISTS":
-                    nameFaction = NameFaction.COMMUNISTE;
-                    break;
+            NameFaction nameFaction = null;
+            for (NameFaction faction : NameFaction.values()) {
+                if(faction.getValue().equals(action.getKey())){
+                    nameFaction = faction;
+                }
             }
             Faction faction = scenario.getListFactions().getOneFaction(nameFaction);
             if(value<0){

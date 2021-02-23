@@ -11,42 +11,42 @@
         "CAPITALISTS": {
           "name": "Capitalists",
           "satisfactionPercentage": 60,
-          "partisans": 30
+          "numberOfPartisans": 30
         },
         "COMMUNISTS": {
           "name": "Communists",
           "satisfactionPercentage": 40,
-          "partisans": 15
+          "numberOfPartisans": 15
         },
         "LIBERALS": {
           "name": "Liberals",
           "satisfactionPercentage": 60,
-          "partisans": 26
+          "numberOfPartisans": 26
         },
         "RELIGIOUS": {
           "name": "Religious",
           "satisfactionPercentage": 50,
-          "partisans": 17
+          "numberOfPartisans": 17
         },
         "MILITARISTS": {
           "name": "Militarists",
           "satisfactionPercentage": 50,
-          "partisans": 28
+          "numberOfPartisans": 28
         },
         "ECOLOGISTS": {
           "name": "Ecologists",
           "satisfactionPercentage": 40,
-          "partisans": 15
+          "numberOfPartisans": 15
         },
         "LOYALISTS": {
           "name": "Loyalists",
           "satisfactionPercentage": 100,
-          "partisans": 13
+          "numberOfPartisans": 13
         },
         "NATIONALISTS": {
           "name": "Nationalists",
           "satisfactionPercentage": 60,
-          "partisans": 16
+          "numberOfPartisans": 16
         }
       }
     }

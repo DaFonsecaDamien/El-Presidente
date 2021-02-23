@@ -24,6 +24,21 @@ public class GameUtilities {
         }).collect(Collectors.toList());
     }
 
+    public static Map<Integer,Map<String,String>> getScenarioName(List<File> files) throws FileNotFoundException {
+        Map<Integer,Map<String,String>> indexPathString = new HashMap<>();
+        int i=1;
+        for(File file : files){
+            JsonElement fileElement = JsonParser.parseReader(new FileReader(file));
+            JsonObject fileObject = fileElement.getAsJsonObject();
+            String name = parseScenarioName(fileObject);
+            Map<String,String> pathString = new HashMap<>();
+            pathString.put(file.getPath(), name);
+            indexPathString.put(i,pathString);
+            i++;
+        }
+        return indexPathString;
+    }
+
     /**
      * Return a Scenario from the Json File (Object)
      *
@@ -36,18 +51,9 @@ public class GameUtilities {
             JsonElement fileElement = JsonParser.parseReader(new FileReader(input));
             JsonObject fileObject = fileElement.getAsJsonObject();
 
-            // Extract Global Information of the scenario
-            parseScenarioName(fileObject);
-            parseScenarioStory(fileObject);
-
             // Extract the gameStartParameters and parse it
             JsonObject gameParametersJson = fileObject.get("gameStartParameters").getAsJsonObject();
             JsonObject startParametersJson = gameParametersJson.get("NORMAL").getAsJsonObject();
-
-            parseAgriculturePercentage(startParametersJson);
-            parseIndustryPercentage(startParametersJson);
-            parseTreasury(startParametersJson);
-            parseFoodUnits(startParametersJson);
 
             // Extract Faction with parameters
             ArrayList<Faction> gameFactions = parseFaction(startParametersJson);
@@ -155,34 +161,11 @@ public class GameUtilities {
             int satisfactionPercentage = actualFactionElement.get("satisfactionPercentage").getAsInt();
             int numberOfPartisans = actualFactionElement.get("numberOfPartisans").getAsInt();
             // Check the right Faction
-            NameFaction nameFaction;
-            switch (entry.getKey()){
-                case "CAPITALISTS":
-                    nameFaction = NameFaction.CAPITALISTE;
-                    break;
-                case "COMMUNISTS":
-                    nameFaction = NameFaction.COMMUNISTE;
-                    break;
-                case "LIBERALS":
-                    nameFaction = NameFaction.LIBERAU;
-                    break;
-                case "RELIGIOUS":
-                    nameFaction = NameFaction.RELIGIEU;
-                    break;
-                case "MILITARISTS":
-                    nameFaction = NameFaction.MILITARISTE;
-                    break;
-                case "ECOLOGISTS":
-                    nameFaction = NameFaction.ECOLOGISTE;
-                    break;
-                case "NATIONALISTS":
-                    nameFaction = NameFaction.NATIONALISTE;
-                    break;
-                case "LOYALISTS":
-                    nameFaction = NameFaction.LOYALISTE;
-                    break;
-                default:
-                    throw new IllegalStateException("Unexpected value: " + entry.getKey());
+            NameFaction nameFaction = null;
+            for (NameFaction faction : NameFaction.values()) {
+                if(faction.getValue().equals(entry.getKey())){
+                    nameFaction = faction;
+                }
             }
             //CREATE INSTANCE OF FACTION
             Faction faction = new Faction(nameFaction,satisfactionPercentage,numberOfPartisans);
@@ -255,28 +238,8 @@ public class GameUtilities {
             //Get the jsonObject
             JsonObject effectJsonObject = effectElement.getAsJsonObject();
             //Extract data
-            if(effectJsonObject.has("actionOnFaction")){
-                String typeAction = "actionOnFaction";
-                JsonObject effectActionOnFaction = effectJsonObject.get("actionOnFaction").getAsJsonObject();
-                Set<Map.Entry<String, JsonElement>> entries = effectActionOnFaction.entrySet();
-                for(Map.Entry<String, JsonElement> entry: entries) {
-                    HashMap<String,Integer> action = new HashMap<>();
-                    action.put(entry.getKey(),entry.getValue().getAsInt());
-                    Effect effect = new Effect(typeAction,action);
-                    effects.add(effect);
-                }
-            }
-            if(effectJsonObject.has("actionOnFactor")){
-                String typeAction = "actionOnFactor";
-                JsonObject effectActionOnFactor = effectJsonObject.get("actionOnFactor").getAsJsonObject();
-                Set<Map.Entry<String, JsonElement>> entries = effectActionOnFactor.entrySet();
-                for(Map.Entry<String, JsonElement> entry: entries) {
-                    HashMap<String,Integer> action = new HashMap<>();
-                    action.put(entry.getKey(),entry.getValue().getAsInt());
-                    Effect effect = new Effect(typeAction,action);
-                    effects.add(effect);
-                }
-            }
+            setTypeAction(effectJsonObject,"actionOnFaction",effects);
+            setTypeAction(effectJsonObject,"actionOnFactor",effects);
             if(!effectJsonObject.has("actionOnFactor") && !effectJsonObject.has("actionOnFaction")){
                 int effectPartisans = effectJsonObject.get("partisans").getAsInt();
                 HashMap<String,Integer> action = new HashMap<>();
@@ -287,4 +250,26 @@ public class GameUtilities {
         }
         return effects;
     }
+
+    /**
+     * Return an ArrayList of Effect
+     *
+     * @param effectJsonObject,strAction,effects with the special Element for the Effect
+     * @return ArrayList effects
+     */
+    public static void setTypeAction(JsonObject effectJsonObject, String strAction, ArrayList<Effect> effects){
+        if(effectJsonObject.has(strAction)){
+            JsonObject effectActionOnFactor = effectJsonObject.get(strAction).getAsJsonObject();
+            Set<Map.Entry<String, JsonElement>> entries = effectActionOnFactor.entrySet();
+            for(Map.Entry<String, JsonElement> entry: entries) {
+                HashMap<String,Integer> action = new HashMap<>();
+                action.put(entry.getKey(),entry.getValue().getAsInt());
+                Effect effect = new Effect(strAction,action);
+                effects.add(effect);
+            }
+        }
+    }
+
 }
+
+
