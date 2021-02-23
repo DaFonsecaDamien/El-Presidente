@@ -11,7 +11,7 @@ import java.util.Scanner;
 public class App {
     public static void main(String[] args) throws Exception {
         Game game;
-        File file = new File("src/ressources/save/save.bin");
+        File file = new File("save.bin");
 
         if (file.isFile()) {
             Scanner sc = new Scanner(System.in);
