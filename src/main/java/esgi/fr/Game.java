@@ -81,7 +81,6 @@ public class Game implements Serializable{
             while (!sc.hasNextInt()) {
                 if(sc.next().equals("Q")){menuQuitGame();}
                 sc = new Scanner(System.in);
-                System.out.println("Rentrez un bon numéro ");
             }
             choice = sc.nextInt();
         }
