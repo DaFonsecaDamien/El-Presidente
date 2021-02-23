@@ -16,3 +16,6 @@ buildNumber.properties
 
 # Ignore .iml
 *.iml
+
+# Ignore save.bin
+save.bin
