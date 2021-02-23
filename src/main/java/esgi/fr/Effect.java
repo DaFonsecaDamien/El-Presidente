@@ -1,9 +1,9 @@
 package esgi.fr;
 
-import java.util.HashMap;
+import java.io.Serializable;
 import java.util.Map;
 
-public class Effect {
+public class Effect implements Serializable {
     private String typeAction;
     private Map<String,Integer> actions;
 

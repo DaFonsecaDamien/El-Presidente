@@ -1,9 +1,10 @@
 package esgi.fr;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
-public class Scenario {
+public class Scenario implements Serializable {
     private List<Event> events;
     private String name;
     private String story;

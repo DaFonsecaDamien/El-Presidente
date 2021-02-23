@@ -1,8 +1,9 @@
 package esgi.fr;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Choice {
+public class Choice implements Serializable {
     private List<Effect> effects;
     private String name;
     private List<Event> relatedEvents;

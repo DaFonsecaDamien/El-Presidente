@@ -1,8 +1,9 @@
 package esgi.fr;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Event {
+public class Event implements Serializable {
 
     String name;
     Season season;
@@ -11,7 +12,6 @@ public class Event {
     public Event(List<Choice> choices, String name) {
         this.name = name;
         this.choices = choices;
-//        this.season = season;
     }
 
     public List<Choice> getChoices() {

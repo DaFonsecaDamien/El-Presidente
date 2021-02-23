@@ -1,8 +1,9 @@
 package esgi.fr;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class ListFaction {
+public class ListFaction implements Serializable {
     private List<Faction> factions;
 
     public ListFaction(List<Faction> factions) {

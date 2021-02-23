@@ -1,6 +1,8 @@
 package esgi.fr;
 
-public class Faction implements ManageFactions{
+import java.io.Serializable;
+
+public class Faction implements ManageFactions, Serializable {
     private NameFaction nameFaction;
     private int satisfactionPercentage;
     private int supportersNumber;

@@ -1,8 +1,9 @@
 package esgi.fr;
 
+import java.io.Serializable;
 import java.util.stream.Stream;
 
-public enum NameFaction {
+public enum NameFaction implements Serializable {
     CAPITALISTE,
     COMMUNISTE,
     LIBERAU,
