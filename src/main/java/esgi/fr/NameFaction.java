@@ -1,6 +1,5 @@
 package esgi.fr;
 
-import java.util.stream.Stream;
 
 public enum NameFaction {
     CAPITALISTE("CAPITALISTS"),

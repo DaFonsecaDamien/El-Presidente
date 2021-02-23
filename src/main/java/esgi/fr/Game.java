@@ -1,10 +1,11 @@
 package esgi.fr;
 
+import java.io.*;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
-public class Game {
+public class Game implements Serializable{
 
     private Difficulty difficulty;
     private Mode mode;
@@ -16,6 +17,14 @@ public class Game {
         this.scenario = scenario;
     }
 
+    public Difficulty getDifficulty() {
+        return difficulty;
+    }
+
+    public Mode getMode() {
+        return mode;
+    }
+
     public Scenario getScenario() {
         return scenario;
     }
@@ -23,8 +32,9 @@ public class Game {
     public boolean run(List<Event> events){
         int choice=0;
         for(Event event: events){
+
             System.out.println("Satisfaction global de l'ile : "+scenario.getListFactions().getGlobalSatisfactionPercentage()+"\n\n");
-            if(!chooseChoice(event)){
+            if(!manageChoice(event)){
                return false;
             }
             scenario.setSeason(scenario.getSeason().next());
@@ -32,11 +42,13 @@ public class Game {
             manageYear();
 
             if(event.getChoices().get(choice).getRelatedEvents() != null){
+
                 if(!run(event.getChoices().get(choice).getRelatedEvents())){
                     return false;
                 }
             }
         }
+
         return true;
     }
 
@@ -53,7 +65,7 @@ public class Game {
         return false;
     }
 
-    private boolean chooseChoice(Event event) {
+    private boolean manageChoice(Event event) {
         int choice = 0;
         int i=0;
 
@@ -67,8 +79,8 @@ public class Game {
         Scanner sc = new Scanner(System.in);
         while (choice < 1 || choice > event.getChoices().size()) {
             while (!sc.hasNextInt()) {
+                if(sc.next().equals("Q")){menuQuitGame();}
                 sc = new Scanner(System.in);
-                System.out.println("Rentrez un bon numéro ");
             }
             choice = sc.nextInt();
         }
@@ -104,6 +116,7 @@ public class Game {
         do{
             System.out.println("Voulez vous soudoyer une faction ?");
             System.out.println("Si oui tapez sur 'o' sinon tapez sur 'n'");
+            if(accept.equals("Q")){menuQuitGame();}
             accept = sc.nextLine();
 
             if(accept.equals("o")){
@@ -118,9 +131,12 @@ public class Game {
 
     private int getChoiceFaction(){
         int choice =0;
-        printInfosFactions();
         Scanner sc = new Scanner(System.in);
+
+        printInfosFactions();
+        System.out.println("choisissez celle que vous voulez soudoyer");
         while (choice<1 || choice >scenario.getListFactions().getFactions().size()) {
+            if(sc.next().equals("Q")){menuQuitGame();}
             while (!sc.hasNextInt()) {
                 sc = new Scanner(System.in);
             }
@@ -137,10 +153,8 @@ public class Game {
             i++;
             System.out.println(i+" - ");
             System.out.println(faction);
-            System.out.println("Or requis : "+faction.getSupportersNumber()*15);
-            System.out.println();
+            System.out.println("Or requis pour soudoyer : "+faction.getSupportersNumber()*15+"\n");
         }
-        System.out.println("choisissez celle que vous voulez soudoyer");
     }
 
     private void printResultBribe(Faction factionChosen){
@@ -200,6 +214,7 @@ public class Game {
 
         do{
             choice = sc.nextLine();
+            if(choice.equals("Q")){menuQuitGame();}
         }while (!choice.equals("o") && !choice.equals("n"));
 
         if(choice.equals("o")){
@@ -214,6 +229,7 @@ public class Game {
         System.out.println("Combien d'unités de nourriture voulez vous acheter ?");
 
         while(nbFoodUnitBought<1 || nbFoodUnitBought > nbUnitFoodMaxPossible){
+            if(sc.next().equals("Q")){menuQuitGame();}
             System.out.println("Vous pouvez achetez jusqu'a "+nbUnitFoodMaxPossible+" unités de nourriture\n");
             while (!sc.hasNextInt()){
                 sc = new Scanner(System.in);
@@ -392,4 +408,37 @@ public class Game {
         System.out.println("Satisfaction gobal de l'ile : "+scenario.getListFactions().getGlobalSatisfactionPercentage()+"\n");
         System.out.println("----------------------\n\n");
     }
+
+    private void saveGame(){
+        try{
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream("src/ressources/save/save.bin")));
+            objectOutputStream.writeObject(this);
+            System.out.println("Votre partie a été sauvegardé avec succée !");
+            objectOutputStream.close();
+            System.exit(1);
+        }
+        catch(IOException e){
+            System.out.println("Impossible de savegarder votre partie : ");
+            e.printStackTrace();
+            System.exit(-1);
+        }
+
+    }
+
+    private void menuQuitGame(){
+        Scanner sc = new Scanner(System.in);
+        String choice ="";
+        do{
+            System.out.println("Voulez vous vraiment quitter ?");
+            System.out.println("1 - Oui");
+            System.out.println("2 - Non");
+            choice = sc.nextLine();
+
+            if(choice.equals("1")){
+                saveGame();
+            }
+
+        }while (!choice.equals("1")&& !choice.equals("2"));
+    }
+
 }

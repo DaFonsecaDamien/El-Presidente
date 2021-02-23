@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.Map;
+import java.io.*;
 import java.util.Scanner;
 
 /**
@@ -12,8 +13,39 @@ import java.util.Scanner;
  */
 public class App 
 {
-    public static void main( String[] args ) throws FileNotFoundException {
+    public static void main( String[] args ) throws Exception {
+        Game game;
+        File file = new File("src/ressources/save/save.bin");
 
+        if(file.isFile()){
+            Scanner sc = new Scanner(System.in);
+            String choiceLoad="";
+
+            do{
+                System.out.println("Il y'a une sauvegarde voulez vous la charger ou en ccommencer une nouvelle ?");
+                System.out.println("1 - Commencer une nouvelle partie");
+                System.out.println("2 - Charger la partie existante\n\n");
+                choiceLoad = sc.nextLine();
+            }while(!choiceLoad.equals("1") && !choiceLoad.equals("2"));
+
+            switch (choiceLoad){
+                case "1":
+                    game = newGame();
+                    break;
+                default:
+                    game = loadGame(file);
+            }
+        }
+        else game = newGame();
+
+        System.out.println(game.getScenario());
+        System.out.println("\n      ******Vous pouvez quitter la partie en tapant sur 'Q'******      \n\n");
+        boolean resultGame = game.run(game.getScenario().getEvents());
+        printResult(resultGame);
+
+    }
+
+    private static Game newGame() throws Exception{
         Scanner sc = new Scanner(System.in);
 
         String choiceMode;
@@ -29,10 +61,10 @@ public class App
             System.out.println("1 - Mode normal");
             System.out.println("2 - Mode bac a sable");
             choiceMode = sc.nextLine();
-        }while(!choiceMode.equals("1") && !choiceMode.equals("2"));
+        } while (!choiceMode.equals("1") && !choiceMode.equals("2"));
 
 
-        switch (choiceMode){
+        switch (choiceMode) {
             case "1":
                 mode = Mode.NORMAL;
                 System.out.println("Vous avez choisi le mode normal");
@@ -45,19 +77,19 @@ public class App
                 mode = Mode.NORMAL;
                 break;
         }
-        do{
+        do {
             System.out.println("Choisissez votre niveau de difficulté:");
             System.out.println("1 - Facile");
             System.out.println("2 - Moyen");
             System.out.println("3 - Difficile");
             choiceLevel = sc.nextLine();
-        }while(!choiceLevel.equals("1") && !choiceLevel.equals("2") &&!choiceLevel.equals("3"));
+        } while (!choiceLevel.equals("1") && !choiceLevel.equals("2") && !choiceLevel.equals("3"));
 
-        switch (choiceLevel){
+        switch (choiceLevel) {
             case "1":
-               difficulty = Difficulty.EASY;
-               System.out.println("Vous avez choisi le niveau Facil");
-               break;
+                difficulty = Difficulty.EASY;
+                System.out.println("Vous avez choisi le niveau Facil");
+                break;
             case "2":
                 difficulty = Difficulty.NORMAL;
                 System.out.println("Vous avez choisi le niveau Moyen");
@@ -91,15 +123,30 @@ public class App
         for (Map.Entry<String, String> pathMap : pathName.entrySet()) {
             scenarioTest = pathMap.getKey();
         }
-  
+
         Scenario scenario = GameUtilities.parseJsonToObject(scenarioTest);
-        Game game = new Game(difficulty,mode,scenario);
-        System.out.println(scenario);
+        return new Game(difficulty, mode, scenario);
 
-        boolean resultGame = game.run(scenario.getEvents());
+    }
 
-        printResult(resultGame);
+    private static Game loadGame(File file){
+        Game game=null;
 
+        try {
+            ObjectInputStream objectInputStream = new ObjectInputStream(new BufferedInputStream(new FileInputStream(file)));
+            Game datas = (Game)(objectInputStream.readObject());
+            game = new Game(datas.getDifficulty(),datas.getMode(),datas.getScenario());
+            objectInputStream.close();
+        }
+        catch (IOException e){
+            System.out.println("Erreur lors de l'ouverture du fichier de sauvegarde :\n"+e.getMessage());
+            System.exit(-1);
+        }
+        catch(ClassNotFoundException e){
+            System.out.println("Fichier corrompu !\n"+e.getMessage());
+            System.exit(-1);
+        }
+        return game;
     }
 
     private static void printResult(boolean resultGame){

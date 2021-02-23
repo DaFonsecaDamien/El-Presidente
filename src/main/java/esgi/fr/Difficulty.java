@@ -1,6 +1,8 @@
 package esgi.fr;
 
-public enum Difficulty {
+import java.io.Serializable;
+
+public enum Difficulty implements Serializable {
     EASY(0.75f,1.5f),
     NORMAL(1f,1f),
     HARD(1.5f,0.75f);
