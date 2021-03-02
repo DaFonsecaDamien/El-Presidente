@@ -7,6 +7,7 @@ import java.io.*;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.logging.Level;
 
 /**
  * Hello world!
@@ -44,59 +45,14 @@ public class App {
     }
 
     private static Game newGame() throws Exception {
-        Scanner sc = new Scanner(System.in);
-
-        String choiceMode;
-        String choiceLevel;
-
         Mode mode;
-        Difficulty difficulty = Difficulty.NORMAL;
+        Difficulty difficulty;
+        Scanner sc = new Scanner(System.in);
 
         System.out.println("****ELPRESIDENTE****");
 
-        do {
-            System.out.println("Choisissez un mode");
-            System.out.println("1 - Mode normal");
-            System.out.println("2 - Mode bac a sable");
-            choiceMode = sc.nextLine();
-        } while (!choiceMode.equals("1") && !choiceMode.equals("2"));
-
-
-        switch (choiceMode) {
-            case "1":
-                mode = Mode.NORMAL;
-                System.out.println("Vous avez choisi le mode normal");
-                break;
-            case "2":
-                mode = Mode.SANDBOX;
-                System.out.println("Vous avez choisi le mode bac à sable");
-                break;
-            default:
-                mode = Mode.NORMAL;
-                break;
-        }
-        do {
-            System.out.println("Choisissez votre niveau de difficulté:");
-            System.out.println("1 - Facile");
-            System.out.println("2 - Moyen");
-            System.out.println("3 - Difficile");
-            choiceLevel = sc.nextLine();
-        } while (!choiceLevel.equals("1") && !choiceLevel.equals("2") && !choiceLevel.equals("3"));
-
-        switch (choiceLevel) {
-            case "1":
-                difficulty = Difficulty.EASY;
-                System.out.println("Vous avez choisi le niveau Facil");
-                break;
-            case "2":
-                difficulty = Difficulty.NORMAL;
-                System.out.println("Vous avez choisi le niveau Moyen");
-                break;
-            case "3":
-                difficulty = Difficulty.HARD;
-                System.out.println("Vous avez choisi le niveau Difficil");
-                break;
-        }
+        mode = getChoiceMode();
+        difficulty = getChoiceLevel();
 
         String scenarioDir = "src/ressources/scenarios";
 
@@ -156,5 +112,62 @@ public class App {
             System.out.println("Ca n'est pas si facile de devenir le président parfait");
             System.out.println("Retentez votre chance une prochaine fois");
         }
+    }
+
+    private static Mode getChoiceMode(){
+        Mode mode = Mode.NORMAL;
+        Scanner sc = new Scanner(System.in);
+        String choiceMode;
+        do {
+            System.out.println("Choisissez un mode");
+            System.out.println("1 - Mode normal");
+            System.out.println("2 - Mode bac a sable");
+            choiceMode = sc.nextLine();
+        } while (!choiceMode.equals("1") && !choiceMode.equals("2"));
+
+
+        switch (choiceMode) {
+            case "1":
+                mode = Mode.NORMAL;
+                System.out.println("Vous avez choisi le mode normal");
+                break;
+            case "2":
+                mode = Mode.SANDBOX;
+                System.out.println("Vous avez choisi le mode bac à sable");
+                break;
+            default:
+                mode = Mode.NORMAL;
+                break;
+        }
+        return mode;
+    }
+
+    private static Difficulty getChoiceLevel(){
+        Scanner sc = new Scanner(System.in);
+        String choiceDifficulty;
+        Difficulty difficulty = Difficulty.NORMAL;
+        do {
+            System.out.println("Choisissez votre niveau de difficulté:");
+            System.out.println("1 - Facile");
+            System.out.println("2 - Moyen");
+            System.out.println("3 - Difficile");
+            choiceDifficulty = sc.nextLine();
+        } while (!choiceDifficulty.equals("1") && !choiceDifficulty.equals("2") && !choiceDifficulty.equals("3"));
+
+        switch (choiceDifficulty) {
+            case "1":
+                difficulty = Difficulty.EASY;
+                System.out.println("Vous avez choisi le niveau Facil");
+                break;
+            case "2":
+                difficulty = Difficulty.NORMAL;
+                System.out.println("Vous avez choisi le niveau Moyen");
+                break;
+            case "3":
+                difficulty = Difficulty.HARD;
+                System.out.println("Vous avez choisi le niveau Difficil");
+                break;
+        }
+        return difficulty;
     }
 }
