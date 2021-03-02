@@ -58,6 +58,7 @@ public class App {
 
             String scenarioDir = "src/ressources/scenarios";
 
+
             List<File> scenariosFiles = GameUtilities.allJsonFromDir(new File(scenarioDir));
             Map<Integer, Map<String, String>> scenarioFilesNames = GameUtilities.getScenarioName(scenariosFiles);
 
@@ -78,7 +79,31 @@ public class App {
             for (Map.Entry<String, String> pathMap : pathName.entrySet()) {
                 scenarioSelected = pathMap.getKey();
             }
-        }else{
+        }
+        else{
+
+            String sandBoxDir = "src/ressources/sandbox";
+
+            List<File> sandBoxFile = GameUtilities.allJsonFromDir(new File(sandBoxDir));
+            Map<Integer, Map<String, String>> sandBoxFilesNames = GameUtilities.getScenarioName(sandBoxFile);
+
+            for (Map.Entry<Integer, Map<String, String>> indexEntry : sandBoxFilesNames.entrySet()) {
+                for (Map.Entry<String, String> entry : indexEntry.getValue().entrySet()) {
+                    System.out.println(indexEntry.getKey() + " - " + entry.getValue());
+                }
+            }
+            int choiceConfigurationFile = 0;
+            do {
+                System.out.println("Veuillez choisir un fichier de configuration : ");
+                choiceConfigurationFile = sc.nextInt();
+            } while (choiceConfigurationFile < 1 || choiceConfigurationFile > sandBoxFilesNames.size());
+
+            Map<String, String> pathName = sandBoxFilesNames.get(choiceConfigurationFile);
+
+            scenarioSelected = "";
+            for (Map.Entry<String, String> pathMap : pathName.entrySet()) {
+                scenarioSelected = pathMap.getKey();
+            }
 
         }
 
