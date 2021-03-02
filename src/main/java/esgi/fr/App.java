@@ -7,7 +7,6 @@ import java.io.*;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
-import java.util.logging.Level;
 
 /**
  * Hello world!
@@ -52,32 +51,40 @@ public class App {
         System.out.println("****ELPRESIDENTE****");
 
         mode = getChoiceMode();
-        difficulty = getChoiceLevel();
+        difficulty = getChoiceDifficulty();
+        String scenarioSelected = "";
 
-        String scenarioDir = "src/ressources/scenarios";
+        if(mode==Mode.NORMAL){
 
-        List<File> scenariosJson = GameUtilities.allJsonFromDir(new File(scenarioDir));
-        Map<Integer, Map<String, String>> scenarioNames = GameUtilities.getScenarioName(scenariosJson);
+            String scenarioDir = "src/ressources/scenarios";
 
-        for (Map.Entry<Integer, Map<String, String>> indexEntry : scenarioNames.entrySet()) {
-            for (Map.Entry<String, String> entry : indexEntry.getValue().entrySet()) {
-                System.out.println(indexEntry.getKey() + " - " + entry.getValue());
+            List<File> scenariosFiles = GameUtilities.allJsonFromDir(new File(scenarioDir));
+            Map<Integer, Map<String, String>> scenarioFilesNames = GameUtilities.getScenarioName(scenariosFiles);
+
+            for (Map.Entry<Integer, Map<String, String>> indexEntry : scenarioFilesNames.entrySet()) {
+                for (Map.Entry<String, String> entry : indexEntry.getValue().entrySet()) {
+                    System.out.println(indexEntry.getKey() + " - " + entry.getValue());
+                }
             }
+            int choiceScenario = 0;
+            do {
+                System.out.println("Veuillez choisir un scenario : ");
+                choiceScenario = sc.nextInt();
+            } while (choiceScenario < 1 || choiceScenario > scenarioFilesNames.size());
+
+            Map<String, String> pathName = scenarioFilesNames.get(choiceScenario);
+
+            scenarioSelected = "";
+            for (Map.Entry<String, String> pathMap : pathName.entrySet()) {
+                scenarioSelected = pathMap.getKey();
+            }
+        }else{
+
         }
-        int choiceScenario = 0;
-        do {
-            System.out.println("Veuillez choisir un scenario : ");
-            choiceScenario = sc.nextInt();
-        } while (choiceScenario < 1 || choiceScenario > scenarioNames.size());
 
-        Map<String, String> pathName = scenarioNames.get(choiceScenario);
 
-        String scenarioTest = "";
-        for (Map.Entry<String, String> pathMap : pathName.entrySet()) {
-            scenarioTest = pathMap.getKey();
-        }
 
-        Scenario scenario = GameUtilities.parseJsonToObject(scenarioTest);
+        Scenario scenario = GameUtilities.parseJsonToObject(scenarioSelected);
         return new Game(difficulty, mode, scenario);
 
     }
@@ -142,7 +149,7 @@ public class App {
         return mode;
     }
 
-    private static Difficulty getChoiceLevel(){
+    private static Difficulty getChoiceDifficulty(){
         Scanner sc = new Scanner(System.in);
         String choiceDifficulty;
         Difficulty difficulty = Difficulty.NORMAL;
