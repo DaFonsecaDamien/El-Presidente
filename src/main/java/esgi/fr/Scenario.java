@@ -280,36 +280,11 @@ public class Scenario implements Serializable {
 
         if (this.getFoodUnit() + 40 * this.getAgriculturePercentage() < FactionManager.getAllSuportersNumber(factions)) {
             System.out.println(" Malheureusement vous n'avez pas de quoi nourrir tous vos citoyens ...  \n");
-            killPeople();
+            FactionManager.killPeople(factions,this);
         } else if (40 * this.getAgriculturePercentage() >= FactionManager.getAllSuportersNumber(factions) * 1.10) {
             System.out.println(" Bonne nouvelle : votre agricultre se porte bien  !\n");
-            increasePeople();
+            FactionManager.increasePeople(factions);
         }
-    }
-
-    public void killPeople() {
-        Faction randomFaction;
-        System.out.println(" Vos citoyens meurent de faim ... !\n");
-        int supportersBeforeStarving = FactionManager.getAllSuportersNumber(factions);
-        do {
-            do{
-                randomFaction = FactionManager.getRandomFaction(factions);
-            }while(randomFaction.getSupportersNumber()<1);
-            randomFaction.setSupportersNumber(randomFaction.getSupportersNumber() - 1);
-
-            FactionManager.setAllSatisfaction(-2,factions);
-
-        } while (this.getFoodUnit() + 40 * this.getAgriculturePercentage() < FactionManager.getAllSuportersNumber(factions));
-        int supportersAfterStarving = supportersBeforeStarving - FactionManager.getAllSuportersNumber(factions);
-        System.out.println(" La famine est terrible vous avez perdu " + supportersAfterStarving + " citoyen(s)  !\n");
-    }
-
-    public void increasePeople() {
-        System.out.println(" Si bien que la natalité de votre patrie augmente !\n");
-        int randomPercentage = (int) (Math.random() * 10) + 1;
-        int totalNumbersOfSuportersToAdd = randomPercentage * FactionManager.getAllSuportersNumber(factions) / 100;
-
-        FactionManager.setAllSupportersNumberInRandomsFactions(totalNumbersOfSuportersToAdd,factions);
     }
 
     @Override

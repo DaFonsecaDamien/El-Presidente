@@ -3,6 +3,7 @@ package esgi.fr.managers;
 import esgi.fr.App;
 import esgi.fr.Faction.Faction;
 import esgi.fr.Faction.NameFaction;
+import esgi.fr.Scenario;
 
 import java.util.List;
 import java.util.Scanner;
@@ -63,6 +64,34 @@ public class FactionManager {
             randomFaction.setSupportersNumber(randomFaction.getSupportersNumber() + randomNumberOfSupporters);
         }
     }
+
+    public static void killPeople(List<Faction> factions, Scenario scenario) {
+        Faction randomFaction;
+        System.out.println(" Vos citoyens meurent de faim ... !\n");
+        int supportersBeforeStarving = FactionManager.getAllSuportersNumber(factions);
+        do {
+            do{
+                randomFaction = FactionManager.getRandomFaction(factions);
+            }while(randomFaction.getSupportersNumber()<1);
+            randomFaction.setSupportersNumber(randomFaction.getSupportersNumber() - 1);
+
+            FactionManager.setAllSatisfaction(-2,factions);
+
+        } while (scenario.getFoodUnit() + 40 * scenario.getAgriculturePercentage() < FactionManager.getAllSuportersNumber(factions));
+        int supportersAfterStarving = supportersBeforeStarving - FactionManager.getAllSuportersNumber(factions);
+        System.out.println(" La famine est terrible vous avez perdu " + supportersAfterStarving + " citoyen(s)  !\n");
+    }
+
+    public static void increasePeople(List<Faction> factions) {
+        System.out.println(" Si bien que la natalité de votre patrie augmente !\n");
+        int randomPercentage = (int) (Math.random() * 10) + 1;
+        int totalNumbersOfSuportersToAdd = randomPercentage * FactionManager.getAllSuportersNumber(factions) / 100;
+
+        FactionManager.setAllSupportersNumberInRandomsFactions(totalNumbersOfSuportersToAdd,factions);
+    }
+
+
+
 
     public static Faction getRandomFaction(List<Faction> factions) {
         int randomFaction = (int) (Math.random() * 8) + 1;
