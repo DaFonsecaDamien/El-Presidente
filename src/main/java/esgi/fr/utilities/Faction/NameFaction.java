@@ -1,4 +1,4 @@
-package esgi.fr.Faction;
+package esgi.fr.utilities.Faction;
 
 
 public enum NameFaction {

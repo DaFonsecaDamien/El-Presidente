@@ -1,12 +1,9 @@
 package esgi.fr.managers;
 
-import esgi.fr.Event.Effect;
-import esgi.fr.Event.Event;
-import esgi.fr.Game;
+import esgi.fr.utilities.Event.Effect;
+import esgi.fr.utilities.Event.Event;
 import esgi.fr.GameParameters.Difficulty;
 import esgi.fr.Scenario;
-
-import java.awt.*;
 
 public class EffectManager {
 

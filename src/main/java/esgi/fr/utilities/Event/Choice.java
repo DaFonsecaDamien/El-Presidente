@@ -1,4 +1,4 @@
-package esgi.fr.Event;
+package esgi.fr.utilities.Event;
 
 import java.io.Serializable;
 import java.util.List;

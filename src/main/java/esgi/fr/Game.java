@@ -1,6 +1,6 @@
 package esgi.fr;
 
-import esgi.fr.Event.Event;
+import esgi.fr.utilities.Event.Event;
 import esgi.fr.GameParameters.Difficulty;
 import esgi.fr.GameParameters.Mode;
 import esgi.fr.managers.ChoiceManager;

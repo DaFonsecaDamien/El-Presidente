@@ -1,8 +1,8 @@
 package esgi.fr.managers;
 
 import esgi.fr.App;
-import esgi.fr.Event.Choice;
-import esgi.fr.Event.Event;
+import esgi.fr.utilities.Event.Choice;
+import esgi.fr.utilities.Event.Event;
 import esgi.fr.Game;
 import esgi.fr.GameParameters.Difficulty;
 

@@ -1,8 +1,7 @@
-package esgi.fr.Event;
+package esgi.fr.utilities.Event;
 
-import esgi.fr.Faction.Faction;
-import esgi.fr.Faction.NameFaction;
-import esgi.fr.Game;
+import esgi.fr.utilities.Faction.Faction;
+import esgi.fr.utilities.Faction.NameFaction;
 import esgi.fr.GameParameters.Difficulty;
 import esgi.fr.Scenario;
 import esgi.fr.managers.FactionManager;

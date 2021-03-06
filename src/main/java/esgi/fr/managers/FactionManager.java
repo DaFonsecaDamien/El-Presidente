@@ -1,8 +1,8 @@
 package esgi.fr.managers;
 
 import esgi.fr.App;
-import esgi.fr.Faction.Faction;
-import esgi.fr.Faction.NameFaction;
+import esgi.fr.utilities.Faction.Faction;
+import esgi.fr.utilities.Faction.NameFaction;
 import esgi.fr.Scenario;
 
 import java.util.List;
