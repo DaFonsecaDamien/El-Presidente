@@ -25,4 +25,5 @@ public class Choice implements Serializable {
     public List<Event> getRelatedEvents() {
         return relatedEvents;
     }
+
 }

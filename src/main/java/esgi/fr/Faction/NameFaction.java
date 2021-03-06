@@ -17,7 +17,6 @@ public enum NameFaction {
         this.value = value;
     }
 
-    // standard getters and setters
     public String getValue() {
         return this.value;
     }

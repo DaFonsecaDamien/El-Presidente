@@ -1,20 +1,15 @@
-package esgi.fr.Faction;
+package esgi.fr.managers;
 
-import java.io.Serializable;
+import esgi.fr.App;
+import esgi.fr.Faction.Faction;
+import esgi.fr.Faction.NameFaction;
+
 import java.util.List;
+import java.util.Scanner;
 
-public class ListFaction implements Serializable {
-    private final List<Faction> factions;
+public class FactionManager {
 
-    public ListFaction(List<Faction> factions) {
-        this.factions = factions;
-    }
-
-    public List<Faction> getFactions() {
-        return factions;
-    }
-
-    public Faction getOneFaction(NameFaction nameFaction) {
+    public static Faction getOneFaction(NameFaction nameFaction,List<Faction> factions) {
         for (Faction faction : factions) {
             if (faction.getNameFaction() == nameFaction) {
                 return faction;
@@ -23,7 +18,7 @@ public class ListFaction implements Serializable {
         return null;
     }
 
-    public int getAllSuportersNumber() {
+    public static int getAllSuportersNumber(List<Faction> factions) {
         int somme = 0;
         for (Faction faction : factions) {
             somme += faction.getSupportersNumber();
@@ -31,17 +26,17 @@ public class ListFaction implements Serializable {
         return somme;
     }
 
-    public double getGlobalSatisfactionPercentage() {
+    public static double getGlobalSatisfactionPercentage(List<Faction> factions) {
         double sommeSatisfactionNumber = 0;
         for (Faction faction : factions) {
             sommeSatisfactionNumber += faction.getSatisfactionPercentage() * faction.getSupportersNumber();
         }
 
-        return sommeSatisfactionNumber / getAllSuportersNumber();
+        return sommeSatisfactionNumber / getAllSuportersNumber(factions);
 
     }
 
-    public void setAllSatisfaction(int number) {
+    public static void setAllSatisfaction(int number,List<Faction> factions) {
         for (Faction faction : factions) {
             if (faction.getSatisfactionPercentage() != 0) {
                 faction.setSatisfactionPercentage(faction.getSatisfactionPercentage() + number);
@@ -49,40 +44,32 @@ public class ListFaction implements Serializable {
         }
     }
 
-    public void setAllSupportersNumberInRandomsFactions(int numbersOfSupporters) {
+    public static void setAllSupportersNumberInRandomsFactions(int numbersOfSupporters,List<Faction> factions) {
         int randomNumberOfSupporters = 1;
         int posOrNeg = numbersOfSupporters > 0 ? 1 : -1;
 
         while (numbersOfSupporters != 0) {
             randomNumberOfSupporters = (int) (Math.random() * numbersOfSupporters) + posOrNeg;
             numbersOfSupporters -= randomNumberOfSupporters;
-            Faction randomFaction = getRandomFaction();
+            Faction randomFaction = getRandomFaction(factions);
             if (posOrNeg == -1) {
-                while (randomFaction.getSupportersNumber() + randomNumberOfSupporters < 0 && getAllSuportersNumber() != 0) {
+                while (randomFaction.getSupportersNumber() + randomNumberOfSupporters < 0 && getAllSuportersNumber(factions) != 0) {
                     randomNumberOfSupporters = randomNumberOfSupporters + randomFaction.getSupportersNumber();
                     randomFaction.setSupportersNumber(0);
                     randomFaction.setSatisfactionPercentage(0);
-                    randomFaction = getRandomFaction();
+                    randomFaction = getRandomFaction(factions);
                 }
             }
             randomFaction.setSupportersNumber(randomFaction.getSupportersNumber() + randomNumberOfSupporters);
         }
     }
 
-    public void addSpportersInFactions(int numbersOfSupportersToAdd) {
-        setAllSupportersNumberInRandomsFactions(numbersOfSupportersToAdd);
-    }
-
-    public void removeSpportersInFactions(int numbersOfSupportersToRemove) {
-        setAllSupportersNumberInRandomsFactions(numbersOfSupportersToRemove);
-    }
-
-    public Faction getRandomFaction() {
+    public static Faction getRandomFaction(List<Faction> factions) {
         int randomFaction = (int) (Math.random() * 8) + 1;
-        return chooseFaction(randomFaction);
+        return chooseFaction(randomFaction,factions);
     }
 
-    public Faction chooseFaction(int factionChosen) {
+    public static Faction chooseFaction(int factionChosen,List<Faction> factions) {
 
         NameFaction nameFactionChosen = NameFaction.CAPITALISTE;
 
@@ -112,7 +99,36 @@ public class ListFaction implements Serializable {
                 nameFactionChosen = NameFaction.NATIONALISTE;
                 break;
         }
-        return getOneFaction(nameFactionChosen);
+        return getOneFaction(nameFactionChosen,factions);
     }
 
+    public static int getChoiceFaction(List<Faction> factions) {
+        int choice = 0;
+        Scanner sc = new Scanner(System.in);
+
+        printInfosFactions(factions);
+        System.out.println("choisissez celle que vous voulez soudoyer");
+        while (choice < 1 || choice > factions.size()) {
+            if (sc.next().equals("Q")) {
+                App.menuQuitGame();
+            }
+            while (!sc.hasNextInt()) {
+                sc = new Scanner(System.in);
+            }
+            choice = sc.nextInt();
+        }
+
+        return choice;
+    }
+
+    public static void printInfosFactions(List<Faction> factions) {
+        int i = 0;
+        System.out.println("Voici la liste des factions : ");
+        for (Faction faction : factions) {
+            i++;
+            System.out.println(i + " - ");
+            System.out.println(faction);
+            System.out.println("Or requis pour soudoyer : " + faction.getSupportersNumber() * 15 + "\n");
+        }
+    }
 }

@@ -2,7 +2,7 @@ package esgi.fr.Faction;
 
 import java.io.Serializable;
 
-public class Faction implements ManageFactions, Serializable {
+public class Faction implements Serializable {
     private final NameFaction nameFaction;
     private int satisfactionPercentage;
     private int supportersNumber;
@@ -42,7 +42,6 @@ public class Faction implements ManageFactions, Serializable {
         this.supportersNumber = supportersNumber;
     }
 
-    @Override
     public boolean bribeFaction() {
         if (satisfactionPercentage > 99 || satisfactionPercentage < 1 || nameFaction == NameFaction.LOYALISTE) {
             return false;

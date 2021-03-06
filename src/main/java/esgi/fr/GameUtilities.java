@@ -8,7 +8,6 @@ import esgi.fr.Event.Choice;
 import esgi.fr.Event.Effect;
 import esgi.fr.Event.Event;
 import esgi.fr.Faction.Faction;
-import esgi.fr.Faction.ListFaction;
 import esgi.fr.Faction.NameFaction;
 
 import java.io.File;
@@ -71,7 +70,6 @@ public class GameUtilities {
 
             // Extract Faction with parameters
             ArrayList<Faction> gameFactions = parseFaction(startParametersJson);
-            ListFaction listGameFaction = new ListFaction(gameFactions);
 
             // Create an instance of gameScenario
             Scenario gameScenario = new Scenario(
@@ -82,7 +80,7 @@ public class GameUtilities {
                     parseIndustryPercentage(startParametersJson),
                     parseTreasury(startParametersJson),
                     parseFoodUnits(startParametersJson),
-                    listGameFaction);
+                    gameFactions);
 
             return gameScenario;
 

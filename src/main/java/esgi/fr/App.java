@@ -12,8 +12,8 @@ import java.util.Scanner;
  * Hello world!
  */
 public class App {
+    static Game game;
     public static void main(String[] args) throws Exception {
-        Game game;
         File file = new File("save.bin");
 
         if (file.isFile()) {
@@ -201,5 +201,36 @@ public class App {
                 break;
         }
         return difficulty;
+    }
+
+    private static void saveGame() {
+        try {
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream("save.bin")));
+            objectOutputStream.writeObject(game);
+            System.out.println("Votre partie a été sauvegardé avec succée !");
+            objectOutputStream.close();
+            System.exit(0);
+        } catch (IOException e) {
+            System.out.println("Impossible de savegarder votre partie : ");
+            e.printStackTrace();
+            System.exit(-1);
+        }
+
+    }
+
+    public static void menuQuitGame() {
+        Scanner sc = new Scanner(System.in);
+        String choice = "";
+        do {
+            System.out.println("Voulez vous vraiment quitter ?");
+            System.out.println("1 - Oui");
+            System.out.println("2 - Non");
+            choice = sc.nextLine();
+
+            if (choice.equals("1")) {
+                saveGame();
+            }
+
+        } while (!choice.equals("1") && !choice.equals("2"));
     }
 }
