@@ -41,7 +41,7 @@ Choisissez un mode
 
 | Name  | 
 | ------------- | 
-| [ELKIA Abdallah](https://github.com/tw0hour)    |
+| [ELKIA Abdallah](https://github.com/tw0hour)   abdallah_elkhia and tw0hour |
 | [DA FONSECA Damien](https://github.com/DaFonsecaDamien)  | 
 | [OUSLIMANE Isaac](https://github.com/IsaacOus)  |
 
