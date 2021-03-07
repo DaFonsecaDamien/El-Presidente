@@ -34,8 +34,7 @@ public class App {
                     resultGame = game.run(game.getScenario().getEvents(),0);
                     break;
                 default:
-                    Reader reader = new BufferedReader(new FileReader(file2));
-                    int index = reader.read();
+                    int index = loadIndexEvent();
                     game = loadGame(file,file2);
                     resultGame = game.run(game.getScenario().getEvents(),index);
 
@@ -125,7 +124,6 @@ public class App {
 
     private static Game loadGame(File file,File file2) {
         Game game = null;
-        int index=0;
         try {
             ObjectInputStream objectInputStream = new ObjectInputStream(new BufferedInputStream(new FileInputStream(file)));
             Game data = (Game) (objectInputStream.readObject());
@@ -140,6 +138,19 @@ public class App {
             System.exit(-1);
         }
         return game;
+    }
+
+    private static int loadIndexEvent() throws IOException{
+        int index=0;
+        try {
+            Reader reader = new BufferedReader(new FileReader("save_id.bin"));
+            index = reader.read();
+        }
+        catch (IOException e){
+            System.out.println("Erreur lors de l'ouverture du fichier de sauvegarde :\n" + e.getMessage());
+            System.exit(-1);
+        }
+        return index;
     }
 
     private static void printResult(boolean resultGame) {
