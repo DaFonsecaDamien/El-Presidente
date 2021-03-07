@@ -23,7 +23,7 @@ public class Scenario implements Serializable {
     private int year;
     private Season season;
 
-    public Scenario(List<Event> events, String name, String story, int agriculturePercentage, int industryPercentage, int treasury, int foodUnit, List<Faction> factions) {
+    public Scenario(List<Event> events, String name, String story, int agriculturePercentage, int industryPercentage, int treasury, int foodUnit, List<Faction> factions,int year,Season season) {
         this.events = events;
         this.name = name;
         this.story = story;
@@ -32,8 +32,8 @@ public class Scenario implements Serializable {
         this.industryPercentage = industryPercentage;
         this.agriculturePercentage = agriculturePercentage;
         this.factions = factions;
-        this.year = 1;
-        this.season = Season.WINTER;
+        this.year = year;
+        this.season = season;
     }
 
     //Getter

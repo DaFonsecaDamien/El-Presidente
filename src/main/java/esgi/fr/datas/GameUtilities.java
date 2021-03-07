@@ -1,9 +1,11 @@
-package esgi.fr;
+package esgi.fr.datas;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import esgi.fr.GameParameters.Season;
+import esgi.fr.Scenario;
 import esgi.fr.utilities.Event.Choice;
 import esgi.fr.utilities.Event.Effect;
 import esgi.fr.utilities.Event.Event;
@@ -80,7 +82,9 @@ public class GameUtilities {
                     parseIndustryPercentage(startParametersJson),
                     parseTreasury(startParametersJson),
                     parseFoodUnits(startParametersJson),
-                    gameFactions);
+                    gameFactions,
+                    1,
+                    Season.WINTER);
 
             return gameScenario;
 

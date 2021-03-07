@@ -2,6 +2,7 @@ package esgi.fr;
 
 import esgi.fr.GameParameters.Difficulty;
 import esgi.fr.GameParameters.Mode;
+import esgi.fr.datas.GameUtilities;
 
 import java.io.*;
 import java.util.List;
@@ -123,8 +124,8 @@ public class App {
         int index=0;
         try {
             ObjectInputStream objectInputStream = new ObjectInputStream(new BufferedInputStream(new FileInputStream(file)));
-            Game datas = (Game) (objectInputStream.readObject());
-            game = new Game(datas.getDifficulty(), datas.getMode(), datas.getScenario());
+            Game data = (Game) (objectInputStream.readObject());
+            game = new Game(data.getDifficulty(), data.getMode(), data.getScenario());
 
             Reader reader = new BufferedReader(new FileReader(file2));
             index = reader.read();
@@ -213,11 +214,19 @@ public class App {
     }
 
     private static void saveGame(int index) {
+        File file = new File("save.bin");
+        File file2 = new File("save_id.bin");
+        if(file.isFile()){
+            file.delete();
+        }
+        if(file2.isFile()){
+            file2.delete();
+        }
         try {
-            ObjectOutputStream objectOutputStream = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream("save.bin")));
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(file)));
             objectOutputStream.writeObject(game);
 
-            Writer writer = new BufferedWriter(new FileWriter("save_id.bin"));
+            Writer writer = new BufferedWriter(new FileWriter(file2));
             writer.write(index);
 
             System.out.println("Votre partie a été sauvegardé avec succée !");
