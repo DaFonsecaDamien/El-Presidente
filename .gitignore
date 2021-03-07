@@ -19,3 +19,4 @@ buildNumber.properties
 
 # Ignore save.bin
 save.bin
+save_id.bin
