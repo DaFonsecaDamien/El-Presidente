@@ -117,7 +117,6 @@ public class App {
 
     /**
      *
-     * Charge les fichiers de scenario.
      * Permet de choisir le mode de jeu ainsi que le scenario.
      *
      */
@@ -143,6 +142,12 @@ public class App {
 
     }
 
+
+    /**
+     *
+     * Reprendre une partie sauvegardé
+     *
+     */
     private static Game loadGame(File file,File file2) {
         Game game = null;
         try {
@@ -172,6 +177,25 @@ public class App {
             System.exit(-1);
         }
         return index;
+    }
+    
+    /**
+     *
+     * Reprendre une partie sauvegardé
+     *
+     */
+    private static void printResult(boolean resultGame) {
+        if (resultGame) {
+            System.out.println("Felicitation vous avez fait les bons choix, vous  êtes le meilleur président que le monde n'ai jammais connu");
+            System.out.println("Vous avez su prendre les bonnes décisions aux bon moments");
+            System.out.println("Nous espérons voir votre patrie s'agrandir et se développer d'avantages");
+            System.out.println("A la prochaine !");
+        } else {
+            System.out.println("Coup d'etat !!");
+            System.out.println("Votre patrie vous a rejeté !");
+            System.out.println("Ca n'est pas si facile de devenir le président parfait");
+            System.out.println("Retentez votre chance une prochaine fois");
+        }
     }
 
     private static Mode getChoiceMode(){
