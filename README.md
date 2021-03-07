@@ -1,6 +1,12 @@
 # El Presidente !
 
+###Note pour M.Domingues 
+Le fichier ". jar" s'exécute mais rien ne s'affiche. 
 
+Note pour le professeur : 
+
+* le mode bac sable a été implémenté. 
+* La gestion de sauvegarde et chargement de partie fonctionne. (Le JSON a ete mis à plat comme convenu lors de la première soutenance). 
 
 ## Introduction
 Projet scolaire donné par notre professeur [Thomas Domingues](https://github.com/thomasdom).
@@ -10,22 +16,21 @@ Vous pouvez trouver les instructions [ici](https://s3.us-west-2.amazonaws.com/se
 Le but de ce projet est de faire un jeu vidéo à la croisée entre Tropico et Reigns. Vous incarnerez un jeune dictateur en herbe sur une île tropicale, fraîchement élu comme Président. Vous aurez la lourde tâche de faire prospérer cette nouvelle mini-république.
 
 ## Dépendance
-* **Apache Maven**
+
+* **Google GSON**
+* **JUnit**
 
 ## Environnement 
 * **Version** : Java 15
+* **Apache Maven**
 * **Operating system** : Windows, Linux, MacOS, iOS, Android ...
 
 
 
 ## Lancement
-
-
+Il faut exécuter le fichier : 
 ```bash
-javac App.java
-```
-```bash
-java App
+El-Presidente-1.0.0.jar
 ```
 ## Utilisation
 
