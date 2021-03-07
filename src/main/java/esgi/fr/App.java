@@ -50,7 +50,12 @@ public class App {
         printResult(resultGame);
 
     }
-
+    /**
+     *
+     * Charge les fichiers de scenario.
+     * Permet de choisir le mode de jeu ainsi que le scenario.
+     *
+     */
     private static Game newGame() throws Exception {
         Mode mode;
         Difficulty difficulty;
