@@ -34,7 +34,11 @@ public class App {
                     resultGame = game.run(game.getScenario().getEvents(),0);
                     break;
                 default:
-                    resultGame = loadGame(file,file2);
+                    Reader reader = new BufferedReader(new FileReader(file2));
+                    int index = reader.read();
+                    game = loadGame(file,file2);
+                    resultGame = game.run(game.getScenario().getEvents(),index);
+
             }
         } else{
             game = newGame();
@@ -119,7 +123,7 @@ public class App {
 
     }
 
-    private static boolean loadGame(File file,File file2) {
+    private static Game loadGame(File file,File file2) {
         Game game = null;
         int index=0;
         try {
@@ -127,11 +131,7 @@ public class App {
             Game data = (Game) (objectInputStream.readObject());
             game = new Game(data.getDifficulty(), data.getMode(), data.getScenario());
 
-            Reader reader = new BufferedReader(new FileReader(file2));
-            index = reader.read();
-
             objectInputStream.close();
-            reader.close();
         } catch (IOException e) {
             System.out.println("Erreur lors de l'ouverture du fichier de sauvegarde :\n" + e.getMessage());
             System.exit(-1);
@@ -139,7 +139,7 @@ public class App {
             System.out.println("Fichier corrompu !\n" + e.getMessage());
             System.exit(-1);
         }
-        return game.run(game.getScenario().getEvents(),index);
+        return game;
     }
 
     private static void printResult(boolean resultGame) {
