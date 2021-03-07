@@ -18,7 +18,10 @@ public class App {
         File file = new File("save.bin");
         File file2 = new File("save_id.bin");
         boolean resultGame = false;
+
+        //if it has files save
         if (file.isFile() && file2.isFile()) {
+
             Scanner sc = new Scanner(System.in);
             String choiceLoad = "";
 
@@ -39,7 +42,8 @@ public class App {
                     resultGame = game.run(game.getScenario().getEvents(),index);
 
             }
-        } else{
+        }
+        else{
             game = newGame();
             resultGame = game.run(game.getScenario().getEvents(),0);
         }
@@ -51,73 +55,82 @@ public class App {
 
     }
 
+    private static void printResult(boolean resultGame) {
+        if (resultGame) {
+            System.out.println("Felicitation vous avez fait les bons choix, vous  êtes le meilleur président que le monde n'ai jammais connu");
+            System.out.println("Vous avez su prendre les bonnes décisions aux bon moments");
+            System.out.println("Nous espérons voir votre patrie s'agrandir et se développer d'avantages");
+            System.out.println("A la prochaine !");
+        } else {
+            System.out.println("Coup d'etat !!");
+            System.out.println("Votre patrie vous a rejeté !");
+            System.out.println("Ca n'est pas si facile de devenir le président parfait");
+            System.out.println("Retentez votre chance une prochaine fois");
+        }
+    }
+
+    private static void saveGame(int index) {
+        File file = new File("save.bin");
+        File file2 = new File("save_id.bin");
+        if(file.isFile()){
+            file.delete();
+        }
+        if(file2.isFile()){
+            file2.delete();
+        }
+        try {
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(file)));
+            objectOutputStream.writeObject(game);
+
+            Writer writer = new BufferedWriter(new FileWriter(file2));
+            writer.write(index);
+
+            System.out.println("Votre partie a été sauvegardé avec succée !");
+            objectOutputStream.close();
+            writer.close();
+            System.exit(0);
+        } catch (IOException e) {
+            System.out.println("Impossible de savegarder votre partie : ");
+            e.printStackTrace();
+            System.exit(-1);
+        }
+
+    }
+
+    public static void menuQuitGame(int index) {
+        Scanner sc = new Scanner(System.in);
+        String choice = "";
+        do {
+            System.out.println("Voulez vous vraiment quitter ?");
+            System.out.println("1 - Oui");
+            System.out.println("2 - Non");
+            choice = sc.nextLine();
+
+            if (choice.equals("1")) {
+                saveGame(index);
+            }
+
+        } while (!choice.equals("1") && !choice.equals("2"));
+    }
+
     private static Game newGame() throws Exception {
         Mode mode;
         Difficulty difficulty;
-        Scanner sc = new Scanner(System.in);
+        String filePath;
 
         System.out.println("****ELPRESIDENTE****");
 
         mode = getChoiceMode();
         difficulty = getChoiceDifficulty();
-        String scenarioSelected = "";
 
         if(mode==Mode.NORMAL){
+            filePath = "src/ressources/scenarios";
 
-            String scenarioDir = "src/ressources/scenarios";
-
-
-            List<File> scenariosFiles = GameUtilities.allJsonFromDir(new File(scenarioDir));
-            Map<Integer, Map<String, String>> scenarioFilesNames = GameUtilities.getScenarioName(scenariosFiles);
-
-            for (Map.Entry<Integer, Map<String, String>> indexEntry : scenarioFilesNames.entrySet()) {
-                for (Map.Entry<String, String> entry : indexEntry.getValue().entrySet()) {
-                    System.out.println(indexEntry.getKey() + " - " + entry.getValue());
-                }
-            }
-            int choiceScenario = 0;
-            do {
-                System.out.println("Veuillez choisir un scenario : ");
-                choiceScenario = sc.nextInt();
-            } while (choiceScenario < 1 || choiceScenario > scenarioFilesNames.size());
-
-            Map<String, String> pathName = scenarioFilesNames.get(choiceScenario);
-
-            scenarioSelected = "";
-            for (Map.Entry<String, String> pathMap : pathName.entrySet()) {
-                scenarioSelected = pathMap.getKey();
-            }
+        }else{
+            filePath = "src/ressources/sandbox";
         }
-        else{
+        Scenario scenario = getStoryFile(filePath);
 
-            String sandBoxDir = "src/ressources/sandbox";
-
-            List<File> sandBoxFile = GameUtilities.allJsonFromDir(new File(sandBoxDir));
-            Map<Integer, Map<String, String>> sandBoxFilesNames = GameUtilities.getScenarioName(sandBoxFile);
-
-            for (Map.Entry<Integer, Map<String, String>> indexEntry : sandBoxFilesNames.entrySet()) {
-                for (Map.Entry<String, String> entry : indexEntry.getValue().entrySet()) {
-                    System.out.println(indexEntry.getKey() + " - " + entry.getValue());
-                }
-            }
-            int choiceConfigurationFile = 0;
-            do {
-                System.out.println("Veuillez choisir un fichier de configuration : ");
-                choiceConfigurationFile = sc.nextInt();
-            } while (choiceConfigurationFile < 1 || choiceConfigurationFile > sandBoxFilesNames.size());
-
-            Map<String, String> pathName = sandBoxFilesNames.get(choiceConfigurationFile);
-
-            scenarioSelected = "";
-            for (Map.Entry<String, String> pathMap : pathName.entrySet()) {
-                scenarioSelected = pathMap.getKey();
-            }
-
-        }
-
-
-
-        Scenario scenario = GameUtilities.parseJsonToObject(scenarioSelected);
         return new Game(difficulty, mode, scenario);
 
     }
@@ -151,20 +164,6 @@ public class App {
             System.exit(-1);
         }
         return index;
-    }
-
-    private static void printResult(boolean resultGame) {
-        if (resultGame) {
-            System.out.println("Felicitation vous avez fait les bons choix, vous  êtes le meilleur président que le monde n'ai jammais connu");
-            System.out.println("Vous avez su prendre les bonnes décisions aux bon moments");
-            System.out.println("Nous espérons voir votre patrie s'agrandir et se développer d'avantages");
-            System.out.println("A la prochaine !");
-        } else {
-            System.out.println("Coup d'etat !!");
-            System.out.println("Votre patrie vous a rejeté !");
-            System.out.println("Ca n'est pas si facile de devenir le président parfait");
-            System.out.println("Retentez votre chance une prochaine fois");
-        }
     }
 
     private static Mode getChoiceMode(){
@@ -224,47 +223,33 @@ public class App {
         return difficulty;
     }
 
-    private static void saveGame(int index) {
-        File file = new File("save.bin");
-        File file2 = new File("save_id.bin");
-        if(file.isFile()){
-            file.delete();
-        }
-        if(file2.isFile()){
-            file2.delete();
-        }
-        try {
-            ObjectOutputStream objectOutputStream = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(file)));
-            objectOutputStream.writeObject(game);
-
-            Writer writer = new BufferedWriter(new FileWriter(file2));
-            writer.write(index);
-
-            System.out.println("Votre partie a été sauvegardé avec succée !");
-            objectOutputStream.close();
-            writer.close();
-            System.exit(0);
-        } catch (IOException e) {
-            System.out.println("Impossible de savegarder votre partie : ");
-            e.printStackTrace();
-            System.exit(-1);
-        }
-
-    }
-
-    public static void menuQuitGame(int index) {
+    private static Scenario getStoryFile(String filePath) throws FileNotFoundException {
+        String scenarioSelected = "";
         Scanner sc = new Scanner(System.in);
-        String choice = "";
-        do {
-            System.out.println("Voulez vous vraiment quitter ?");
-            System.out.println("1 - Oui");
-            System.out.println("2 - Non");
-            choice = sc.nextLine();
 
-            if (choice.equals("1")) {
-                saveGame(index);
+        List<File> file = GameUtilities.allJsonFromDir(new File(filePath));
+        Map<Integer, Map<String, String>> sandBoxFilesNames = GameUtilities.getScenarioName(file);
+
+        for (Map.Entry<Integer, Map<String, String>> indexEntry : sandBoxFilesNames.entrySet()) {
+            for (Map.Entry<String, String> entry : indexEntry.getValue().entrySet()) {
+                System.out.println(indexEntry.getKey() + " - " + entry.getValue());
             }
+        }
+        int choiceConfigurationFile = 0;
+        do {
+            System.out.println("Veuillez choisir un fichier de configuration : ");
+            choiceConfigurationFile = sc.nextInt();
+        } while (choiceConfigurationFile < 1 || choiceConfigurationFile > sandBoxFilesNames.size());
 
-        } while (!choice.equals("1") && !choice.equals("2"));
+        Map<String, String> pathName = sandBoxFilesNames.get(choiceConfigurationFile);
+
+        scenarioSelected = "";
+        for (Map.Entry<String, String> pathMap : pathName.entrySet()) {
+            scenarioSelected = pathMap.getKey();
+        }
+        Scenario scenario = GameUtilities.parseJsonToObject(scenarioSelected);
+
+        return scenario;
+
     }
 }

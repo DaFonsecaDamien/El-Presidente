@@ -1,6 +1,6 @@
 {
   "name": "Bac à sable",
-  "story": "Le jeu peut se lancer en mode “bac à sable” : les conditions de départs sont celles fixés par un fichier de configuration annexe.",
+  "story": "Ici les evenements n'ont pas de liens, TOUT peut arriver",
   "gameStartParameters": {
     "NORMAL": {
       "agriculturePercentage": 15,
@@ -50,5 +50,688 @@
         }
       }
     }
-  }
+  },
+  "events": [
+    {
+      "id": 0,
+      "name": "Les communistes vous battent et emprissonnent vos militaires",
+      "choices": [
+        {
+          "choice": "Je stoppe toutes les opérations",
+          "effects": [
+            {
+              "actionOnFaction": {
+                "CAPITALISTS": -10,
+                "MILITARISTS": -20,
+                "LIBERALS": -10
+              }
+            },
+            {
+              "partisans": -8
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "name": "Ils détournent leur chemin ! Ils s'attaquent à l'agriculture à l'avant du Royaume...",
+      "choices": [
+        {
+          "choice": "J'élabore une stratégie pour combattre",
+          "effects": [
+            {
+              "actionOnFaction": {
+                "ECOLOGISTS": 20,
+                "NATIONALISTS": 20
+              }
+            }
+          ]
+        },
+        {
+          "choice": "Je laisse tomber en me disant que j'ai d'autres champs et réserves de provisions",
+          "effects": [
+            {
+              "actionOnFaction": {
+                "ECOLOGISTS": -20,
+                "LOYALISTS": 30
+              }
+            },
+            {
+              "actionOnFactor": {
+                "AGRICULTURE": -30
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Le commandant Pixis propose d'utiliser 20$ de notre trésorerie pour améliorer et adapter l'armement de nos militaires",
+      "choices": [
+        {
+          "choice": "J'accepte !",
+          "effects": [
+            {
+              "actionOnFaction": {
+                "MILITARISTS": 30,
+                "NATIONALISTS": 10,
+                "CAPITALISTS": -20
+              }
+            },
+            {
+              "actionOnFactor": {
+                "TREASURY": -20
+              }
+            }
+          ]
+        },
+        {
+          "choice": "Je refuse !",
+          "effects": [
+            {
+              "actionOnFaction": {
+                "MILITARISTS": -30,
+                "NATIONALISTS": -10,
+                "CAPITALISTS": 20
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Le capitaine Magath propose de rassembler nos ressources pour bâtir un mur de protection contre les titans",
+      "choices": [
+        {
+          "choice": "J'accepte !",
+          "effects": [
+            {
+              "actionOnFaction": {
+                "COMMUNISTS": 20,
+                "ECOLOGISTS": -10,
+                "CAPITALISTS": -20
+              }
+            }
+          ]
+        },
+        {
+          "choice": "Je refuse !",
+          "effects": [
+            {
+              "actionOnFaction": {
+                "COMMUNISTS": -20,
+                "ECOLOGISTS": 10,
+                "CAPITALISTS": 20
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Des monstres géants approchent le royaume... Que faites-vous ?",
+      "choices": [
+        {
+          "choice": "J'envoie toute la force militaire du pays pour les éradiquer",
+          "effects": [
+            {
+              "actionOnFaction": {
+                "MILITARISTS": 20,
+                "RELIGIOUS": -20
+              }
+            },
+            {
+              "actionOnFactor": {
+                "AGRICULTURE": 30
+              }
+            }
+          ]
+        },
+        {
+          "choice": "Je mets en place une défense basée sur des canons",
+          "effects": [
+            {
+              "actionOnFaction": {
+                "ECOLOGISTS": -30,
+                "CAPITALISTS": 10
+              }
+            },
+            {
+              "actionOnFactor": {
+                "INDUSTRY": -30
+              }
+            }
+          ]
+        },
+        {
+          "choice": "Je laisse ces créatures béantes se délecter de mes adorables villageois",
+          "effects": [
+            {
+              "actionOnFaction": {
+                "ECOLOGISTS": -100,
+                "CAPITALISTS": -100,
+                "LOYALISTS": -100,
+                "LIBERALS": -100,
+                "RELIGIOUS": -100,
+                "MILITARISTS": -100,
+                "NATIONALISTS": -100,
+                "COMMUNISTS": -100
+              }
+            },
+            {
+              "partisans": -1000
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "name": "La montée en puissance des communistes dans votre pays se fait de plus en plus proche.",
+      "choices": [
+        {
+          "choice": "Je mets en place une doctrine: le containment pour les contenir",
+          "effects": [
+            {
+              "actionOnFaction": {
+                "COMMUNISTS": -20,
+                "NATIONALISTS": 10,
+                "CAPITALISTS": 20
+              }
+            }
+          ],
+          "relatedEvents": 12
+        },
+        {
+          "choice": "Je ne fais rien j'attends que ça passe",
+          "effects": [
+            {
+              "actionOnFaction": {
+                "LIBERALS": -10,
+                "CAPITALISTS": -20,
+                "COMMUNISTS": 5
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "name": "Des pays vous proposent une alliance millitaire",
+      "choices": [
+        {
+          "choice": "J'accepte afin d'agrandir mes capacités de riposte",
+          "effects": [
+            {
+              "actionOnFaction": {
+                "MILITARISTS": 20,
+                "NATIONALISTS": 20,
+                "RELIGIOUS": -10
+              }
+            },
+            {
+              "actionOnFactor": {
+                "TREASURY": -200,
+                "INDUSTRY": 10
+              }
+            }
+          ],
+          "relatedEvents": 15
+        },
+        {
+          "choice": "Je refuse, je sais n'ai besoin de personne",
+          "effects": [
+            {
+              "actionOnFaction": {
+                "ECOLOGISTS": 10,
+                "RELIGIOUS": 5,
+                "MILITARISTS": -15
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "name": "Les Américains acceptent les négociations",
+      "choices": [
+        {
+          "choice": "Je les paie",
+          "effects": [
+            {
+              "actionOnFaction": {
+                "RELIGIOUS": 6,
+                "MILITARISTS": -10,
+                "NATIONALISTS": -5,
+                "COMMUNISTS": -10
+              }
+            },
+            {
+              "actionOnFactor": {
+                "TREASURY": -150,
+                "INDUSTRY": 3
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "name": "Les Soviétiques font un blocus autour du mur de Berlin, il faut nourir vos concitoyens! Que faites-vous?",
+      "choices": [
+        {
+          "choice": "J'essaie de négocier avec eux pour laisser passer la marchandises",
+          "effects": [
+            {
+              "actionOnFaction": {
+                "MILITARISTS": -10,
+                "NATIONALISTS": -20,
+                "CAPITALISTS": -20
+              }
+            }
+          ],
+          "relatedEvents": 12
+        },
+        {
+          "choice": "Je met en place un pont aérien pour atteindre mes concitoyens bloqués",
+          "effects": [
+            {
+              "actionOnFaction": {
+                "MILITARISTS": 20,
+                "LOYALISTS": 10,
+                "NATIONALISTS": 10,
+                "CAPITALISTS": 10
+              }
+            },
+            {
+              "actionOnFactor": {
+                "INDUSTRY": 10,
+                "TREASURY": -250
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "name": "Une guerre civile démarre en Chine, les Soviétiques envoient leurs alliés",
+      "choices": [
+        {
+          "choice": "J'envoie les miens auss",
+          "effects": [
+            {
+              "actionOnFaction": {
+                "MILITARISTS": 30,
+                "NATIONALISTS": 10,
+                "CAPITALISTS": 20,
+                "RELIGIOUS": -10
+              },
+              "actionOnFactor": {
+                "TREASURY": -50
+              }
+            }
+          ]
+        },
+        {
+          "choice": "J'attends que les choses se passent'",
+          "effects": [
+            {
+              "actionOnFaction": {
+                "MILITARISTS": -30,
+                "NATIONALISTS": -10,
+                "CAPITALISTS": -20
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "name": "Les attaques indirectes américaines sont font de plus en plus nombreuses",
+      "choices": [
+        {
+          "choice": "Je mets en place une doctrine les désignant comme coupables",
+          "effects": [
+            {
+              "actionOnFaction": {
+                "COMMUNISTS": 20,
+                "NATIONALISTS": -10,
+                "CAPITALISTS": -20
+              }
+            }
+          ],
+          "relatedEvents": 20
+        },
+        {
+          "choice": "Je ne fais rien j'attends que ça passe",
+          "effects": [
+            {
+              "actionOnFaction": {
+                "COMMUNISTS": -10,
+                "NATIONALISTS": -17,
+                "CAPITALISTS": 5
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "name": "Vous devez créer une alliance militaire",
+      "choices": [
+        {
+          "choice": "Je crée une alliance pour que tous mes alliés me protègent",
+          "effects": [
+            {
+              "actionOnFaction": {
+                "MILITARISTS": 15,
+                "COMMUNISTS": 15,
+                "RELIGIOUS": -10
+              }
+            },
+            {
+              "actionOnFactor": {
+                "TREASURY": -200,
+                "INDUSTRY": 10
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "name": "Les Américains menacent mes alliés ",
+      "choices": [
+        {
+          "choice": "J'essaie de négocier avec eux pour arrêter",
+          "effects": [
+            {
+              "actionOnFaction": {
+                "MILITARISTS": -10,
+                "NATIONALISTS": -10,
+                "COMMUNISTS": -20
+              }
+            }
+          ],
+          "relatedEvents": 17
+        },
+        {
+          "choice": "J'envoie un convoi militaire en leur direction'",
+          "effects": [
+            {
+              "actionOnFaction": {
+                "MILITARISTS": 20,
+                "LOYALISTS": 10,
+                "NATIONALISTS": 10,
+                "COMMUNISTS": 10
+              }
+            },
+            {
+              "actionOnFactor": {
+                "INDUSTRY": 10,
+                "TREASURY": -250
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "name": "Un valeureux soldat du nom de Rivaille se propose d'aller tuer ces bêtes sauvages...",
+      "choices": [
+        {
+          "choice": "Je le laisse aller défendre ma patrie, celle d'El Presidente, dans le risque que Rivaille décède",
+          "effects": [
+            {
+              "actionOnFaction": {
+                "MILITARISTS": -30,
+                "NATIONALISTS": 20,
+                "CAPITALISTS": 20
+              }
+            }
+          ]
+        },
+        {
+          "choice": "J'empèche Rivaille d'aller affronter ces bêtes farouches tout seul",
+          "effects": [
+            {
+              "actionOnFaction": {
+                "MILITARISTS": 20,
+                "LOYALISTS": 10,
+                "NATIONALISTS": -20,
+                "CAPITALISTS": -20
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "name": "Les Américains entament une course à l'espace",
+      "choices": [
+        {
+          "choice": "Je leur montre que nous pouvons mieux faire",
+          "effects": [
+            {
+              "actionOnFaction": {
+                "MILITARISTS": 20,
+                "NATIONALISTS": 10,
+                "ECOLOGISTS": -10
+              },
+              "actionOnFactor": {
+                "TREASURY": -150,
+                "INDUSTRY": 13
+              }
+            }
+          ]
+        },
+        {
+          "choice": "Je les laisse dépenser leur ressources",
+          "effects": [
+            {
+              "actionOnFaction": {
+                "MILITARISTS": -10,
+                "NATIONALISTS": -10,
+                "CAPITALISTS": 5,
+                "ECOLOGISTS": 11
+              }
+            },
+            {
+              "actionOnFactor": {
+                "TREASURY": 200
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "name": "Le capitaine Erwin demande à diriger la charge",
+      "choices": [
+        {
+          "choice": "J'accepte car cet homme est beaucoup trop badass (hype machine)",
+          "effects": [
+            {
+              "actionOnFaction": {
+                "CAPITALISTS": 10,
+                "COMMUNISTS": 10,
+                "LIBERALS": 10,
+                "RELIGIOUS": 10,
+                "MILITARISTS": 10,
+                "ECOLOGISTS": 10,
+                "LOYALISTS": 10,
+                "NATIONALISTS": 10
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 16,
+      "name": "Rivaille, Caporal en chef de l'escouade, vous demande si les équipements tridimensionnels peuvent être renouvelés",
+      "choices": [
+        {
+          "choice": "Renouvelons les !",
+          "effects": [
+            {
+              "actionOnFaction": {
+                "MILITARISTS": 10,
+                "LOYALISTS": 10,
+                "NATIONALISTS": 10
+              }
+            },
+            {
+              "actionOnFactor": {
+                "INDUSTRY": -15,
+                "TREASURY": -30
+              }
+            }
+          ]
+        },
+        {
+          "choice": "Négatif.",
+          "effects": [
+            {
+              "actionOnFaction": {
+                "MILITARISTS": -10,
+                "LOYALISTS": -10,
+                "NATIONALISTS": -10
+              }
+            },
+            {
+              "actionOnFactor": {
+                "TREASURY": 10
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 17,
+      "name": "Un titan ennemi intelligent fait surface en plein discours et détruit tout sur son passage",
+      "choices": [
+        {
+          "choice": "Courir à toute vitesse",
+          "effects": [
+            {
+              "partisans": -5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 18,
+      "name": "Les Soviétiques arrêtent leurs sous-marins",
+      "choices": [
+        {
+          "choice": "Je gagne cet affrontement",
+          "effects": [
+            {
+              "actionOnFaction": {
+                "CAPITALISTS": 23,
+                "RELIGIOUS": 6,
+                "MILITARISTS": 10,
+                "NATIONALISTS": 5,
+                "COMMUNISTS": -12,
+                "LIBERALS": 17
+              }
+            },
+            {
+              "actionOnFactor": {
+                "TREASURY": 150,
+                "INDUSTRY": 3
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 19,
+      "name": "Les Soviétiques ripostent et tout le monde meurt dans une guerre nucléaire",
+      "choices": [
+        {
+          "choice": "Fin du monde.",
+          "effects": [
+            {
+              "actionOnFaction": {
+                "ECOLOGISTS": -100,
+                "CAPITALISTS": -100,
+                "LOYALISTS": -100,
+                "LIBERALS": -100,
+                "RELIGIOUS": -100,
+                "MILITARISTS": -100,
+                "NATIONALISTS": -100,
+                "COMMUNISTS": -100
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 20,
+      "name": "Vous avez développé des armes de dissuasion",
+      "choices": [
+        {
+          "choice": "Vous gagnez de l'influence",
+          "effects": [
+            {
+              "actionOnFaction": {
+                "CAPITALISTS": 5,
+                "MILITARISTS": 18,
+                "LIBERALS": 3,
+                "COMMUNISTS": 19
+              }
+            },
+            {
+              "actionOnFactor": {
+                "TREASURY": 80
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 21,
+      "name": "Les Américains ripostent et tout le monde meurt dans une guerre nucléaire",
+      "choices": [
+        {
+          "choice": "Fin du monde.",
+          "effects": [
+            {
+              "actionOnFaction": {
+                "ECOLOGISTS": -100,
+                "CAPITALISTS": -100,
+                "LOYALISTS": -100,
+                "LIBERALS": -100,
+                "RELIGIOUS": -100,
+                "MILITARISTS": -100,
+                "NATIONALISTS": -100,
+                "COMMUNISTS": -100
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }
