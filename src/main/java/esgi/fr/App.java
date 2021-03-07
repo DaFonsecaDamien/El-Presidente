@@ -69,6 +69,7 @@ public class App {
         }
     }
 
+
     private static void saveGame(int index) {
         File file = new File("save.bin");
         File file2 = new File("save_id.bin");
@@ -113,6 +114,13 @@ public class App {
         } while (!choice.equals("1") && !choice.equals("2"));
     }
 
+
+    /**
+     *
+     * Charge les fichiers de scenario.
+     * Permet de choisir le mode de jeu ainsi que le scenario.
+     *
+     */
     private static Game newGame() throws Exception {
         Mode mode;
         Difficulty difficulty;

@@ -33,6 +33,12 @@ public class Game implements Serializable {
         return scenario;
     }
 
+
+    /**
+     *
+     *
+     *
+     */
     public boolean run(List<Event> events,int i) {
         int choice = 0;
         for (;i<events.size();) {
@@ -54,6 +60,12 @@ public class Game implements Serializable {
         return true;
     }
 
+
+    /**
+     * Vérifie si les conditions de pertes sont respectés.
+     *
+     *
+     */
     public boolean isLoose() {
         double globalSatisfaction = FactionManager.getGlobalSatisfactionPercentage(scenario.getListFactions());
         return difficulty.getMinGlobalSatisfaction() > globalSatisfaction;
