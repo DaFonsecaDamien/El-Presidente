@@ -15,8 +15,9 @@ public class App {
     static Game game;
     public static void main(String[] args) throws Exception {
         File file = new File("save.bin");
-
-        if (file.isFile()) {
+        File file2 = new File("save_id.bin");
+        boolean resultGame = false;
+        if (file.isFile() && file2.isFile()) {
             Scanner sc = new Scanner(System.in);
             String choiceLoad = "";
 
@@ -26,19 +27,22 @@ public class App {
                 System.out.println("2 - Charger la partie existante\n\n");
                 choiceLoad = sc.nextLine();
             } while (!choiceLoad.equals("1") && !choiceLoad.equals("2"));
-
             switch (choiceLoad) {
                 case "1":
                     game = newGame();
+                    resultGame = game.run(game.getScenario().getEvents(),0);
                     break;
                 default:
-                    game = loadGame(file);
+                    resultGame = loadGame(file,file2);
             }
-        } else game = newGame();
+        } else{
+            game = newGame();
+            resultGame = game.run(game.getScenario().getEvents(),0);
+        }
 
         System.out.println(game.getScenario());
         System.out.println("\n      ******Vous pouvez quitter la partie en tapant sur 'Q'******      \n\n");
-        boolean resultGame = game.run(game.getScenario().getEvents());
+        
         printResult(resultGame);
 
     }
@@ -114,14 +118,19 @@ public class App {
 
     }
 
-    private static Game loadGame(File file) {
+    private static boolean loadGame(File file,File file2) {
         Game game = null;
-
+        int index=0;
         try {
             ObjectInputStream objectInputStream = new ObjectInputStream(new BufferedInputStream(new FileInputStream(file)));
             Game datas = (Game) (objectInputStream.readObject());
             game = new Game(datas.getDifficulty(), datas.getMode(), datas.getScenario());
+
+            Reader reader = new BufferedReader(new FileReader(file2));
+            index = reader.read();
+
             objectInputStream.close();
+            reader.close();
         } catch (IOException e) {
             System.out.println("Erreur lors de l'ouverture du fichier de sauvegarde :\n" + e.getMessage());
             System.exit(-1);
@@ -129,7 +138,7 @@ public class App {
             System.out.println("Fichier corrompu !\n" + e.getMessage());
             System.exit(-1);
         }
-        return game;
+        return game.run(game.getScenario().getEvents(),index);
     }
 
     private static void printResult(boolean resultGame) {
@@ -203,12 +212,17 @@ public class App {
         return difficulty;
     }
 
-    private static void saveGame() {
+    private static void saveGame(int index) {
         try {
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream("save.bin")));
             objectOutputStream.writeObject(game);
+
+            Writer writer = new BufferedWriter(new FileWriter("save_id.bin"));
+            writer.write(index);
+
             System.out.println("Votre partie a été sauvegardé avec succée !");
             objectOutputStream.close();
+            writer.close();
             System.exit(0);
         } catch (IOException e) {
             System.out.println("Impossible de savegarder votre partie : ");
@@ -218,7 +232,7 @@ public class App {
 
     }
 
-    public static void menuQuitGame() {
+    public static void menuQuitGame(int index) {
         Scanner sc = new Scanner(System.in);
         String choice = "";
         do {
@@ -228,7 +242,7 @@ public class App {
             choice = sc.nextLine();
 
             if (choice.equals("1")) {
-                saveGame();
+                saveGame(index);
             }
 
         } while (!choice.equals("1") && !choice.equals("2"));

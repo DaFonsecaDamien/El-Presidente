@@ -201,12 +201,13 @@ public class GameUtilities {
         for (JsonElement eventElement : jsonArrayOfEvent) {
             //Get the jsonObject
             JsonObject eventJsonObject = eventElement.getAsJsonObject();
+            int id = eventJsonObject.get("id").getAsInt();
             //Extract data
             String name = eventJsonObject.get("name").getAsString();
             // Get all Choices
             ArrayList<Choice> listChoice = parseChoice(eventJsonObject);
             // CREATE INSTANCE OF EVENT
-            Event event = new Event(listChoice, name);
+            Event event = new Event(id,listChoice,name);
             events.add(event);
         }
         return events;
@@ -222,7 +223,7 @@ public class GameUtilities {
         JsonArray jsonArrayOfChoice = fileObject.get("choices").getAsJsonArray();
         ArrayList<Choice> choices = new ArrayList<>();
         for (JsonElement choiceElement : jsonArrayOfChoice) {
-            ArrayList<Event> relatedEvent = null;
+            Integer relatedEvent = null;
             //Get the jsonObject
             JsonObject choiceJsonObject = choiceElement.getAsJsonObject();
             //Extract data
@@ -231,7 +232,7 @@ public class GameUtilities {
             ArrayList<Effect> listEffect = parseEffects(choiceJsonObject);
             // Get related Event of the choice
             if (choiceJsonObject.has("relatedEvents")) {
-                relatedEvent = parseEvent(choiceJsonObject, "relatedEvents");
+                relatedEvent = choiceJsonObject.get("relatedEvents").getAsInt();
             }
             // CREATE INSTANCE OF CHOICE
             Choice choice = new Choice(listEffect, name, relatedEvent);

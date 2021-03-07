@@ -10,7 +10,7 @@ import java.util.Scanner;
 
 public class ChoiceManager {
 
-    public static boolean manageChoice(Game game, Event event, Difficulty difficulty) {
+    public static boolean manageChoice(Game game, Event event, Difficulty difficulty,int index) {
         int choice = 0;
         int i = 0;
 
@@ -25,7 +25,7 @@ public class ChoiceManager {
         while (choice < 1 || choice > event.getChoices().size()) {
             while (!sc.hasNextInt()) {
                 if (sc.next().equals("Q")) {
-                    App.menuQuitGame();
+                    App.menuQuitGame(index);
                 }
                 sc = new Scanner(System.in);
             }

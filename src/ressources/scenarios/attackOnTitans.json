@@ -53,6 +53,7 @@
   },
   "events": [
     {
+      "id": 0,
       "name": "Des monstres géants approchent le royaume... Que faites-vous ?",
       "choices": [
         {
@@ -110,6 +111,7 @@
       ]
     },
     {
+      "id": 1,
       "name": "Ils détournent leur chemin ! Ils s'attaquent à l'agriculture à l'avant du Royaume...",
       "choices": [
         {
@@ -142,6 +144,7 @@
       ]
     },
     {
+      "id": 2,
       "name": "Un valeureux soldat du nom de Rivaille se propose d'aller tuer ces bêtes sauvages...",
       "choices": [
         {
@@ -172,6 +175,7 @@
       ]
     },
     {
+      "id": 3,
       "name": "Le commandant Pixis propose d'utiliser 20$ de notre trésorerie pour améliorer et adapter l'armement de nos militaires",
       "choices": [
         {
@@ -206,6 +210,7 @@
       ]
     },
     {
+      "id": 4,
       "name": "Le capitaine Magath propose de rassembler nos ressources pour bâtir un mur de protection contre les titans",
       "choices": [
         {
@@ -235,6 +240,7 @@
       ]
     },
     {
+      "id" : 5,
       "name": "Des monstres géants approchent le royaume... Que faites-vous ?",
       "choices": [
         {
@@ -292,6 +298,7 @@
       ]
     },
     {
+      "id": 6,
       "name": "Les militaires proposent de nourrir les chevaux afin qu'ils soient plus performants pour leur prochaine course",
       "choices": [
         {
@@ -331,6 +338,7 @@
       ]
     },
     {
+      "id": 7,
       "name": "Une tornade approche dans quelques jours qui est capable de détruire les murs! Que faire ?",
       "choices": [
         {
@@ -370,6 +378,7 @@
       ]
     },
     {
+      "id": 8,
       "name": "Le bataillon d'exploration vous propose de s'aventurer hors des murs afin d'en savoir d'avantage sur les titans",
       "choices": [
         {
@@ -382,70 +391,7 @@
               }
             }
           ],
-          "relatedEvents": [
-            {
-              "name": "Le capitaine Erwin demande à diriger la charge",
-              "choices": [
-                {
-                  "choice": "J'accepte car cet homme est beaucoup trop badass (hype machine)",
-                  "effects": [
-                    {
-                      "actionOnFaction": {
-                        "CAPITALISTS": 10,
-                        "COMMUNISTS": 10,
-                        "LIBERALS": 10,
-                        "RELIGIOUS": 10,
-                        "MILITARISTS": 10,
-                        "ECOLOGISTS": 10,
-                        "LOYALISTS": 10,
-                        "NATIONALISTS": 10
-                      }
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "name": "Rivaille, Caporal en chef de l'escouade, vous demande si les équipements tridimensionnels peuvent être renouvelés",
-              "choices": [
-                {
-                  "choice": "Renouvelons les !",
-                  "effects": [
-                    {
-                      "actionOnFaction": {
-                        "MILITARISTS": 10,
-                        "LOYALISTS": 10,
-                        "NATIONALISTS": 10
-                      }
-                    },
-                    {
-                      "actionOnFactor": {
-                        "INDUSTRY": -15,
-                        "TREASURY": -30
-                      }
-                    }
-                  ]
-                },
-                {
-                  "choice": "Négatif.",
-                  "effects": [
-                    {
-                      "actionOnFaction": {
-                        "MILITARISTS": -10,
-                        "LOYALISTS": -10,
-                        "NATIONALISTS": -10
-                      }
-                    },
-                    {
-                      "actionOnFactor": {
-                        "TREASURY": 10
-                      }
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
+          "relatedEvents": 18
         },
         {
           "choice": "Je refuse naïvement",
@@ -462,6 +408,7 @@
       ]
     },
     {
+      "id": 9,
       "name": "Les titans ont attaqué Shiganshina ! Que faire ? ",
       "choices": [
         {
@@ -512,6 +459,7 @@
       ]
     },
     {
+      "id": 10,
       "name": "Un mystérieux titan, doté d'une cuirasse imposante a enfoncé le mur Maria",
       "choices": [
         {
@@ -561,6 +509,7 @@
       ]
     },
     {
+      "id": 11,
       "name": "Eren Yeager se propose de se transformer en titan pour reboucher le trou du mur Maria avec une grosse pierre",
       "choices": [
         {
@@ -606,6 +555,7 @@
       ]
     },
     {
+      "id": 12,
       "name": "Le Maréchal Steiss propose de distribuer des vivres issus de notre agriculture au peuple",
       "choices": [
         {
@@ -638,6 +588,7 @@
       ]
     },
     {
+      "id": 13,
       "name": "Partisan écologiste, Soldat Frock, propose de réduire un peu notre travail industriel pour préserver l'agriculture",
       "choices": [
         {
@@ -676,6 +627,7 @@
       ]
     },
     {
+      "id": 14,
       "name": "Willy Teyber, chef du clan Teyber, propose de faire un discours dans le but de déclarer la guerre totale aux titans. Y assisterez vous ?",
       "choices": [
         {
@@ -694,21 +646,7 @@
               }
             }
           ],
-          "relatedEvents": [
-            {
-              "name": "Un titan ennemi intelligent fait surface en plein discours et détruit tout sur son passage",
-              "choices": [
-                {
-                  "choice": "Courir à toute vitesse",
-                  "effects": [
-                    {
-                      "partisans": -5
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
+          "relatedEvents": 20
         },
         {
           "choice": "Non",
@@ -730,6 +668,7 @@
       ]
     },
     {
+      "id": 15,
       "name": "Des révoltes ont lieu à l'intérieur du mur Rose car il n'y a pas assez de vivres issus de l'agriculture pour tout le monde...",
       "choices": [
         {
@@ -768,6 +707,7 @@
       ]
     },
     {
+      "id": 16,
       "name": "Un titan apparaît au loin, d'apparence plutôt poilue, et se met à jeter des pierres sur les murs...",
       "choices": [
         {
@@ -811,6 +751,7 @@
       ]
     },
     {
+      "id": 17,
       "name": "Vous découvrez, après la chute du Titan Bestial, qu'il existe des titans intelligents contrôlés par des humains",
       "choices": [
         {
@@ -856,6 +797,84 @@
                 "LOYALISTS": -100,
                 "NATIONALISTS": -100
               }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 18,
+      "name": "Le capitaine Erwin demande à diriger la charge",
+      "choices": [
+        {
+          "choice": "J'accepte car cet homme est beaucoup trop badass (hype machine)",
+          "effects": [
+            {
+              "actionOnFaction": {
+                "CAPITALISTS": 10,
+                "COMMUNISTS": 10,
+                "LIBERALS": 10,
+                "RELIGIOUS": 10,
+                "MILITARISTS": 10,
+                "ECOLOGISTS": 10,
+                "LOYALISTS": 10,
+                "NATIONALISTS": 10
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 19,
+      "name": "Rivaille, Caporal en chef de l'escouade, vous demande si les équipements tridimensionnels peuvent être renouvelés",
+      "choices": [
+        {
+          "choice": "Renouvelons les !",
+          "effects": [
+            {
+              "actionOnFaction": {
+                "MILITARISTS": 10,
+                "LOYALISTS": 10,
+                "NATIONALISTS": 10
+              }
+            },
+            {
+              "actionOnFactor": {
+                "INDUSTRY": -15,
+                "TREASURY": -30
+              }
+            }
+          ]
+        },
+        {
+          "choice": "Négatif.",
+          "effects": [
+            {
+              "actionOnFaction": {
+                "MILITARISTS": -10,
+                "LOYALISTS": -10,
+                "NATIONALISTS": -10
+              }
+            },
+            {
+              "actionOnFactor": {
+                "TREASURY": 10
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 20,
+      "name": "Un titan ennemi intelligent fait surface en plein discours et détruit tout sur son passage",
+      "choices": [
+        {
+          "choice": "Courir à toute vitesse",
+          "effects": [
+            {
+              "partisans": -5
             }
           ]
         }

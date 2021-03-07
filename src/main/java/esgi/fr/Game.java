@@ -33,23 +33,22 @@ public class Game implements Serializable {
         return scenario;
     }
 
-    public boolean run(List<Event> events) {
+    public boolean run(List<Event> events,int i) {
         int choice = 0;
-        for (Event event : events) {
+        for (;i<events.size();) {
 
             System.out.println("Satisfaction global de l'ile : " + FactionManager.getGlobalSatisfactionPercentage(scenario.getListFactions()) + "\n\n");
-            if (!ChoiceManager.manageChoice(this,event,difficulty)) {
+            if (!ChoiceManager.manageChoice(this, events.get(i),difficulty,i)) {
                 return false;
             }
             scenario.setSeason(scenario.getSeason().next());
             scenario.manageAgriculture();
-            scenario.manageYear();
+            scenario.manageYear(i);
 
-            if (event.getChoices().get(choice).getRelatedEvents() != null) {
-
-                if (!run(event.getChoices().get(choice).getRelatedEvents())) {
-                    return false;
-                }
+            if (events.get(i).getChoices().get(choice).getRelatedEvents() != null) {
+               i = events.get(i).getChoices().get(choice).getRelatedEvents();
+            }else{
+                i++;
             }
         }
         return true;

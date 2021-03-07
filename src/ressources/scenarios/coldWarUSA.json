@@ -53,6 +53,7 @@
   },
   "events": [
     {
+      "id": 0,
       "name": "La montée en puissance des communistes dans votre pays se fait de plus en plus proche.",
       "choices": [
         {
@@ -66,44 +67,7 @@
               }
             }
           ],
-          "relatedEvents": [
-            {
-              "name": "Les Soviétiques ripostent et créent le rapport Jdanov vous désignant coupable",
-              "choices": [
-                {
-                  "choice": "Je riposte plus fort en mettant en place un système anti-communistes",
-                  "effects": [
-                    {
-                      "actionOnFaction": {
-                        "CAPITALISTS": 30,
-                        "RELIGIOUS": -5,
-                        "MILITARISTS": 10,
-                        "NATIONALISTS": -5,
-                        "COMMUNISTS": -40,
-                        "LIBERALS": 30
-                      }
-                    },
-                    {
-                      "actionOnFactor": {
-                        "TREASURY": -150
-                      }
-                    }
-                  ]
-                },
-                {
-                  "choice": "Je ne riposte pas car les risques sont gros, j'attends",
-                  "effects": [
-                    {
-                      "actionOnFaction": {
-                        "CAPITALISTS": -10,
-                        "LIBERALS": -5
-                      }
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
+          "relatedEvents": 6
         },
         {
           "choice": "Je ne fais rien j'attends que ça passe",
@@ -120,6 +84,7 @@
       ]
     },
     {
+      "id": 1,
       "name": "Des pays vous proposent une alliance millitaire",
       "choices": [
         {
@@ -139,45 +104,7 @@
               }
             }
           ],
-          "relatedEvents": [
-            {
-              "name": "Ils vous proposent maintenant de rejoindre une alliance économique",
-              "choices": [
-                {
-                  "choice": "J'accepte'",
-                  "effects": [
-                    {
-                      "actionOnFaction": {
-                        "CAPITALISTS": 15,
-                        "RELIGIOUS": -5,
-                        "MILITARISTS": 10,
-                        "NATIONALISTS": 10,
-                        "COMMUNISTS": -40,
-                        "LIBERALS": 10
-                      }
-                    },
-                    {
-                      "actionOnFactor": {
-                        "TREASURY": 250
-                      }
-                    }
-                  ]
-                },
-                {
-                  "choice": "Je refuse",
-                  "effects": [
-                    {
-                      "actionOnFaction": {
-                        "CAPITALISTS": -20,
-                        "LIBERALS": -10,
-                        "RELIGIOUS": 10
-                      }
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
+          "relatedEvents": 7
         },
         {
           "choice": "Je refuse, je sais n'ai besoin de personne",
@@ -194,6 +121,7 @@
       ]
     },
     {
+      "id": 2,
       "name": "Les Soviétiques font un blocus autour du mur de Berlin, il faut nourir vos concitoyens! Que faites-vous?",
       "choices": [
         {
@@ -207,34 +135,7 @@
               }
             }
           ],
-          "relatedEvents": [
-            {
-              "name": "Les Soviétiques ne veulent pas négocier",
-              "choices": [
-                {
-                  "choice": "Je perd cet affrontement",
-                  "effects": [
-                    {
-                      "actionOnFaction": {
-                        "CAPITALISTS": -20,
-                        "MILITARISTS": -15,
-                        "NATIONALISTS": -15,
-                        "COMMUNISTS": 10
-                      }
-                    },
-                    {
-                      "actionOnFactor": {
-                        "TREASURY": -150
-                      }
-                    },
-                    {
-                      "partisans": -10
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
+          "relatedEvents": 8
         },
         {
           "choice": "Je met en place un pont aérien pour atteindre mes concitoyens bloqués",
@@ -258,6 +159,7 @@
       ]
     },
     {
+      "id": 3,
       "name": "Une guerre civile démarre en Chine, les Soviétiques envoient leurs alliés",
       "choices": [
         {
@@ -291,6 +193,7 @@
       ]
     },
     {
+      "id": 4,
       "name": "Une dictature pro-communnistes s'installe dans un de vos pays alliés",
       "choices": [
         {
@@ -310,28 +213,7 @@
               }
             }
           ],
-          "relatedEvents": [
-            {
-              "name": "Les communistes vous battent et emprissonnent vos militaires",
-              "choices": [
-                {
-                  "choice": "Je stoppe toutes les opérations",
-                  "effects": [
-                    {
-                      "actionOnFaction": {
-                        "CAPITALISTS": -10,
-                        "MILITARISTS": -20,
-                        "LIBERALS": -10
-                      }
-                    },
-                    {
-                      "partisans": -8
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
+          "relatedEvents": 9
         },
         {
           "choice": "Tant pis, je n'avais pas besoin d'eux",
@@ -348,6 +230,7 @@
       ]
     },
     {
+      "id": 5,
       "name": "Les Soviétiques envoient des sous marins nucléaires vers votre pays",
       "choices": [
         {
@@ -361,34 +244,7 @@
               }
             }
           ],
-          "relatedEvents": [
-            {
-              "name": "Les Soviétiques arrêtent leurs sous-marins",
-              "choices": [
-                {
-                  "choice": "Je gagne cet affrontement",
-                  "effects": [
-                    {
-                      "actionOnFaction": {
-                        "CAPITALISTS": 23,
-                        "RELIGIOUS": 6,
-                        "MILITARISTS": 10,
-                        "NATIONALISTS": 5,
-                        "COMMUNISTS": -12,
-                        "LIBERALS": 17
-                      }
-                    },
-                    {
-                      "actionOnFactor": {
-                        "TREASURY": 150,
-                        "INDUSTRY": 3
-                      }
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
+          "relatedEvents": 10
         },
         {
           "choice": "J'envoie une bombe nucléaire en direction de Moscou'",
@@ -407,28 +263,178 @@
               }
             }
           ],
-          "relatedEvents": [
+          "relatedEvents": 11
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "name": "Les Soviétiques ripostent et créent le rapport Jdanov vous désignant coupable",
+      "choices": [
+        {
+          "choice": "Je riposte plus fort en mettant en place un système anti-communistes",
+          "effects": [
             {
-              "name": "Les Soviétiques ripostent et tout le monde meurt dans une guerre nucléaire",
-              "choices": [
-                {
-                  "choice": "Fin du monde.",
-                  "effects": [
-                    {
-                      "actionOnFaction": {
-                        "ECOLOGISTS": -100,
-                        "CAPITALISTS": -100,
-                        "LOYALISTS": -100,
-                        "LIBERALS": -100,
-                        "RELIGIOUS": -100,
-                        "MILITARISTS": -100,
-                        "NATIONALISTS": -100,
-                        "COMMUNISTS": -100
-                      }
-                    }
-                  ]
-                }
-              ]
+              "actionOnFaction": {
+                "CAPITALISTS": 30,
+                "RELIGIOUS": -5,
+                "MILITARISTS": 10,
+                "NATIONALISTS": -5,
+                "COMMUNISTS": -40,
+                "LIBERALS": 30
+              }
+            },
+            {
+              "actionOnFactor": {
+                "TREASURY": -150
+              }
+            }
+          ]
+        },
+        {
+          "choice": "Je ne riposte pas car les risques sont gros, j'attends",
+          "effects": [
+            {
+              "actionOnFaction": {
+                "CAPITALISTS": -10,
+                "LIBERALS": -5
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "name": "Ils vous proposent maintenant de rejoindre une alliance économique",
+      "choices": [
+        {
+          "choice": "J'accepte'",
+          "effects": [
+            {
+              "actionOnFaction": {
+                "CAPITALISTS": 15,
+                "RELIGIOUS": -5,
+                "MILITARISTS": 10,
+                "NATIONALISTS": 10,
+                "COMMUNISTS": -40,
+                "LIBERALS": 10
+              }
+            },
+            {
+              "actionOnFactor": {
+                "TREASURY": 250
+              }
+            }
+          ]
+        },
+        {
+          "choice": "Je refuse",
+          "effects": [
+            {
+              "actionOnFaction": {
+                "CAPITALISTS": -20,
+                "LIBERALS": -10,
+                "RELIGIOUS": 10
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "name": "Les Soviétiques ne veulent pas négocier",
+      "choices": [
+        {
+          "choice": "Je perd cet affrontement",
+          "effects": [
+            {
+              "actionOnFaction": {
+                "CAPITALISTS": -20,
+                "MILITARISTS": -15,
+                "NATIONALISTS": -15,
+                "COMMUNISTS": 10
+              }
+            },
+            {
+              "actionOnFactor": {
+                "TREASURY": -150
+              }
+            },
+            {
+              "partisans": -10
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "name": "Les communistes vous battent et emprissonnent vos militaires",
+      "choices": [
+        {
+          "choice": "Je stoppe toutes les opérations",
+          "effects": [
+            {
+              "actionOnFaction": {
+                "CAPITALISTS": -10,
+                "MILITARISTS": -20,
+                "LIBERALS": -10
+              }
+            },
+            {
+              "partisans": -8
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "name": "Les Soviétiques arrêtent leurs sous-marins",
+      "choices": [
+        {
+          "choice": "Je gagne cet affrontement",
+          "effects": [
+            {
+              "actionOnFaction": {
+                "CAPITALISTS": 23,
+                "RELIGIOUS": 6,
+                "MILITARISTS": 10,
+                "NATIONALISTS": 5,
+                "COMMUNISTS": -12,
+                "LIBERALS": 17
+              }
+            },
+            {
+              "actionOnFactor": {
+                "TREASURY": 150,
+                "INDUSTRY": 3
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "name": "Les Soviétiques ripostent et tout le monde meurt dans une guerre nucléaire",
+      "choices": [
+        {
+          "choice": "Fin du monde.",
+          "effects": [
+            {
+              "actionOnFaction": {
+                "ECOLOGISTS": -100,
+                "CAPITALISTS": -100,
+                "LOYALISTS": -100,
+                "LIBERALS": -100,
+                "RELIGIOUS": -100,
+                "MILITARISTS": -100,
+                "NATIONALISTS": -100,
+                "COMMUNISTS": -100
+              }
             }
           ]
         }

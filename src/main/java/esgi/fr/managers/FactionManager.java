@@ -131,7 +131,7 @@ public class FactionManager {
         return getOneFaction(nameFactionChosen,factions);
     }
 
-    public static int getChoiceFaction(List<Faction> factions) {
+    public static int getChoiceFaction(List<Faction> factions,int index) {
         int choice = 0;
         Scanner sc = new Scanner(System.in);
 
@@ -139,7 +139,7 @@ public class FactionManager {
         System.out.println("choisissez celle que vous voulez soudoyer");
         while (choice < 1 || choice > factions.size()) {
             if (sc.next().equals("Q")) {
-                App.menuQuitGame();
+                App.menuQuitGame(index);
             }
             while (!sc.hasNextInt()) {
                 sc = new Scanner(System.in);

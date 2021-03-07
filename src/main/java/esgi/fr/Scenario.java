@@ -117,15 +117,15 @@ public class Scenario implements Serializable {
 
     // ***** //
 
-    public void manageYear() {
+    public void manageYear(int index) {
         if (season== Season.WINTER) {
             System.out.println("\n\nNous voici en fin d'année !\n\n");
 
             manageIndustry();
             printInfosIle();
             FactionManager.printInfosFactions(factions);
-            bribeFactionMenu();
-            marketPlace();
+            bribeFactionMenu(index);
+            marketPlace(index);
             yearBilan();
             setYear(year + 1);
         }
@@ -133,7 +133,7 @@ public class Scenario implements Serializable {
         System.out.println("Saison " + season);
     }
 
-    private void marketPlace() {
+    private void marketPlace(int index) {
         String choice = "";
         Scanner sc = new Scanner(System.in);
 
@@ -150,16 +150,16 @@ public class Scenario implements Serializable {
         do {
             choice = sc.nextLine();
             if (choice.equals("Q")) {
-                App.menuQuitGame();
+                App.menuQuitGame(index);
             }
         } while (!choice.equals("o") && !choice.equals("n"));
 
         if (choice.equals("o")) {
-            buyFoodUnits();
+            buyFoodUnits(index);
         }
     }
 
-    private void buyFoodUnits() {
+    private void buyFoodUnits(int index) {
         int nbFoodUnitBought = 0;
         Scanner sc = new Scanner(System.in);
         int nbUnitFoodMaxPossible = treasury / 8;
@@ -167,7 +167,7 @@ public class Scenario implements Serializable {
 
         while (nbFoodUnitBought < 1 || nbFoodUnitBought > nbUnitFoodMaxPossible) {
             if (sc.next().equals("Q")) {
-                App.menuQuitGame();
+                App.menuQuitGame(index);
             }
             System.out.println("Vous pouvez achetez jusqu'a " + nbUnitFoodMaxPossible + " unités de nourriture\n");
             while (!sc.hasNextInt()) {
@@ -232,7 +232,7 @@ public class Scenario implements Serializable {
         }
     }
 
-    private void bribeFactionMenu() {
+    private void bribeFactionMenu(int index) {
 
         int choiceFaction = 0;
         String accept = "";
@@ -241,12 +241,12 @@ public class Scenario implements Serializable {
             System.out.println("Voulez vous soudoyer une faction ?");
             System.out.println("Si oui tapez sur 'o' sinon tapez sur 'n'");
             if (accept.equals("Q")) {
-                App.menuQuitGame();
+                App.menuQuitGame(index);
             }
             accept = sc.nextLine();
 
             if (accept.equals("o")) {
-                choiceFaction = FactionManager.getChoiceFaction(factions);
+                choiceFaction = FactionManager.getChoiceFaction(factions,index);
                 Faction factionChosen = FactionManager.chooseFaction(choiceFaction,factions);
                 manageResultBribe(factionChosen);
             }

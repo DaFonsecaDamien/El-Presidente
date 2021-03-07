@@ -6,9 +6,9 @@ import java.util.List;
 public class Choice implements Serializable {
     private final List<Effect> effects;
     private final String name;
-    private final List<Event> relatedEvents;
+    private final Integer relatedEvents;
 
-    public Choice(List<Effect> effects, String name, List<Event> relatedEvents) {
+    public Choice(List<Effect> effects, String name, Integer relatedEvents) {
         this.effects = effects;
         this.name = name;
         this.relatedEvents = relatedEvents;
@@ -22,7 +22,7 @@ public class Choice implements Serializable {
         return name;
     }
 
-    public List<Event> getRelatedEvents() {
+    public Integer getRelatedEvents() {
         return relatedEvents;
     }
 

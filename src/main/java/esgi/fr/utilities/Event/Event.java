@@ -1,19 +1,22 @@
 package esgi.fr.utilities.Event;
 
-import esgi.fr.GameParameters.Season;
-
 import java.io.Serializable;
 import java.util.List;
 
 public class Event implements Serializable {
 
+    int id;
     String name;
-    Season season;
     List<Choice> choices;
 
-    public Event(List<Choice> choices, String name) {
+    public Event(int id,List<Choice> choices, String name) {
+        this.id = id;
         this.name = name;
         this.choices = choices;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public List<Choice> getChoices() {
@@ -22,9 +25,5 @@ public class Event implements Serializable {
 
     public String getName() {
         return name;
-    }
-
-    public Season getSeason() {
-        return season;
     }
 }
