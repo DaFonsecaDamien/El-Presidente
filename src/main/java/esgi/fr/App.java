@@ -14,6 +14,8 @@ import java.util.Scanner;
  */
 public class App {
     static Game game;
+
+
     public static void main(String[] args) throws Exception {
         File file = new File("save.bin");
         File file2 = new File("save_id.bin");
@@ -38,7 +40,7 @@ public class App {
                     break;
                 default:
                     int index = loadIndexEvent();
-                    game = loadGame(file,file2);
+                    game = loadGame(file);
                     resultGame = game.run(game.getScenario().getEvents(),index);
 
             }
@@ -55,6 +57,12 @@ public class App {
 
     }
 
+
+    /**
+     *
+     * Display the result of the game.
+     *
+     */
     private static void printResult(boolean resultGame) {
         if (resultGame) {
             System.out.println("Felicitation vous avez fait les bons choix, vous  êtes le meilleur président que le monde n'ai jammais connu");
@@ -69,7 +77,11 @@ public class App {
         }
     }
 
-
+    /**
+     *
+     * Allow the user to save his game.
+     * @param index The event ID where the player stopped the game.
+     */
     private static void saveGame(int index) {
         File file = new File("save.bin");
         File file2 = new File("save_id.bin");
@@ -98,6 +110,11 @@ public class App {
 
     }
 
+    /**
+     *
+     * Confirmation if the user wants to the leave the game
+     *
+     */
     public static void menuQuitGame(int index) {
         Scanner sc = new Scanner(System.in);
         String choice = "";
@@ -117,8 +134,7 @@ public class App {
 
     /**
      *
-     * Charge les fichiers de scenario.
-     * Permet de choisir le mode de jeu ainsi que le scenario.
+     * Start a new game.
      *
      */
     private static Game newGame() throws Exception {
@@ -143,7 +159,12 @@ public class App {
 
     }
 
-    private static Game loadGame(File file,File file2) {
+    /**
+     *
+     * Loads the game from the backup file
+     *
+     */
+    private static Game loadGame(File file) {
         Game game = null;
         try {
             ObjectInputStream objectInputStream = new ObjectInputStream(new BufferedInputStream(new FileInputStream(file)));
@@ -161,6 +182,12 @@ public class App {
         return game;
     }
 
+
+    /**
+     *
+     * Check the id of the event from the backup file.
+     *
+     */
     private static int loadIndexEvent() throws IOException{
         int index=0;
         try {
@@ -174,6 +201,12 @@ public class App {
         return index;
     }
 
+
+    /**
+     *
+     * Ask the user to choose a mode.
+     *
+     */
     private static Mode getChoiceMode(){
         Mode mode = Mode.NORMAL;
         Scanner sc = new Scanner(System.in);
@@ -202,6 +235,12 @@ public class App {
         return mode;
     }
 
+
+    /**
+     *
+     * Ask the user to choose a difficulty.
+     *
+     */
     private static Difficulty getChoiceDifficulty(){
         Scanner sc = new Scanner(System.in);
         String choiceDifficulty;
@@ -231,6 +270,12 @@ public class App {
         return difficulty;
     }
 
+
+    /**
+     *
+     * Get the story file.
+     *
+     */
     private static Scenario getStoryFile(String filePath) throws FileNotFoundException {
         String scenarioSelected = "";
         Scanner sc = new Scanner(System.in);
@@ -245,7 +290,7 @@ public class App {
         }
         int choiceConfigurationFile = 0;
         do {
-            System.out.println("Veuillez choisir un fichier de configuration : ");
+            System.out.println("Choisissez un fichier : ");
             choiceConfigurationFile = sc.nextInt();
         } while (choiceConfigurationFile < 1 || choiceConfigurationFile > sandBoxFilesNames.size());
 
